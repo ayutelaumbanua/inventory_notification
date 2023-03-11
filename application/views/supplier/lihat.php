@@ -53,18 +53,18 @@
 					<div class="card shadow">
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" width="100%">
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
-											<td>No</td>
-											<td>Kode</td>
-											<td>Nama</td>
-											<td>Telepon</td>
-											<td>Email</td>
-											<td>Alamat</td>
-											<td>Tanggal Daftar</td>
+											<td width="5%">No</td>
+											<td width="10%">Kode</td>
+											<td width="15%">Nama</td>
+											<td width="5%">Telepon</td>
+											<td width="10%">Email</td>
+											<td width="30%">Alamat</td>
+											<td width="20%">Tanggal Daftar</td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-												<td>Aksi</td>
+												<td width="5%">Aksi</td>
 											<?php endif ?>
 										</tr>
 									</thead>
