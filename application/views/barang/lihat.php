@@ -26,7 +26,7 @@
 						</div>
 						<div class="float-right">
 							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-								<a href="<?= base_url('barang/stok_habis') ?>" class="btn btn-warning btn-sm"><i
+								<a href="<?= base_url('barang/stock_habis') ?>" class="btn btn-warning btn-sm"><i
 										class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Habis </a>
 								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
@@ -220,10 +220,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
 			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>

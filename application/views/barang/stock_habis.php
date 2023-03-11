@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body id="page-top">
 	<div id="wrapper">
 		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
-
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('barang') ?>">
 				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
-
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
@@ -23,16 +23,11 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<?php if ($this->session->login['role'] == 'manager' && $this->session->login['role'] == 'purchasing'): ?>
-								<a href="<?= base_url('barang/stok_habis') ?>" class="btn btn-warning btn-sm"><i
-										class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Habis </a>
-								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
+							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+								<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-								<a href="<?= base_url('barang/tambah') ?>" class="btn btn-primary btn-sm"><i
-										class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-								<a href="<?= base_url('barang/tambah') ?>"type="button" class="btn btn-primary btn-sm"
-									data-toggle="modal" data-target="#myModal">
-									<i class="fa fa-plus"></i> Versi Modals</a>
+								<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
+										class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
 							<?php endif ?>
 						</div>
 					</div>
@@ -55,25 +50,24 @@
 					<div class="card shadow">
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-									<tr style="background:#42444e;color:#fff;">
+										<tr style="background:#42444e;color:#fff;">
 											<td width="5%">No</td>
 											<td>Kode Barang</td>
 											<td>Kategori</td>
 											<td>Nama Barang</td>
 											<td>Stok</td>
-											<td>Harga Beli</td>
-											<td>Harga Jual</td>
+											<td>Satuan</td>
 											<td>Tanggal Daftar</td>
 											</td>
-											<?php if ($this->session->login['role'] == 'manager' && $this->session->login['role'] == 'purchasing'): ?>
+											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
 												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach ($all_barang as $barang): ?>
+										<?php foreach ($all_stock_habis as $barang): ?>
 											<tr>
 												<td>
 													<?= $no++ ?>
@@ -89,19 +83,15 @@
 												</td>
 												<td>
 													<?= $barang->stok ?>
+												</td>
+												<td>
 													<?= $barang->satuan ?>
-												</td>
-												<td>Rp.
-													<?= number_format($barang->harga_beli); ?>,-
-												</td>
-												<td>Rp.
-													<?= number_format($barang->harga_jual); ?>,-
 												</td>
 												<td>
 													<?= $barang->tgl_daftar ?>
 
 												</td>
-												<?php if ($this->session->login['role'] == 'manager' && $this->session->login['role'] == 'purchasing'): ?>
+												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -135,90 +125,82 @@
 					</div>
 				</div>
 
-		<!-- versi modals -->
+				<!-- versi modals -->
 				<div id="myModal" class="modal fade" role="dialog" data-url="<?= base_url('barang') ?>">
-				<div class="modal-dialog">
-					<!-- Modal content-->
-					<div class="modal-content" style=" border-radius:0px;">
-						<div class="modal-header" style="background:white;color:#fff;">
-							<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah Barang
-							</h5>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-						</div>
-						<form action="<?= base_url('barang/proses_tambah') ?>" id="form-tambah" method="POST">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content" style=" border-radius:0px;">
+							<div class="modal-header" style="background:white;color:#fff;">
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
+									Barang
+								</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
 							<div class="modal-body">
-								<div class="table-responsive">
-									<table class="table" width="100%" cellspacing="0">
-										<thead>
-											<tr>
-												<td><label for="kode_barang">Kode Barang</label></td>
-												<td><input type="text" name="kode_barang" placeholder="Masukkan Kode
+								<form action="<?= base_url('barang/proses_tambah') ?>" id="form-tambah" method="POST">
+									<div class="table-responsive">
+										<table class="table" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<td><label for="kode_barang">Kode Barang</label></td>
+													<td><input type="text" name="kode_barang" placeholder="Masukkan Kode
 													Barang" autocomplete="off" class="form-control" required value="BRG
 													<?= mt_rand(10000, 99999999) ?>" maxlength="8" readonly>
-												</td>
-											</tr>
-											<tr>
-												<td>Kategori Barang</td>
-												<td><select name="kategori_barang" id="kategori_barang"
-														class="form-control" required>
-														<option value="">-- Silahkan Pilih --</option>
-														<option value="Buah">Buah</option>
-														<option value="Daging">Daging</option>
-														<option value="Makanan">Makanan</option>
-														<option value="Minuman">Minuman</option>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<td>Nama Barang</td>
-												<td><input type="text" name="nama_barang"
-														placeholder="Masukkan Nama Barang" autocomplete="off"
-														class="form-control" required></td>
-											</tr>
-											<tr>
-												<td>Stok</td>
-												<td><input type="number" name="stok" placeholder="Masukkan Stok"
-														autocomplete="off" class="form-control" readonly></td>
-											</tr>
-											<tr>
-												<td>Harga Beli</td>
-												<td><input type="number" name="harga_beli" placeholder="Masukkan Harga"
-														autocomplete="off" class="form-control" required></td>
-											</tr>
-											<tr>
-												<td>Harga Jual</td>
-												<td><input type="number" name="harga_jual" placeholder="Masukkan Harga"
-														autocomplete="off" class="form-control" required></td>
-											</tr>
-											<tr>
-												<td>Satuan</td>
-												<td><select name="satuan" id="satuan" class="form-control" required>
-														<option value="">-- Silahkan Pilih --</option>
-														<option value="pcs">Pcs</option>
-														<option value="sachet">Sachet</option>
-														<option value="renceng">Renceng</option>
-														<option value="pak">Pak</option>
-														<option value="dus">Dus</option>
-														<option value="kg">Kilogram</option>
-														<option value="ons">Ons</option>
-													</select></td>
-											</tr>
-											<tr>
-												<td>
-													Tanggal Daftar
-												</td>
-												<td><input type="text" name="tgl_daftar"
-														value="<?= date("j F Y, G:i"); ?>" readonly
-														class="form-control"></td>
-											</tr>
-											<tr>
-												<i class="fa fa-paperclip text-danger"></i>
-												<i class="text-danger"> Input <strong>stok</strong> pada Transaksi
-													Penerimaan Barang</i>
-											</tr>
-										</thead>
-									</table>
-								</div>
+													</td>
+												</tr>
+												<tr>
+													<td>Kategori Barang</td>
+													<td><select name="kategori_barang" id="kategori_barang"
+															class="form-control" required>
+															<option value="">-- Silahkan Pilih --</option>
+															<option value="Buah">Buah</option>
+															<option value="Daging">Daging</option>
+															<option value="Makanan">Makanan</option>
+															<option value="Minuman">Minuman</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td>Nama Barang</td>
+													<td><input type="text" name="nama_barang"
+															placeholder="Masukkan Nama Barang" autocomplete="off"
+															class="form-control" required></td>
+												</tr>
+												<tr>
+													<td>Stok</td>
+													<td><input type="number" name="stok" placeholder="Masukkan Stok"
+															autocomplete="off" class="form-control" readonly></td>
+												</tr>
+												<tr>
+													<td>Satuan</td>
+													<td><select name="satuan" id="satuan" class="form-control" required>
+															<option value="">-- Silahkan Pilih --</option>
+															<option value="pcs">Pcs</option>
+															<option value="sachet">Sachet</option>
+															<option value="renceng">Renceng</option>
+															<option value="pak">Pak</option>
+															<option value="dus">Dus</option>
+															<option value="kg">Kilogram</option>
+															<option value="ons">Ons</option>
+														</select></td>
+												</tr>
+												<tr>
+													<td>
+														Tanggal Daftar
+													</td>
+													<td><input type="text" name="tgl_daftar"
+															value="<?= date("j F Y, G:i"); ?>" readonly
+															class="form-control"></td>
+												</tr>
+												<tr>
+													<i class="fa fa-paperclip text-danger"></i>
+													<i class="text-danger"> Input <strong>stok</strong> pada Transaksi
+														Penerimaan Barang</i>
+												</tr>
+											</thead>
+										</table>
+									</div>
 							</div>
 							<div class="modal-footer">
 								<button type="submit" class="btn btn-primary"><i
@@ -226,15 +208,11 @@
 								<button type="reset" class="btn btn-danger"><i
 										class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
 							</div>
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-			</div>
-
-			
-
-			
 			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>

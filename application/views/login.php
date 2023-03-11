@@ -20,14 +20,10 @@
 </head>
 
 <body class="bg-gradient-dark">
-
 	<div class="container">
-
 		<!-- Outer Row -->
 		<div class="row justify-content-center">
-
 			<div class="col-sm-100 col-md-5">
-
 				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
@@ -54,10 +50,11 @@
 												</button>
 											</div>
 										<?php endif ?>
-										<img class=" ml-2 mb-1" src="<?= base_url('./7656409-removebg-preview.png') ?>" width="100px">
+										<img class=" ml-2 mb-1" src="<?= base_url('./7656409-removebg-preview.png') ?>"
+											width="100px">
 										<i class=" fa-3x text-primary"></i>
-										<h4 class="h3 text-gray-900 mb-4">Access to the Inventory</h4>
-										
+										<h4 class="h3 text-gray-900 mb-4" style="font-family:Lucida;">Login Inventory
+											Stock</h4>
 									</div>
 									<form class="user" method="POST" action="<?= base_url('login/proses_login') ?>">
 										<div class="form-group">

@@ -21,10 +21,18 @@ class Barang extends CI_Controller
 
 		$this->load->view('barang/lihat', $this->data);
 	}
+	public function stock_habis()
+	{
+		$this->data['title'] = 'Data Barang Habis';
+		$this->data['all_stock_habis'] = $this->m_barang->lihat_stock_habis();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/stock_habis', $this->data);
+	}
 
 	public function tambah()
 	{
-		if ($this->session->login['role'] == 'staff_gudang' ) {
+		if ($this->session->login['role'] == 'staff_gudang') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
@@ -122,7 +130,6 @@ class Barang extends CI_Controller
 	{
 		$dompdf = new Dompdf();
 		$this->data['all_barang'] = $this->m_barang->lihat();
-
 		$this->data['title'] = 'Laporan Data Barang';
 		$this->data['no'] = 1;
 
@@ -132,13 +139,25 @@ class Barang extends CI_Controller
 		$dompdf->render();
 		$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
 	}
+	public function export_barang_habis()
+	{
+		$dompdf = new Dompdf();
+		$this->data['all_barang'] = $this->m_barang->lihat_stock_habis();
+		$this->data['title'] = 'Laporan Data Barang Habis';
+		$this->data['no'] = 1;
 
+		$dompdf->setPaper('A4', 'Landscape');
+		$html = $this->load->view('barang/report', $this->data, true);
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
+	}
 	public function get_low_stock()
 	{
 		return $this->output
 			->set_content_type('application/json')
 			->set_status_header(200)
-			->set_output(json_encode($this->db->get_where('barang', 'stok <= 5',3)->result()));
+			->set_output(json_encode($this->db->get_where('barang', 'stok <= 5', 3)->result()));
 	}
 	public function get_notification()
 	{

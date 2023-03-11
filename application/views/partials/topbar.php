@@ -17,7 +17,7 @@
 					aria-labelledby="alertsDropdown">
 					<a class="dropdown-item text-left medium bg-primary text-white" href="#"><strong>Notification</strong></a>
 					<div id="dropdown"></div>
-					<a class="dropdown-item text-center small text-gray-500" href="#">Show All Notification</a>
+					<a class="dropdown-item text-center small text-gray-500" href="stok_habis">Show All Notification</a>
 				</div>
 			</li>
 		</div>

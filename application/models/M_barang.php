@@ -9,15 +9,9 @@ class M_barang extends CI_Model
 		$query = $this->db->get($this->_table);
 		return $query->result();
 	}
-	// cek stok kurang
-	public function cek_stok_low()
+	public function lihat_stock_habis()
 	{
-		$query = $this->db->get($this->_table);
-		return $query->result();
-	}
-	public function cek_low()
-	{
-		$query = $this->db->get_where($this->_table, 'stok > 5');
+		$query = $this->db->get_where($this->_table, 'stok < 5');
 		return $query->result();
 	}
 
@@ -51,7 +45,10 @@ class M_barang extends CI_Model
 	{
 		return $this->db->insert($this->_table, $data);
 	}
-
+	public function stock_habis($data)
+	{
+		return $this->db->insert($this->_table, $data);
+	}
 	public function plus_stok($stok, $nama_barang)
 	{
 		$query = $this->db->set('stok', 'stok+' . $stok, false);
