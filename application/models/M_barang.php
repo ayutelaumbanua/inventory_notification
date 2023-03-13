@@ -20,7 +20,11 @@ class M_barang extends CI_Model
 		$query = $this->db->get($this->_table);
 		return $query->num_rows();
 	}
-
+	public function jumlah_stock_habis()
+	{
+		$query = $this->db->get_where($this->_table, 'stok < 5');
+		return $query->num_rows();
+	}
 	public function lihat_stok()
 	{
 		$query = $this->db->get_where($this->_table, 'stok > 1');

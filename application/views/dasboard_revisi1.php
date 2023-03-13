@@ -5,7 +5,10 @@
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	</head>
+
+	<link href="<?= base_url('assets') ?>/css/card_dashboard.css" rel="stylesheet">
+
+</head>
 
 <body id="page-top">
 	<div id="wrapper">
@@ -41,77 +44,84 @@
 						</div>
 					<?php endif ?>
 					<div class="row">
-						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-left-primary shadow h-100 py-2">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total
-												Barang</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">
-												<?= $jumlah_barang ?>												
+
+						<div class="col-md-12 ">
+							<div class="row ">
+								<div class="col-xl-3 col-lg-6">
+									<div class="card l-bg-blue-dark">
+
+										<div class="card-statistic-3 p-4">
+											<div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i>
 											</div>
-										</div>
-										<div class="col-auto">
-											<i class="fas fa-box fa-2x text-gray-600"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-left-danger shadow h-100 py-2">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-												Jumlah Stock Habis</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">
-												<?= $jumlah_stock_habis ?>
+											<div class="mb-4">
+												<h5 class="card-title mb-0">Data Barang</h5>
 											</div>
-										</div>
-										<div class="col-auto">
-											<i class="fas fa-minus-square fa-2x text-danger"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-left-info shadow h-100 py-2">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah
-												Pengeluaran</div>
-											<div class="row no-gutters align-items-center">
-												<div class="col-auto">
-													<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-														<?= $jumlah_pengeluaran ?>
-													</div>
+											<div class="row align-items-center mb-2 d-flex">
+												<div class="col-8">
+													<h2 class="d-flex align-items-center mb-0">
+														<?= $jumlah_barang ?>
+													</h2>
 												</div>
 											</div>
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-file-invoice fa-2x text-gray-600"></i>
+									</div>
+								</div>
+								<div class="col-xl-3 col-lg-6">
+									<div class="card l-bg-cherry">
+										<div class="card-statistic-3 p-4">
+											<div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+											<div class="mb-4">
+												<h5 class="card-title mb-0">Stok Habis</h5>
+											</div>
+											<div class="row align-items-center mb-2 d-flex">
+												<div class="col-8">
+													<h2 class="d-flex align-items-center mb-0">
+														<?= $jumlah_stock_habis ?>
+													</h2>
+												</div>
+
+											</div>
+
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-left-warning shadow h-100 py-2">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-												Jumlah Penerimaan</div>
-											<div class="h5 mb-0 font-weight-bold text-gray-800">
-												<?= $jumlah_penerimaan ?>
+								<div class="col-xl-3 col-lg-6">
+									<div class="card l-bg-green-dark">
+										<div class="card-statistic-3 p-4">
+											<div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i>
 											</div>
+											<div class="mb-4">
+												<h5 class="card-title mb-0">Transaksi Penerimaan</h5>
+											</div>
+											<div class="row align-items-center mb-2 d-flex">
+												<div class="col-8">
+													<h2 class="d-flex align-items-center mb-0">
+														<?= $jumlah_penerimaan ?>
+													</h2>
+												</div>
+											
+											</div>
+											
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-file-invoice fa-2x text-gray-600"></i>
+										
+									</div>
+									
+								</div>
+								<div class="col-xl-3 col-lg-6">
+									<div class="card l-bg-orange-dark">
+										<div class="card-statistic-3 p-4">
+											<div class="card-icon card-icon-large"><i class="fas fa-dollar-sign"></i>
+											</div>
+											<div class="mb-4">
+												<h5 class="card-title mb-0">Transaksi Pengeluaran</h5>
+											</div>
+											<div class="row align-items-center mb-2 d-flex">
+												<div class="col-8">
+													<h2 class="d-flex align-items-center mb-0">
+														<?= $jumlah_pengeluaran ?>
+													</h2>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -120,16 +130,16 @@
 					</div>
 				</div>
 			</div>
-			<div id="toast">
-			</div>
-			<!-- load footer -->
-			<?php $this->load->view('partials/footer.php') ?>
 		</div>
+	</div>
+	<div id="toast">
+	</div>
+	<!-- load footer -->
+	<?php $this->load->view('partials/footer.php') ?>
+	</div>
 	</div>
 	<?php $this->load->view('partials/js.php') ?>
 	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
@@ -156,7 +166,7 @@
 						'</button>' +
 						'</div>' +
 						'<div class="toast-body">' +
-						'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan +', lakukan tindakan!'+
+						'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!' +
 						'</div>' +
 						'</div>');
 				});

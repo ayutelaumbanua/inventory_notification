@@ -23,6 +23,7 @@ class Dashboard extends CI_Controller
 	{
 		$this->data['title'] = 'Halaman Dashboard';
 		$this->data['jumlah_barang'] = $this->m_barang->jumlah();
+		$this->data['jumlah_stock_habis'] = $this->m_barang->jumlah_stock_habis();
 		$this->data['jumlah_customer'] = $this->m_customer->jumlah();
 		$this->data['jumlah_supplier'] = $this->m_supplier->jumlah();
 		$this->data['jumlah_pengeluaran'] = $this->m_pengeluaran->jumlah();

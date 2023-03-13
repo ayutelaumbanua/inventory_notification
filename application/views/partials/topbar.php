@@ -15,7 +15,8 @@
 				<!-- Dropdown - Alerts -->
 				<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 					aria-labelledby="alertsDropdown">
-					<a class="dropdown-item text-left medium bg-primary text-white" href="#"><strong>Notification</strong></a>
+					<a class="dropdown-item text-left medium bg-primary text-white"
+						href="#"><strong>Notification</strong></a>
 					<div id="dropdown"></div>
 					<a class="dropdown-item text-center small text-gray-500" href="stok_habis">Show All Notification</a>
 				</div>
@@ -41,3 +42,44 @@
 		</li>
 	</ul>
 </nav>
+
+
+<?php $this->load->view('partials/js.php') ?>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<script src="https://timeago.yarp.com/jquery.timeago.js" type="text/javascript"></script>
+<script>
+	$.ajax({
+		url: 'barang/get_notification',
+		type: 'GET',
+		dataType: 'json',
+		success: function (data) {
+			var i = 0
+			var a = 1
+			data.forEach(element => {
+				if (a <= 3) {
+					console.log(a);
+					var nama_barang = element.nama_barang
+					$('#dropdown').append(
+						'<a class="dropdown-item d-flex align-items-center" href="#" id="dropdown">' +
+						'<div class="mr-3">' +
+						'<div class="icon-circle bg-warning">' +
+						'<i class="fas fa-exclamation-triangle text-white"></i></div></div>' +
+						'<div>' + '<div class="small text-gray-500" >' + $.timeago(new Date()) + '</div>' +
+						'<span class="medium text-black-500">' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan.</span></div></a >'
+					);
+				}
+				i++
+				a++
+			});
+			// $('.dropdown').dropdown('show')
+			$('#notif').append(
+				'<span class="badge badge-danger badge-counter" id="notif">' + i + '</span>'
+			);
+		}
+	})
+</script>

@@ -46,7 +46,6 @@ class Barang extends CI_Controller
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
-
 		$data = [
 			'kode_barang' => $this->input->post('kode_barang'),
 			'kategori_barang' => $this->input->post('kategori_barang'),
@@ -56,8 +55,6 @@ class Barang extends CI_Controller
 			'harga_beli' => $this->input->post('harga_beli'),
 			'harga_jual' => $this->input->post('harga_jual'),
 			'tgl_daftar' => $this->input->post('tgl_daftar'),
-
-
 		];
 
 		if ($this->m_barang->tambah($data)) {
