@@ -47,11 +47,8 @@
 												</button>
 											</div>
 										<?php endif ?>
-										<img class=" ml-2 mb-1" src="<?= base_url('./7656409-removebg-preview.png') ?>"
-											width="100px">
-										<i class=" fa-3x text-primary"></i>
-										<h4 class="h3 text-gray-900 mb-4" style="font-family:Lucida;">Login Inventory
-											Stock</h4>
+										<img class=" ml-2 mb-1" src="<?= base_url('assets') ?>/img/Logo.png"
+											height="100px">
 									</div>
 									<form class="user" method="POST" action="<?= base_url('login/proses_login') ?>">
 										<div class="form-group">

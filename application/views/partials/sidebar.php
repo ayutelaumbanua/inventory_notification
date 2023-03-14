@@ -1,9 +1,6 @@
-<ul class="navbar-nav bg-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-light sidebar sidebar-light accordion" id="accordionSidebar">
 	<a class="sidebar-brand d-flex justify-content-left">
-		<div class="sidebar-brand-icon text-white ">
-			<img class="mx-auto" src="<?= base_url('./7656409-removebg-preview.png') ?>" width="45px">
-		</div>
-		<div class="sidebar-brand-text text-white">Inventory Management</div>
+	<img class="mx-full" src="http://localhost/inventori/assets/img/Logo.png" width="150px" height="60px">
 	</a>
 	<hr class="sidebar-divider my-0">
 	<li class="nav-item <?= $aktif == 'dashboard' ? 'active' : '' ?>">
