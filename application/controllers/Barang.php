@@ -51,9 +51,7 @@ class Barang extends CI_Controller
 			'kategori_barang' => $this->input->post('kategori_barang'),
 			'nama_barang' => $this->input->post('nama_barang'),
 			'stok' => $this->input->post('stok'),
-			'satuan' => $this->input->post('satuan'),
-			'harga_beli' => $this->input->post('harga_beli'),
-			'harga_jual' => $this->input->post('harga_jual'),
+			'satuan' => $this->input->post('satuan'),		
 			'tgl_daftar' => $this->input->post('tgl_daftar'),
 		];
 
@@ -92,8 +90,6 @@ class Barang extends CI_Controller
 			'nama_barang' => $this->input->post('nama_barang'),
 			'stok' => $this->input->post('stok'),
 			'satuan' => $this->input->post('satuan'),
-			'harga_beli' => $this->input->post('harga_beli'),
-			'harga_jual' => $this->input->post('harga_jual'),
 			'tgl_edit' => $this->input->post('tgl_edit'),
 
 		];
