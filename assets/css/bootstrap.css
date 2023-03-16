@@ -25,7 +25,7 @@
   --warning: #f6c23e;
   --danger: #e74a3b;
   --light: #f8f9fc;
-  --dark: #5a5c69;
+  --dark: #42444e;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -4302,7 +4302,7 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
 .card-header {
   padding: .75rem 1.25rem;
   margin-bottom: 0;
-  background-color: #f8f9fc;
+  background-color: #0a2f9c;
   border-bottom: 1px solid #e3e6f0
 }
 
@@ -10717,19 +10717,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url(https://source.unsplash.com/K4mSJ7kc0As/600x800);
-  background-position: center;
-  background-size: cover
-}
-
-.bg-register-image {
-  background: url(https://source.unsplash.com/Mv9hjnEUHR4/600x800);
-  background-position: center;
-  background-size: cover
-}
-
-.bg-password-image {
-  background: url(https://source.unsplash.com/oWTW-jNGl9I/600x800);
+  background-image: url(https://i.pinimg.com/originals/85/6f/31/856f31d9f475501c7552c97dbe727319.jpg);
   background-position: center;
   background-size: cover
 }

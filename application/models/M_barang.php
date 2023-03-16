@@ -45,7 +45,11 @@ class M_barang extends CI_Model
 		return $query->row();
 	}
 
-	public function tambah($data)
+	public function tambah_barang($data)
+	{
+		return $this->db->insert($this->_table, $data);
+	}
+	public function tambah_satuan($data)
 	{
 		return $this->db->insert($this->_table, $data);
 	}

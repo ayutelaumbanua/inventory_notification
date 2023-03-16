@@ -28,8 +28,8 @@
 							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'staff_gudang'): ?>
 								<a href="<?= base_url('customer/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-								<a href="<?= base_url('customer/tambah') ?>" class="btn btn-primary btn-sm"><i
-										class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+								<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
+									data-target="#tambahCustomer"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
 							<?php endif ?>
 						</div>
 					</div>
@@ -54,16 +54,16 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-										<tr style="background:#42444e;color:#fff;">
-											<td>No</td>
-											<td>Kode</td>
-											<td>Nama</td>
-											<td>Telepon</td>
-											<td>Email</td>
-											<td>Alamat</td>
-											<td>Tanggal Daftar</td>
+										<tr>
+											<td><strong>No</strong></td>
+											<td><strong>Kode</strong></td>
+											<td><strong>Nama</strong></td>
+											<td><strong>Telepon</strong></td>
+											<td><strong>Email</strong></td>
+											<td><strong>Alamat</strong></td>
+											<td><strong>Tanggal Daftar</strong></td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'staff_gudang'): ?>
-												<td>Aksi</td>
+												<td><strong>Aksi</strong></td>
 											<?php endif ?>
 										</tr>
 									</thead>
@@ -74,7 +74,7 @@
 													<?= $no++ ?>
 												</td>
 												<td>
-													<?=$customer->kode ?>
+													<?= $customer->kode ?>
 												</td>
 												<td>
 													<?= $customer->nama ?>
@@ -101,8 +101,8 @@
 														</a>
 														<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 															aria-labelledby="userDropdown">
-															<a class="dropdown-item"
-																href="<?= base_url('customer/edit/' . $customer->kode) ?>">
+															<a class="dropdown-item" href="<?= base_url('customer/proses_edit/' . $customer->kode) ?>" type="button" data-toggle="modal"
+																data-target="#editCustomer">
 																<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
 																Edit Customer
 															</a>
@@ -124,6 +124,140 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- Modals Tambah Customer -->
+				<div id="tambahCustomer" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content" style=" border-radius:0px;">
+							<div class="modal-header" style="background:white;color:#fff;">
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i>
+									Tambah Customer
+								</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<form action="<?= base_url('customer/proses_tambah') ?>" id="form-edit" method="POST">
+									<div class="table-responsive">
+										<table class="table" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<td><label for="kode_barang">Kode Customer</label></td>
+													<td><input type="text" name="kode" placeholder="Masukkan Kode"
+															autocomplete="off" class="form-control" required
+															value="CST<?= mt_rand(100, 999) ?>" maxlength="8" readonly>
+													</td>
+												</tr>
+												<tr>
+													<td>Nama Customer</td>
+													<td><input type="text" name="nama" placeholder="Masukkan Nama"
+															autocomplete="off" class="form-control" required></td>
+												</tr>
+												<tr>
+													<td>Telepon</td>
+													<td><input type="number" name="telepon"
+															placeholder="Masukkan Nomor Telepon" autocomplete="off"
+															class="form-control" required></td>
+												</tr>
+												<tr>
+													<td>Email</td>
+													<td><input type="email" name="email" placeholder="Masukkan Email"
+															autocomplete="off" class="form-control" required></td>
+												</tr>
+												<tr>
+													<td>Alamat</td>
+													<td><textarea name="alamat" id="alamat" style="resize: none;"
+															class="form-control"
+															placeholder="Masukkan Alamat"></textarea></td>
+												</tr>
+												<tr>
+													<td>
+														Tanggal Daftar
+													</td>
+													<td><input type="text" name="tgl_daftar"
+															value="<?= date("j F Y, G:i"); ?>" readonly
+															class="form-control"></td>
+												</tr>
+											</thead>
+										</table>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary"><i
+										class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
+								<button type="reset" class="btn btn-danger"><i
+										class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- Modals Edit Customer -->
+				<div id="editCustomer" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content" style=" border-radius:0px;">
+							<div class="modal-header" style="background:white;color:#fff;">
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
+									Customer
+								</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+							<div class="modal-body">
+								<form action="<?= base_url('customer/proses_edit/' . $customer->kode) ?>"
+									id="form-tambah" method="POST">
+									<div class="table-responsive">
+										<table class="table" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<td><label for="kode_barang">Kode Customer</label></td>
+													<td><input type="text" name="kode" placeholder="Masukkan Kode"
+															autocomplete="off" class="form-control" required
+															value="<?= $customer->kode ?>" maxlength="8" readonly>
+													</td>
+												</tr>
+												<tr>
+													<td>Nama Customer</td>
+													<td><input type="text" name="nama" placeholder="Masukkan Nama"
+															autocomplete="off" class="form-control"
+															value="<?= $customer->nama ?>" required></td>
+												</tr>
+												<tr>
+													<td>Telepon</td>
+													<td><input type="number" name="telepon"
+															placeholder="Masukkan Nomor Telepon" autocomplete="off"
+															class="form-control" value="<?= $customer->telepon ?>"
+															required></td>
+												</tr>
+												<tr>
+													<td>Email</td>
+													<td><input type="email" name="email" placeholder="Masukkan Email"
+															autocomplete="off" class="form-control"
+															value="<?= $customer->email ?>" required></td>
+												</tr>
+												<tr>
+													<td>Alamat</td>
+													<td><textarea name="alamat" id="alamat" style="resize: none;"
+															class="form-control"
+															placeholder="Masukkan Alamat"><?= $customer->alamat ?></textarea></td>
+												</tr>
+
+											</thead>
+										</table>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary"><i
+										class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
+								<button type="reset" class="btn btn-danger"><i
+										class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
@@ -134,7 +268,7 @@
 	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-	
+
 
 </body>
 

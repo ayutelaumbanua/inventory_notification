@@ -55,17 +55,17 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-									<tr style="background:#42444e;color:#fff;">
-											<td >No</td>
-											<td width="10%">ID Staff</td>
-											<td>Nama</td>
-											<td>Email</td>
-											<td>Telepon</td>
-											<td>Alamat</td>
-											<td>Username</td>
+										<tr>
+											<td width="5%"><strong>No</strong></td>
+											<td width="10%"><strong>ID Staff</strong></td>
+											<td><strong>Nama</strong></td>
+											<td><strong>Email</strong></td>
+											<td><strong>Telepon</strong></td>
+											<td><strong>Alamat</strong></td>
+											<td><strong>Username</strong></td>
 											<?php if ($this->session->login['role'] == 'manager'): ?>
-												<td>Password</td>
-												<td>Aksi</td>
+												<td><strong>Password</strong></td>
+												<td><strong>Aksi</strong></td>
 											<?php endif ?>
 										</tr>
 									</thead>
@@ -138,7 +138,7 @@
 	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	
+
 </body>
 
 </html>

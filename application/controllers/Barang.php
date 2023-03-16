@@ -29,18 +29,18 @@ class Barang extends CI_Controller
 
 		$this->load->view('barang/stock_habis', $this->data);
 	}
-
-	public function tambah()
+	// tambah barang
+	public function tambah_barang()
 	{
 		if ($this->session->login['role'] == 'staff_gudang') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 		$this->data['title'] = 'Tambah Barang';
-		$this->load->view('barang/tambah', $this->data);
+		$this->load->view('barang/tambah_barang', $this->data);
 	}
 
-	public function proses_tambah()
+	public function proses_tambah_barang()
 	{
 		if ($this->session->login['role'] == 'staff_gudang') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
@@ -51,11 +51,11 @@ class Barang extends CI_Controller
 			'kategori_barang' => $this->input->post('kategori_barang'),
 			'nama_barang' => $this->input->post('nama_barang'),
 			'stok' => $this->input->post('stok'),
-			'satuan' => $this->input->post('satuan'),		
+			'satuan' => $this->input->post('satuan'),
 			'tgl_daftar' => $this->input->post('tgl_daftar'),
 		];
 
-		if ($this->m_barang->tambah($data)) {
+		if ($this->m_barang->tambah_barang($data)) {
 			$this->session->set_flashdata('success', 'Data Barang <strong>Berhasil</strong> Ditambahkan!');
 			redirect('barang');
 		} else {
@@ -63,7 +63,7 @@ class Barang extends CI_Controller
 			redirect('barang');
 		}
 	}
-
+	// modifikasi barang
 	public function edit($kode_barang)
 	{
 		if ($this->session->login['role'] == 'staff_gudang') {

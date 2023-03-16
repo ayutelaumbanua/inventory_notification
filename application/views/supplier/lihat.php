@@ -55,16 +55,16 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0" width="100%">
 									<thead>
-										<tr style="background:#42444e;color:#fff;">
-											<td width="5%">No</td>
-											<td width="10%">Kode</td>
-											<td width="15%">Nama</td>
-											<td width="5%">Telepon</td>
-											<td width="10%">Email</td>
-											<td width="30%">Alamat</td>
-											<td width="20%">Tanggal Daftar</td>
+										<tr>
+										<td><strong>No</strong></td>
+											<td><strong>Kode</strong></td>
+											<td><strong>Nama</strong></td>
+											<td><strong>Telepon</strong></td>
+											<td><strong>Email</strong></td>
+											<td><strong>Alamat</strong></td>
+											<td><strong>Tanggal Daftar</strong></td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-												<td width="5%">Aksi</td>
+												<td width="5%"><strong>Aksi</strong></td>
 											<?php endif ?>
 										</tr>
 									</thead>

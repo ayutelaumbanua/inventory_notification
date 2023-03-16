@@ -52,13 +52,13 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-									<tr style="background:#42444e;color:#fff;">
-											<td width="5%">No</td>
-											<td>No Terima</td>
-											<td>Nama Petugas</td>
-											<td>Nama Supplier</td>
-											<td>Tanggal Terima</td>											
-											<td>Aksi</td>
+										<tr>
+											<td width="5%"><strong>No</strong></td>
+											<td><strong>No Terima</strong></td>
+											<td><strong>Nama Petugas</strong></td>
+											<td><strong>Nama Supplier</strong></td>
+											<td><strong>Tanggal Terima</strong></td>
+											<td><strong>Aksi</strong></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -78,7 +78,7 @@
 												</td>
 												<td>
 													<?= $penerimaan->tgl_terima ?>
-												</td>											
+												</td>
 												<td>
 													<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 														data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

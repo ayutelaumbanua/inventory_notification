@@ -30,11 +30,20 @@
 										class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Habis </a>
 								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-								<a href="<?= base_url('barang/tambah') ?>" class="btn btn-primary btn-sm"><i
-										class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-								<a href="<?= base_url('barang/tambah') ?>" type="button" class="btn btn-primary btn-sm"
-									data-toggle="modal" data-target="#myModal">
-									<i class="fa fa-plus"></i> Versi Modals</a>
+								<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
+									id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-plus"></i> Tambah Data
+								</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a class="dropdown-item" type="button" data-toggle="modal"
+										data-target="#tambahBarang"><i class="fa fa-box"></i> Tambah
+										Barang</a>
+									<a class="dropdown-item" type="button" data-toggle="modal"
+										data-target="#tambahSatuan"><i class="fa fa-list"></i> Tambah
+										Satuan</a>
+								</div>
+
+
 							<?php endif ?>
 						</div>
 					</div>
@@ -59,17 +68,17 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-										<tr style="background:#42444e;color:#fff;">
-											<td width="5%">No</td>
-											<td>Kode Barang</td>
-											<td>Kategori</td>
-											<td>Nama Barang</td>
-											<td>Stok</td>
-											<td>Satuan</td>
-											<td>Tanggal Daftar</td>
+									<tr style="background:#063970;color:#fff;">
+											<td width="5%"><strong>No</strong></td>
+											<td><strong>Kode Barang</strong></td>
+											<td><strong>Kategori</strong></td>
+											<td><strong>Nama Barang</strong></td>
+											<td><strong>Stok</strong></td>
+											<td><strong>Satuan</strong></td>
+											<td><strong>Tanggal Daftar</strong></td>
 											</td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-												<td>Aksi</td>
+												<td><strong>Aksi</strong></td>
 											<?php endif ?>
 										</tr>
 									</thead>
@@ -132,8 +141,8 @@
 					</div>
 				</div>
 
-				<!-- versi modals -->
-				<div id="myModal" class="modal fade" role="dialog" data-url="<?= base_url('barang') ?>">
+				<!-- Modals Tambah Barang -->
+				<div id="tambahBarang" class="modal fade" role="dialog" data-url="<?= base_url('barang') ?>">
 					<div class="modal-dialog">
 						<!-- Modal content-->
 						<div class="modal-content" style=" border-radius:0px;">
@@ -145,15 +154,16 @@
 							</div>
 
 							<div class="modal-body">
-								<form action="<?= base_url('barang/proses_tambah') ?>" id="form-tambah" method="POST">
+								<form action="<?= base_url('barang/proses_tambah_barang') ?>" id="form-tambah"
+									method="POST">
 									<div class="table-responsive">
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
 												<tr>
 													<td><label for="kode_barang">Kode Barang</label></td>
 													<td><input type="text" name="kode_barang" placeholder="Masukkan Kode
-													Barang" autocomplete="off" class="form-control" required value="BRG
-													<?= mt_rand(10000, 99999999) ?>" maxlength="8" readonly>
+													Barang" autocomplete="off" class="form-control" required value="BRG<?= mt_rand(10000, 99999999) ?>"
+															maxlength="8" readonly>
 													</td>
 												</tr>
 												<tr>
@@ -204,6 +214,58 @@
 													<i class="fa fa-paperclip text-danger"></i>
 													<i class="text-danger"> Input <strong>stok</strong> pada Transaksi
 														Penerimaan Barang</i>
+												</tr>
+											</thead>
+										</table>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary"><i
+										class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
+								<button type="reset" class="btn btn-danger"><i
+										class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<!-- Modals Tambah Satuan -->
+				<div id="tambahSatuan" class="modal fade" role="dialog" data-url="<?= base_url('barang') ?>">
+					<div class="modal-dialog">
+						<!-- Modal content-->
+						<div class="modal-content" style=" border-radius:0px;">
+							<div class="modal-header" style="background:white;color:#fff;">
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
+									Satuan
+								</h5>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<form action="<?= base_url('barang/proses_tambah_satuan') ?>" id="form-tambah"
+									method="POST">
+									<div class="table-responsive">
+										<table class="table" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<td><label for="kode_satuan">Kode Satuan</label></td>
+													<td><input type="text" name="kode_satuan" placeholder="Masukkan Kode
+													Satuan" autocomplete="off" class="form-control" required value="ST<?= mt_rand(10000, 99999999) ?>"
+															maxlength="8" readonly>
+													</td>
+												</tr>
+												<tr>
+													<td>Satuan Barang</td>
+													<td><input type="text" name="satuan" placeholder="Masukkan Satuan"
+															autocomplete="off" class="form-control" required></td>
+												</tr>
+												<tr>
+													<td>
+														Tanggal Daftar
+													</td>
+													<td><input type="text" name="tgl_daftar"
+															value="<?= date("j F Y, G:i"); ?>" readonly
+															class="form-control"></td>
 												</tr>
 											</thead>
 										</table>

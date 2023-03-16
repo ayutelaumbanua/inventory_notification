@@ -14,11 +14,11 @@
 	<link
 		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 		rel="stylesheet">
-	<link href="<?= base_url('assets') ?>/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?= base_url('assets') ?>/css/bootstrap.css" rel="stylesheet">
 
 </head>
 
-<body class="bg-gradient-dark">
+<body class="bg-login-image">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-sm-100 col-md-5">
@@ -47,9 +47,10 @@
 												</button>
 											</div>
 										<?php endif ?>
-										<img class=" ml-2 mb-1" src="<?= base_url('assets') ?>/img/Logo.png"
+										<img class=" ml-2 mb-1" src="<?= base_url('assets') ?>/img/Logo_login.png"
 											height="100px">
 									</div>
+									<br>
 									<form class="user" method="POST" action="<?= base_url('login/proses_login') ?>">
 										<div class="form-group">
 											<input type="text" class="form-control" id="username"
@@ -74,7 +75,6 @@
 									</form>
 								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
