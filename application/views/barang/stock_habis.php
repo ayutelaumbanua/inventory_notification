@@ -53,7 +53,7 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-									<tr>
+									<tr style="background:#42444e;color:#fff;">
 										<td width="5%"><strong>No</strong></td>
 										<td><strong>Kode Barang</strong></td>
 										<td><strong>Kategori</strong></td>
@@ -95,8 +95,8 @@
 												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
-															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="sm-2 d-none d-sm-inline text-blue-600 ">
+															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#42444e">
+															<span class="sm-2 d-none d-sm-inline" style="color:#42444e">
 																<i class="fa fa-pen"> Edit</i>
 															</span>
 														</a>

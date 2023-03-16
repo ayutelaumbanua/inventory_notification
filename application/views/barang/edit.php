@@ -104,6 +104,17 @@
 										</div>
 										<div class="form-row">
 											<div class="form-group col-3">
+												<label for="satuan">Satuan</label>
+											</div>
+											<div class="form-group col-4">
+												<select name="satuan" id="satuan" class="form-control" required>
+													<option value="">-- Silahkan Pilih --</option>
+													
+												</select>
+											</div>
+										</div>
+										<div class="form-row">
+											<div class="form-group col-3">
 												<label for="tgl_edit">Tanggal Update</label>
 											</div>
 											<div class="form-group col-4">

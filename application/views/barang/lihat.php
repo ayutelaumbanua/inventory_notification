@@ -26,23 +26,37 @@
 						</div>
 						<div class="float-right">
 							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-								<a href="<?= base_url('barang/stock_habis') ?>" class="btn btn-warning btn-sm"><i
-										class="fas fa-clipboard-list"></i>&nbsp;&nbsp;Stock Habis </a>
+								<span><a class="btn btn-warning btn-sm btn-sm dropdown-toggle" href="#" role="button"
+										id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false" style="color:#fff">
+										<i class="fas fa-clipboard-list"></i> Data Stock
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
+											type="button"><i class="fa fa-box"></i> Stock Barang Habis</a>
+										<a class="dropdown-item" type="button" data-toggle="modal" data-target="#"><i
+												class="fa fa-calendar"></i> Stock Barang Expired</a>
+										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button"><i
+												class="fa fa-list"></i> Data Satuan</a>
+									</div>
+								</span>
 								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-								<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
-									id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<i class="fa fa-plus"></i> Tambah Data
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<a class="dropdown-item" type="button" data-toggle="modal"
-										data-target="#tambahBarang"><i class="fa fa-box"></i> Tambah
-										Barang</a>
-									<a class="dropdown-item" type="button" data-toggle="modal"
-										data-target="#tambahSatuan"><i class="fa fa-list"></i> Tambah
-										Satuan</a>
-								</div>
-
+								<span>
+									<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
+										id="dropdownTambah" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">
+										<i class="fa fa-plus"></i> Tambah Data
+									</a>
+									<div class="dropdown-menu" aria-labelledby="dropdownTambah">
+										<a class="dropdown-item" type="button" data-toggle="modal"
+											data-target="#tambahBarang"><i class="fa fa-box"></i> Tambah
+											Barang</a>
+										<a class="dropdown-item" type="button" data-toggle="modal"
+											data-target="#tambahSatuan"><i class="fa fa-list"></i> Tambah
+											Satuan</a>
+									</div>
+								</span>
 
 							<?php endif ?>
 						</div>
@@ -68,7 +82,7 @@
 							<div class="table-responsive">
 								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
 									<thead>
-									<tr style="background:#063970;color:#fff;">
+										<tr style="background:#42444e;color:#fff;">
 											<td width="5%"><strong>No</strong></td>
 											<td><strong>Kode Barang</strong></td>
 											<td><strong>Kategori</strong></td>
@@ -110,8 +124,9 @@
 												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
-															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-															<span class="sm-2 d-none d-sm-inline text-blue-600 ">
+															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+															style="color:#42444e">
+															<span class="sm-2 d-none d-sm-inline" style="color:#42444e">
 																<i class="fa fa-pen"> Edit</i>
 															</span>
 														</a>
@@ -230,7 +245,7 @@
 					</div>
 				</div>
 				<!-- Modals Tambah Satuan -->
-				<div id="tambahSatuan" class="modal fade" role="dialog" data-url="<?= base_url('barang') ?>">
+				<div id="tambahSatuan" class="modal fade" role="dialog" data-url="<?= base_url('satuan') ?>">
 					<div class="modal-dialog">
 						<!-- Modal content-->
 						<div class="modal-content" style=" border-radius:0px;">

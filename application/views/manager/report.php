@@ -20,9 +20,9 @@
 	</div>
 	<hr>
 	<div class="row">
-		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		<table class="table" id="dataTable" width="100%" cellspacing="0">
 			<thead>
-				<tr>
+			<tr>
 					<td><strong>No</strong></td>
 					<td><strong>ID Staff</strong></td>
 					<td><strong>Nama Staff</strong></td>

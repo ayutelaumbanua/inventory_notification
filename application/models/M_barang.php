@@ -3,6 +3,7 @@
 class M_barang extends CI_Model
 {
 	protected $_table = 'barang';
+	protected $_table_satuan = 'satuan';
 
 	public function lihat()
 	{
@@ -14,7 +15,11 @@ class M_barang extends CI_Model
 		$query = $this->db->get_where($this->_table, 'stok < 5');
 		return $query->result();
 	}
-
+	public function lihat_satuan()
+	{
+		$query = $this->db->get($this->_table_satuan);
+		return $query->result();
+	}
 	public function jumlah()
 	{
 		$query = $this->db->get($this->_table);
@@ -51,7 +56,7 @@ class M_barang extends CI_Model
 	}
 	public function tambah_satuan($data)
 	{
-		return $this->db->insert($this->_table, $data);
+		return $this->db->insert($this->_table_satuan, $data);
 	}
 	public function stock_habis($data)
 	{

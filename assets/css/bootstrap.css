@@ -10490,7 +10490,7 @@ a:focus {
 }
 
 .sidebar-light .sidebar-heading {
-  color: #b7b9cc
+  color: #021b37
 }
 
 .sidebar-light .nav-item .nav-link {
@@ -10514,11 +10514,11 @@ a:focus {
 }
 
 .sidebar-light .nav-item.active .nav-link {
-  color: #6e707e
+  color: #02072e
 }
 
 .sidebar-light .nav-item.active .nav-link i {
-  color: #6e707e
+  color: #065572
 }
 
 .sidebar-light #sidebarToggle {

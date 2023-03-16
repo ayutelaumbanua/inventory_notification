@@ -10,6 +10,7 @@ class Barang extends CI_Controller
 		if ($this->session->login['role'] != 'staff_gudang' && $this->session->login['role'] != 'purchasing' && $this->session->login['role'] != 'manager')
 			redirect();
 		$this->data['aktif'] = 'barang';
+		$this->data['aktif'] = 'satuan';
 		$this->load->model('M_barang', 'm_barang');
 	}
 
@@ -21,15 +22,6 @@ class Barang extends CI_Controller
 
 		$this->load->view('barang/lihat', $this->data);
 	}
-	public function stock_habis()
-	{
-		$this->data['title'] = 'Data Barang Habis';
-		$this->data['all_stock_habis'] = $this->m_barang->lihat_stock_habis();
-		$this->data['no'] = 1;
-
-		$this->load->view('barang/stock_habis', $this->data);
-	}
-	// tambah barang
 	public function tambah_barang()
 	{
 		if ($this->session->login['role'] == 'staff_gudang') {
@@ -118,6 +110,110 @@ class Barang extends CI_Controller
 			redirect('barang');
 		}
 	}
+
+	// Data Satuan
+	public function satuan()
+	{
+		$this->data['title'] = 'Data Satuan Barang';
+		$this->data['all_satuan'] = $this->m_barang->lihat_satuan();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/satuan', $this->data);
+	}
+	public function tambah_satuan()
+	{
+		if ($this->session->login['role'] == 'staff_gudang') {
+			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
+			redirect('dashboard');
+		}
+		$this->data['title'] = 'Tambah Satuan';
+		$this->load->view('satuan/tambah_satuan', $this->data);
+	}
+
+	public function proses_tambah_satuan()
+	{
+		if ($this->session->login['role'] == 'staff_gudang') {
+			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
+			redirect('dashboard');
+		}
+		$data = [
+			'kode_satuan' => $this->input->post('kode_satuan'),
+			'satuan' => $this->input->post('satuan'),
+			'tgl_daftar' => $this->input->post('tgl_daftar'),
+		];
+
+		if ($this->m_barang->tambah_satuan($data)) {
+			$this->session->set_flashdata('success', 'Data Satuan <strong>Berhasil</strong> Ditambahkan!');
+			redirect('barang');
+		} else {
+			$this->session->set_flashdata('error', 'Data Satuan <strong>Gagal</strong> Ditambahkan!');
+			redirect('barang');
+		}
+	}
+
+	// Data Stock Habis
+	public function stock_habis()
+	{
+		$this->data['title'] = 'Data Barang Habis';
+		$this->data['all_stock_habis'] = $this->m_barang->lihat_stock_habis();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/stock_habis', $this->data);
+	}
+	// modifikasi satuan
+	public function edit_satuan($kode_satuan)
+	{
+		if ($this->session->login['role'] == 'staff_gudang') {
+			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
+			redirect('dashboard');
+		}
+
+		$this->data['title'] = 'Edit Satuan';
+		$this->data['satuan'] = $this->m_satuan->lihat_id($kode_satuan);
+
+		$this->load->view('satuan/edit', $this->data);
+	}
+
+	public function proses_edit_satuan($kode_satuan)
+	{
+		if ($this->session->login['role'] == 'staff_gudang') {
+			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
+			redirect('dashboard');
+		}
+
+		$data = [
+			'kode_satuan' => $this->input->post('kode_satuan'),
+			'satuan' => $this->input->post('satuan'),
+			'tgl_edit' => $this->input->post('tgl_edit'),
+
+		];
+
+		if ($this->m_satuan->edit($data, $kode_satuan)) {
+			$this->session->set_flashdata('success', 'Data satuan <strong>berhasil</strong> diperbaharui');
+			redirect('barang');
+		} else {
+			$this->session->set_flashdata('error', 'Data satuan <strong>gagal</strong> diperbaharui');
+			redirect('barang');
+		}
+	}
+
+	public function hapus_satuan($kode_satuan)
+	{
+		if ($this->session->login['role'] == 'staff_gudang') {
+			$this->session->set_flashdata('error', 'Hapus data tidak dilakukan');
+			redirect('dashboard');
+		}
+
+		if ($this->m_satuan->hapus($kode_satuan)) {
+			$this->session->set_flashdata('success', 'Data satuan <strong>Berhasil</strong> dihapus');
+			redirect('barang');
+		} else {
+			$this->session->set_flashdata('error', 'Data satuan <strong>Gagal</strong> dihapus');
+			redirect('barang');
+		}
+	}
+
+
 
 	public function export()
 	{
