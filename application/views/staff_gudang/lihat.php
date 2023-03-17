@@ -216,10 +216,6 @@
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-	<?php $this->load->view('partials/js.php') ?>
-	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 	<script>
 		$(document).ready(function () {
 			let username = $('input[name="kode"]').val().split('STG');

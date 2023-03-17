@@ -141,7 +141,7 @@
 							</div>
 
 							<div class="modal-body">
-								<form action="<?= base_url('customer/proses_tambah') ?>" id="form-edit" method="POST" >
+								<form action="<?= base_url('customer/proses_tambah') ?>" id="form-edit" method="POST">
 									<div class="table-responsive">
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
@@ -268,13 +268,6 @@
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-	<?php $this->load->view('partials/js.php') ?>
-	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-
-
 </body>
 
 </html>

@@ -8,29 +8,26 @@
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span style="color:#42444e">Dashboard</span></a>
 	</li>
+	<!-- Divider -->
 	<hr class="sidebar-divider">
 	<div class="sidebar-heading" style="color:#42444e">
 		Master
 	</div>
-
 	<li class="nav-item <?= $aktif == 'barang' ? 'active' : '' ?>">
 		<a class="nav-link" href="<?= base_url('barang') ?>">
 			<i class="fas fa-fw fa-box"></i>
 			<span style="color:#42444e">Master Barang</span></a>
 	</li>
-
 	<li class="nav-item <?= $aktif == 'customer' ? 'active' : '' ?>">
 		<a class="nav-link" href="<?= base_url('customer') ?>">
 			<i class="fas fa-fw fa-user"></i>
 			<span style="color:#42444e">Master Customer</span></a>
 	</li>
-
 	<li class="nav-item <?= $aktif == 'supplier' ? 'active' : '' ?>">
 		<a class="nav-link" href="<?= base_url('supplier') ?>">
 			<i class="fas fa-fw fa-truck"></i>
 			<span style="color:#42444e">Master Supplier</span></a>
 	</li>
-	<!-- Divider -->
 	<hr class="sidebar-divider">
 	<div class="sidebar-heading" style="color:#42444e">
 		Transaksi
@@ -47,10 +44,9 @@
 			<i class="fas fa-fw fa-file-invoice"></i>
 			<span style="color:#42444e">Transaksi Pengeluaran</span></a>
 	</li>
-
+	<!-- Divider -->
 	<hr class="sidebar-divider">
 	<?php if ($this->session->login['role'] == 'manager'): ?>
-		<!-- Heading -->
 		<div class="sidebar-heading" style="color:#42444e">
 			Setting
 		</div>

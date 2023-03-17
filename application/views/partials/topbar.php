@@ -18,7 +18,7 @@
 					<a class="dropdown-item text-left medium bg-primary text-white"
 						href="#"><strong>Notification</strong></a>
 					<div id="dropdown"></div>
-					<a class="dropdown-item text-center small text-gray-500" href="stok_habis">Show All Notification</a>
+					<a class="dropdown-item text-center small text-gray-500" href="<?= base_url('barang/stock_habis') ?>">Show All Notification</a>
 				</div>
 			</li>
 		</div>
@@ -51,7 +51,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-<script src="https://timeago.yarp.com/jquery.timeago.js" type="text/javascript"></script>
 <script>
 	$.ajax({
 		url: 'barang/get_notification',
@@ -83,3 +82,5 @@
 		}
 	})
 </script>
+
+<script src="https://timeago.yarp.com/jquery.timeago.js" type="text/javascript"></script>
