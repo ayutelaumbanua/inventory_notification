@@ -18,6 +18,7 @@ class Barang extends CI_Controller
 	{
 		$this->data['title'] = 'Data Barang';
 		$this->data['all_barang'] = $this->m_barang->lihat();
+		$this->data['all_satuan'] = $this->m_barang->lihat_satuan();
 		$this->data['no'] = 1;
 
 		$this->load->view('barang/lihat', $this->data);
@@ -29,6 +30,7 @@ class Barang extends CI_Controller
 			redirect('dashboard');
 		}
 		$this->data['title'] = 'Tambah Barang';
+		$this->data['all_satuan'] = $this->m_barang->lihat_satuan();
 		$this->load->view('barang/tambah_barang', $this->data);
 	}
 
@@ -62,10 +64,8 @@ class Barang extends CI_Controller
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
-
 		$this->data['title'] = 'Edit Barang';
 		$this->data['barang'] = $this->m_barang->lihat_id($kode_barang);
-
 		$this->load->view('barang/edit', $this->data);
 	}
 
@@ -169,7 +169,7 @@ class Barang extends CI_Controller
 		}
 
 		$this->data['title'] = 'Edit Satuan';
-		$this->data['satuan'] = $this->m_satuan->lihat_id($kode_satuan);
+		$this->data['satuan'] = $this->m_barang->lihat_id_satuan($kode_satuan);
 
 		$this->load->view('satuan/edit', $this->data);
 	}
@@ -184,16 +184,14 @@ class Barang extends CI_Controller
 		$data = [
 			'kode_satuan' => $this->input->post('kode_satuan'),
 			'satuan' => $this->input->post('satuan'),
-			'tgl_edit' => $this->input->post('tgl_edit'),
-
 		];
 
-		if ($this->m_satuan->edit($data, $kode_satuan)) {
+		if ($this->m_barang->edit_satuan($data, $kode_satuan)) {
 			$this->session->set_flashdata('success', 'Data satuan <strong>berhasil</strong> diperbaharui');
-			redirect('barang');
+			redirect('satuan');
 		} else {
 			$this->session->set_flashdata('error', 'Data satuan <strong>gagal</strong> diperbaharui');
-			redirect('barang');
+			redirect('satuan');
 		}
 	}
 
@@ -204,7 +202,7 @@ class Barang extends CI_Controller
 			redirect('dashboard');
 		}
 
-		if ($this->m_satuan->hapus($kode_satuan)) {
+		if ($this->m_barang->hapus($kode_satuan)) {
 			$this->session->set_flashdata('success', 'Data satuan <strong>Berhasil</strong> dihapus');
 			redirect('barang');
 		} else {

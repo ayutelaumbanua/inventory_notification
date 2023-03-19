@@ -101,15 +101,14 @@
 													</a>
 													<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 														aria-labelledby="userDropdown">
-														<a class="dropdown-item"
-															href="<?= base_url('purchasing/edit/' . $purchasing->id) ?>">
+														<a class="dropdown-item" type="button" data-toggle="modal"
+															data-target="#editPurchasing<?= $purchasing->kode ?>">
 															<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
 															Edit Purchasing
 														</a>
-														<a class="dropdown-item"
-															onclick="return confirm('apakah anda yakin?')"
-															href="<?= base_url('purchasing/hapus/' . $purchasing->id) ?>"
-															class="btn btn-danger btn-sm">
+														<a class="dropdown-item alert_notif"
+															href="<?= base_url('purchasing/hapus/' . $purchasing->kode) ?>"
+															id="alert_notif">
 															<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
 															Hapus Purchasing
 														</a>
@@ -126,7 +125,6 @@
 				<!-- Modals Tambah Purchasing -->
 				<div id="tambahPurchasing" class="modal fade" role="dialog" data-url="<?= base_url('purchasing') ?>">
 					<div class="modal-dialog">
-						<!-- Modal content-->
 						<div class="modal-content" style=" border-radius:0px;">
 							<div class="modal-header" style="background:white;color:#fff;">
 								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i>
@@ -203,6 +201,86 @@
 						</div>
 					</div>
 				</div>
+				<!-- Modals Edit Purchasing -->
+				<?php $no = 0; foreach ($all_purchasing as $purchasing):
+					$no++; ?>
+					<div id="editPurchasing<?= $purchasing->kode ?>" class="modal fade" role="dialog"
+						data-url="<?= base_url('purchasing') ?>">
+						<div class="modal-dialog">
+							<div class="modal-content" style=" border-radius:0px;">
+								<div class="modal-header" style="background:white;color:#fff;">
+									<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Edit
+										Purchasing
+									</h5>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<form action="<?= base_url('purchasing/proses_edit/' . $purchasing->id) ?>"
+										id="form-tambah" method="POST">
+										<div class="table-responsive">
+											<table class="table" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<td><label for="kode">Kode Purchasing</label></td>
+														<td><input type="text" name="kode" placeholder="Masukkan Kode"
+																autocomplete="off" class="form-control" required
+																value="<?= $purchasing->kode ?>" maxlength="8" readonly>
+														</td>
+													</tr>
+													<tr>
+														<td>Nama Purchasing</td>
+														<td><input type="text" name="nama" placeholder="Masukkan Nama"
+																autocomplete="off" class="form-control"
+																value="<?= $purchasing->nama ?>" required></td>
+													</tr>
+													<tr>
+														<td>Telepon</td>
+														<td><input type="number" name="telepon"
+																placeholder="Masukkan Nomor Telepon" autocomplete="off"
+																class="form-control" value="<?= $purchasing->telepon ?>"
+																required></td>
+													</tr>
+													<tr>
+														<td>Email</td>
+														<td><input type="email" name="email" placeholder="Masukkan Email"
+																autocomplete="off" class="form-control"
+																value="<?= $purchasing->email ?>" required></td>
+													</tr>
+													<tr>
+														<td>Alamat</td>
+														<td><textarea name="alamat" id="alamat" style="resize: none;"
+																class="form-control"
+																placeholder="Masukkan Alamat"><?= $purchasing->alamat ?></textarea>
+														</td>
+													</tr>
+													<tr>
+													<td>Username</td>
+													<td><input type="text" name="username"
+															placeholder="Masukkan Username" autocomplete="off"
+															class="form-control" readonly value="<?= $purchasing->username ?>"></td>
+												</tr>
+												<tr>
+													<td>Password</td>
+													<td><input type="text" name="password"
+															placeholder="Masukkan Password" autocomplete="off"
+															class="form-control" value="<?= $purchasing->password ?>" required></td>
+												</tr>
+
+												</thead>
+											</table>
+										</div>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary"><i
+											class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
+									<button type="reset" class="btn btn-danger"><i
+											class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				<?php endforeach ?>
 			</div>
 			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
@@ -215,6 +293,9 @@
 			$('input[name="username"]').val(username)
 		})
 	</script>
+	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
+	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 </body>
 
 </html>

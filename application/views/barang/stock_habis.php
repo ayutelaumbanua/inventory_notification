@@ -63,7 +63,7 @@
 										<td><strong>Tanggal Daftar</strong></td>
 										</td>
 										<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-											<td><strong>Aksi</strong></td>
+											<!-- <td><strong>Aksi</strong></td> -->
 										<?php endif ?>
 										</tr>
 									</thead>
@@ -92,7 +92,7 @@
 													<?= $barang->tgl_daftar ?>
 
 												</td>
-												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+												<!-- <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#42444e">
@@ -116,7 +116,7 @@
 															</a>
 														</div>
 													</td>
-												<?php endif ?>
+												<?php endif ?> -->
 											</tr>
 										<?php endforeach ?>
 									</tbody>

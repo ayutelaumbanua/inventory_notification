@@ -5,6 +5,7 @@
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -102,16 +103,18 @@
 														</a>
 														<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 															aria-labelledby="userDropdown">
-															<a class="dropdown-item"
-																href="<?= base_url('customer/proses_edit/' . $customer->kode) ?>"
-																type="button" data-toggle="modal" data-target="#editCustomer">
+															<a class="dropdown-item" type="button" data-toggle="modal"
+																data-target="#editCustomer<?= $customer->kode ?>">
 																<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
 																Edit Customer
 															</a>
-															<a class="dropdown-item"
-																onclick="return confirm('apakah anda yakin?')"
+															<!-- <a href="<?php echo site_url('customer/hapus/' . $customer->kode); ?>"
+																onclick="return confirm('Apakah Anda Ingin Menghapus Data <?= $customer->kode ?> ?');"
+																class="btn btn-danger btn-circle" data-placement="top"
+																title="Hapus Data"><i class="fa fa-trash"></i></a> -->
+															<a class="dropdown-item alert_notif"
 																href="<?= base_url('customer/hapus/' . $customer->kode) ?>"
-																class="btn btn-danger btn-sm">
+																 id="alert_notif">
 																<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
 																Hapus Customer
 															</a>
@@ -146,7 +149,7 @@
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<td><label for="kode_barang">Kode Customer</label></td>
+													<td><label for="kode">Kode Customer</label></td>
 													<td><input type="text" name="kode" placeholder="Masukkan Kode"
 															autocomplete="off" class="form-control" required
 															value="CST<?= mt_rand(100, 999) ?>" maxlength="8" readonly>
@@ -196,9 +199,12 @@
 						</div>
 					</div>
 				</div>
-				<?php foreach ($all_customer as $customer): ?>
-					<!-- Modals Edit Customer -->
-					<div id="editCustomer" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
+				<!-- Modals Edit Customer -->
+				<?php $no = 0; foreach ($all_customer as $customer):
+					$no++; ?>
+
+					<div id="editCustomer<?= $customer->kode ?>" class="modal fade" role="dialog"
+						data-url="<?= base_url('customer') ?>">
 						<div class="modal-dialog">
 							<!-- Modal content-->
 							<div class="modal-content" style=" border-radius:0px;">
@@ -268,6 +274,49 @@
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
+	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
+	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+	<!-- jika ada session sukses maka tampilkan sweet alert dengan pesan yang telah di set
+	di dalam session sukses  -->
+	<?php if (@$m_customer->hapus->session['success']) { ?>
+		<script>
+			Swal.fire({
+				icon: 'success',
+				title: 'Sukses',
+				text: 'data berhasil dihapus',
+				timer: 3000,
+				showConfirmButton: false
+			})
+		</script>
+		<!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
+		<?php unset($session['sukses']);
+	} ?>
+
+
+	<!-- di bawah ini adalah script untuk konfirmasi hapus data dengan sweet alert  -->
+	<script>
+		$('.alert_notif').on('click', function () {
+			var getLink = $(this).attr('href');
+			Swal.fire({
+				title: "Yakin hapus data?",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				confirmButtonText: 'Ya',
+				cancelButtonColor: '#3085d6',
+				cancelButtonText: "Batal"
+
+			}).then(result => {
+				//jika klik ya maka arahkan ke proses.php
+				if (result.isConfirmed) {
+					window.location.href = getLink
+				}
+			})
+			return false;
+		});
+	</script>
 </body>
 
 </html>

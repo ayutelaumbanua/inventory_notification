@@ -80,27 +80,27 @@
                                                 </td>
                                                 <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
                                                     <td>
-                                                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
-                                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                                            style="color:#42444e">
-                                                            <span class="sm-2 d-none d-sm-inline" style="color:#42444e">
-                                                                <i class="fa fa-pen"> Edit</i>
-                                                            </span>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                                            aria-labelledby="userDropdown">
-                                                            <a class="dropdown-item"
-                                                                href="<?= base_url('satuan/edit/' . $satuan->kode_satuan) ?>">
-                                                                <i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
-                                                                Edit Satuan
-                                                            </a>
-                                                            <a class="dropdown-item"
-                                                                onclick="return confirm('apakah anda yakin?')"
-                                                                href="<?= base_url('satuan/hapus/' . $satuan->kode_satuan) ?>"
-                                                                class="btn btn-danger btn-sm">
-                                                                <i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                                Hapus Satuan
-                                                            </a>
+                                                    <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
+															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+															style="color:#42444e">
+															<span class="sm-2 d-none d-sm-inline" style="color:#42444e">
+																<i class="fa fa-pen"> Edit</i>
+															</span>
+														</a>
+														<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+															aria-labelledby="userDropdown">
+															<a class="dropdown-item" type="button" data-toggle="modal"
+																data-target="#editSatuan<?= $satuan->kode_satuan ?>">
+																<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
+																Edit Satuan
+															</a>
+
+															<a class="dropdown-item alert_notif"
+																href="<?= base_url('satuan/hapus/' . $satuan->kode_satuan) ?>"
+																id="alert_notif">
+																<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
+																Hapus Satuan
+															</a>
                                                         </div>
                                                     </td>
                                                 <?php endif ?>
@@ -112,7 +112,55 @@
                         </div>
                     </div>
                 </div>
+                <!-- Modals Edit Satuan -->
+                <?php $no = 0; foreach ($all_satuan as $satuan):
+                    $no++; ?>
+                    <div id="editSatuan<?= $satuan->kode_satuan ?>" class="modal fade" role="dialog"
+                        data-url="<?= base_url('satuan') ?>">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style=" border-radius:0px;">
+                                <div class="modal-header" style="background:white;color:#fff;">
+                                    <h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Edit
+                                        Satuan
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
 
+                                <div class="modal-body">
+                                    <form action="<?= base_url('barang/proses_edit_satuan') ?>" id="form-edit"
+                                        method="POST">
+                                        <div class="table-responsive">
+                                            <table class="table" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr>
+                                                        <td><label for="kode_satuan">Kode Satuan</label></td>
+                                                        <td><input type="text" name="kode_satuan"
+                                                                placeholder="Masukkan Kode Satuan" autocomplete="off"
+                                                                class="form-control" required
+                                                                value="<?= $satuan->kode_satuan ?>" maxlength="8" readonly>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Satuan</td>
+                                                        <td><input type="text" name="satuan" placeholder="Masukkan Satuan"
+                                                                autocomplete="off" class="form-control" required
+                                                                value="<?= $satuan->satuan ?>"></td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
+                                    <button type="reset" class="btn btn-danger"><i
+                                            class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
             </div>
             <!-- load footer -->
             <?php $this->load->view('partials/footer.php') ?>

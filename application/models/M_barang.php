@@ -41,6 +41,12 @@ class M_barang extends CI_Model
 		$query = $this->db->get_where($this->_table, ['kode_barang' => $kode_barang]);
 		return $query->row();
 	}
+	public function lihat_id_satuan($kode_satuan)
+	{
+		$query = $this->db->get_where($this->_table_satuan, ['kode_satuan' => $kode_satuan]);
+		return $query->row();
+	}
+
 
 	public function lihat_nama_barang($nama_barang)
 	{
@@ -83,6 +89,14 @@ class M_barang extends CI_Model
 		$query = $this->db->set($data);
 		$query = $this->db->where(['kode_barang' => $kode_barang]);
 		$query = $this->db->update($this->_table);
+		return $query;
+	}
+
+	public function edit_satuan($data, $kode_satuan)
+	{
+		$query = $this->db->set($data);
+		$query = $this->db->where(['kode_satuan' => $kode_satuan]);
+		$query = $this->db->update($this->_table_satuan);
 		return $query;
 	}
 
