@@ -91,7 +91,7 @@ class Manager extends CI_Controller
 			'email' => $this->input->post('email'),
 			'telepon' => $this->input->post('telepon'),
 			'alamat' => $this->input->post('alamat'),
-			'username' => $this->input->post('username'),
+			// 'username' => $this->input->post('username'),
 			'password' => $this->input->post('password'),
 		];
 

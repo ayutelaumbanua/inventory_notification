@@ -5,18 +5,15 @@
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
 	<div id="wrapper">
-		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
-
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('purchasing') ?>">
-				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
-
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
@@ -107,7 +104,7 @@
 															Edit Purchasing
 														</a>
 														<a class="dropdown-item alert_notif"
-															href="<?= base_url('purchasing/hapus/' . $purchasing->kode) ?>"
+															href="<?= base_url('purchasing/hapus/' . $purchasing->id) ?>"
 															id="alert_notif">
 															<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
 															Hapus Purchasing
@@ -179,14 +176,6 @@
 															placeholder="Masukkan Password" autocomplete="off"
 															class="form-control" required></td>
 												</tr>
-												<tr>
-													<td>
-														Tanggal Daftar
-													</td>
-													<td><input type="text" name="tgl_daftar"
-															value="<?= date("j F Y, G:i"); ?>" readonly
-															class="form-control"></td>
-												</tr>
 											</thead>
 										</table>
 									</div>
@@ -254,17 +243,12 @@
 														</td>
 													</tr>
 													<tr>
-													<td>Username</td>
-													<td><input type="text" name="username"
-															placeholder="Masukkan Username" autocomplete="off"
-															class="form-control" readonly value="<?= $purchasing->username ?>"></td>
-												</tr>
-												<tr>
-													<td>Password</td>
-													<td><input type="text" name="password"
-															placeholder="Masukkan Password" autocomplete="off"
-															class="form-control" value="<?= $purchasing->password ?>" required></td>
-												</tr>
+														<td>Password</td>
+														<td><input type="text" name="password"
+																placeholder="Masukkan Password" autocomplete="off"
+																class="form-control" value="<?= $purchasing->password ?>"
+																required></td>
+													</tr>
 
 												</thead>
 											</table>
@@ -296,6 +280,27 @@
 	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+	<script>
+		$('.alert_notif').on('click', function () {
+			var getLink = $(this).attr('href');
+			Swal.fire({
+				title: "Yakin hapus data?",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				confirmButtonText: 'Ya',
+				cancelButtonColor: '#3085d6',
+				cancelButtonText: "Batal"
+
+			}).then(result => {
+				if (result.isConfirmed) {
+					window.location.href = getLink
+				}
+			})
+			return false;
+		});
+	</script>
 </body>
 
 </html>

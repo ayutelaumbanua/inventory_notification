@@ -144,10 +144,10 @@ class Barang extends CI_Controller
 
 		if ($this->m_barang->tambah_satuan($data)) {
 			$this->session->set_flashdata('success', 'Data Satuan <strong>Berhasil</strong> Ditambahkan!');
-			redirect('barang');
+			redirect('barang/satuan');
 		} else {
 			$this->session->set_flashdata('error', 'Data Satuan <strong>Gagal</strong> Ditambahkan!');
-			redirect('barang');
+			redirect('barang/satuan');
 		}
 	}
 
@@ -159,6 +159,15 @@ class Barang extends CI_Controller
 		$this->data['no'] = 1;
 
 		$this->load->view('barang/stock_habis', $this->data);
+	}
+	// Data Stock Expired
+	public function stock_expired()
+	{
+		$this->data['title'] = 'Data Barang Expired';
+		$this->data['all_stock_expired'] = $this->m_barang->lihat_stock_expired();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/stock_expired', $this->data);
 	}
 	// modifikasi satuan
 	public function edit_satuan($kode_satuan)
@@ -188,10 +197,10 @@ class Barang extends CI_Controller
 
 		if ($this->m_barang->edit_satuan($data, $kode_satuan)) {
 			$this->session->set_flashdata('success', 'Data satuan <strong>berhasil</strong> diperbaharui');
-			redirect('satuan');
+			redirect('barang/satuan');
 		} else {
 			$this->session->set_flashdata('error', 'Data satuan <strong>gagal</strong> diperbaharui');
-			redirect('satuan');
+			redirect('barang/satuan');
 		}
 	}
 
@@ -210,8 +219,6 @@ class Barang extends CI_Controller
 			redirect('barang');
 		}
 	}
-
-
 
 	public function export()
 	{

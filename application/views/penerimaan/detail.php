@@ -95,7 +95,7 @@
 											<tr>
 												<td><strong>No</strong></td>
 												<td><strong>Nama Barang</strong></td>
-												<td><strong>Stok</strong></td>
+												<td><strong>Jumlah</strong></td>
 												<td><strong>Satuan</strong></td>
 												<td><strong>Tanggal Expired</strong></td>
 

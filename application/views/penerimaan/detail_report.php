@@ -61,6 +61,7 @@
 						<td width="10%"><strong>No</strong></td>
 						<td width="40%"><strong>Nama Barang</strong></td>
 						<td width="40%"><strong>Jumlah</strong></td>
+						<td width="40%"><strong>Tanggal Expired</strong></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -74,7 +75,10 @@
 							</td>
 							<td>
 								<?= $detail_barang_masuk->jumlah ?>
-								<?= strtolower($detail_barang_masuk->satuan) ?>
+								<?= $detail_barang_masuk->satuan ?>
+							</td>
+							<td>
+								<?= $detail_barang_masuk->tgl_expired ?>
 							</td>
 						</tr>
 					<?php endforeach ?>

@@ -113,7 +113,7 @@
 													<div class="form-group col-6">
 														<label>Tanggal Expired</label>
 														<input type="text" name="tgl_expired"
-															value="<?= date('j F Y, G:i') ?>" class="form-control">
+															value="<?= date('j F Y') ?>" class="form-control">
 													</div>
 
 													<div class="form-group col-2">
@@ -134,7 +134,7 @@
 													<tr>
 														<td width="15%">Kode Barang</td>
 														<td width="30%">Nama Barang</td>
-														<td width="10%">Stok</td>
+														<td width="10%">Jumlah</td>
 														<td width="10%">Satuan</td>
 														<td width="20%">Tanggal Expired</td>
 														<td width="5%">Aksi</td>
@@ -254,8 +254,6 @@
 				$('select[name="nama_barang"]').prop('disabled', true)
 				$('input[name="jumlah"]').prop('disabled', true)
 				$('input[name="satuan"]').prop('disabled', true)
-
-
 			})
 
 			function hitung_total() {
@@ -263,7 +261,6 @@
 				$('.sub_total').each(function () {
 					total += parseInt($(this).text())
 				})
-
 				return total;
 			}
 

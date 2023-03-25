@@ -68,7 +68,6 @@ class Customer extends CI_Controller
 
 		$this->data['title'] = 'Edit Customer';
 		$this->data['customer'] = $this->m_customer->lihat_id($kode);
-
 		$this->load->view('customer/edit', $this->data);
 	}
 

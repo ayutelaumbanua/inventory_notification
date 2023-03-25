@@ -309,7 +309,6 @@
 				cancelButtonText: "Batal"
 
 			}).then(result => {
-				//jika klik ya maka arahkan ke proses.php
 				if (result.isConfirmed) {
 					window.location.href = getLink
 				}

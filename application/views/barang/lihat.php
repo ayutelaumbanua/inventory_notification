@@ -5,13 +5,13 @@
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
 	<div id="wrapper">
 		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
-
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('barang') ?>">
 				<!-- load Topbar -->
@@ -33,11 +33,12 @@
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
-											type="button"><i class="fa fa-box"></i> Stock Barang Habis</a>
-										<a class="dropdown-item" type="button" data-toggle="modal" data-target="#"><i
-												class="fa fa-calendar"></i> Stock Barang Expired</a>
+											type="button"><i class="fa fa-box" style="color: orange"></i> Stock Barang
+											Habis</a>
+										<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">
+											<i class="fa fa-box" style="color: #e74a3b"></i> Stock Barang Expired</a>
 										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button"><i
-												class="fa fa-list"></i> Data Satuan</a>
+												class="fa fa-list" style="color: blue"></i> Data Satuan</a>
 									</div>
 								</span>
 								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
@@ -50,14 +51,15 @@
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownTambah">
 										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahBarang"><i class="fa fa-box"></i> Tambah
+											data-target="#tambahBarang"><i class="fa fa-box" style="color: orange"></i>
+											Tambah
 											Barang</a>
 										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahSatuan"><i class="fa fa-list"></i> Tambah
+											data-target="#tambahSatuan"><i class="fa fa-list" style="color: blue"></i>
+											Tambah
 											Satuan</a>
 									</div>
 								</span>
-
 							<?php endif ?>
 						</div>
 					</div>
@@ -137,12 +139,11 @@
 																<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
 																Edit Barang
 															</a>
-													
 															<a class="dropdown-item alert_notif"
 																href="<?= base_url('barang/hapus/' . $barang->kode_barang) ?>"
-																 id="alert_notif">
+																id="alert_notif">
 																<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-																Hapus Barang
+																Hapus Customer
 															</a>
 														</div>
 													</td>
@@ -154,7 +155,6 @@
 							</div>
 						</div>
 					</div>
-
 				</div>
 
 				<!-- Modals Tambah Barang -->
@@ -257,7 +257,7 @@
 								</div>
 
 								<div class="modal-body">
-									<form action="<?= base_url('barang/proses_edit_barang') ?>" id="form-edit"
+									<form action="<?= base_url('barang/proses_edit/' . $barang->kode_barang) ?>"
 										method="POST">
 										<div class="table-responsive">
 											<table class="table" width="100%" cellspacing="0">
@@ -298,9 +298,9 @@
 													<tr>
 														<td>Satuan</td>
 														<td><select name="satuan" id="satuan" class="form-control" required>
-														<option value="<?= $barang->satuan ?>"><?= $barang->kategori_barang ?></option>
+																<option value="<?= $barang->satuan ?>"><?= $barang->satuan ?></option>
 																<?php foreach ($all_satuan as $satuan): ?>
-																	<option value="<?= $barang->satuan ?>"><?= $satuan->satuan ?></option>
+																	<option value="<?= $satuan->satuan ?>"><?= $satuan->satuan ?></option>
 																<?php endforeach ?>
 															</select></td>
 													</tr>
@@ -322,9 +322,8 @@
 								</form>
 							</div>
 						</div>
-					<?php endforeach ?>
-				</div>
-
+					</div>
+				<?php endforeach ?>
 				<!-- Modals Tambah Satuan -->
 				<div id="tambahSatuan" class="modal fade" role="dialog" data-url="<?= base_url('satuan') ?>">
 					<div class="modal-dialog">
@@ -376,6 +375,7 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
@@ -384,6 +384,28 @@
 	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
 	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+	<!-- di bawah ini adalah script untuk konfirmasi hapus data dengan sweet alert  -->
+	<script>
+		$('.alert_notif').on('click', function () {
+			var getLink = $(this).attr('href');
+			Swal.fire({
+				title: "Yakin hapus data?",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#d33',
+				confirmButtonText: 'Ya',
+				cancelButtonColor: '#3085d6',
+				cancelButtonText: "Batal"
+
+			}).then(result => {
+				if (result.isConfirmed) {
+					window.location.href = getLink
+				}
+			})
+			return false;
+		});
+	</script>
 </body>
 
 </html>
