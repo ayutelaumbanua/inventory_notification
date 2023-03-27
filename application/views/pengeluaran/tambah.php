@@ -126,8 +126,8 @@
 											<table class="table table-bordered" id="keranjang">
 												<thead>
 													<tr>
-													<td width="15%">Kode Barang</td>
-														<td width="35%">Nama Barang</td>														
+														<td width="15%">Kode Barang</td>
+														<td width="35%">Nama Barang</td>
 														<td width="15%">Jumlah</td>
 														<td width="10%">Satuan</td>
 														<td width="15%">Aksi</td>
@@ -168,23 +168,18 @@
 					event.preventDefault();
 				}
 			})
-
-
 			$('#nama_customer').on('change', function () {
 				$(this).prop('disabled', true)
 				$('#reset').prop('disabled', false)
 				$('input[name="nama_customer"]').val($(this).val())
 			})
-
 			$(document).on('click', '#reset', function () {
 				$('#nama_customer').val('')
 				$('#nama_customer').prop('disabled', false)
 				$(this).prop('disabled', true)
 				$('input[name="nama_customer"]').val('')
 			})
-
 			$('#nama_barang').on('change', function () {
-
 				if ($(this).val() == '') reset()
 				else {
 					const url_get_all_barang = $('#content').data('url') + '/get_all_barang'
@@ -212,9 +207,7 @@
 				}
 			})
 
-
-
-			$(document).on('click', '#tambah', function (e) {
+		$(document).on('click', '#tambah', function (e) {
 				const url_keranjang_barang = $('#content').data('url') + '/keranjang_barang'
 				const data_keranjang = {
 					nama_barang: $('select[name="nama_barang"]').val(),
@@ -243,8 +236,6 @@
 					})
 				}
 			})
-
-
 			$(document).on('click', '#tombol-hapus', function () {
 				$(this).closest('.row-keranjang').remove()
 
@@ -252,7 +243,6 @@
 
 				if ($('tbody').children().length == 0) $('tfoot').hide()
 			})
-
 			$('button[type="submit"]').on('click', function () {
 				$('input[name="kode_barang"]').prop('disabled', true)
 				$('select[name="nama_barang"]').prop('disabled', true)
@@ -279,5 +269,4 @@
 		})
 	</script>
 </body>
-
 </html>

@@ -4,7 +4,7 @@
 <head>
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
@@ -50,7 +50,7 @@
 					<div class="card shadow">
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 									<tr style="background:#42444e;color:#fff;">
 											<td width="5%"><strong>No</strong></td>

@@ -46,7 +46,7 @@
         "density": "4.0"
        }
     ],
-    "start_url": "http://localhost/inventori/",
+    "start_url": "http://localhost/inventori",
     "display": "fullscreen",
     "theme_color": "#f45",
     "background_color": "#fff"

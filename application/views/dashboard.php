@@ -3,10 +3,7 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link href="<?= base_url('assets') ?>/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	</head>
+</head>
 
 <body id="page-top">
 	<div id="wrapper">
@@ -50,7 +47,7 @@
 											<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total
 												Barang</div>
 											<div class="h5 mb-0 font-weight-bold text-gray-800">
-												<?= $jumlah_barang ?>												
+												<?= $jumlah_barang ?>
 											</div>
 										</div>
 										<div class="col-auto">
@@ -152,7 +149,7 @@
 						'</button>' +
 						'</div>' +
 						'<div class="toast-body">' +
-						'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan +', lakukan tindakan!'+
+						'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!' +
 						'</div>' +
 						'</div>');
 				});
