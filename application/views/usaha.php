@@ -46,7 +46,7 @@
 					<div class="col-md-6">
 						<div class="card shadow">
 							<div class="card-header"><strong>Isi Form Dibawah Ini</strong></div>
-							<div class="card-body">
+							<div class="card-body" >
 								<form action="<?= base_url('usaha/proses_edit') ?>" id="form-tambah" method="POST">
 									<div class="form-group">
 										<label for="nama_usaha">Nama Usaha : </label>

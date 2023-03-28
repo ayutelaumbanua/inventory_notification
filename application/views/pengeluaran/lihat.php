@@ -55,7 +55,7 @@
 									<tr style="background:#42444e;color:#fff;">
 											<td width="5%">No</td>
 											<td>No Terima</td>
-											<td>>Nama Petugas</td>
+											<td>Nama Petugas</td>
 											<td>Nama Supplier</td>
 											<td>Tanggal Terima</td>
 											<td>Aksi</td>

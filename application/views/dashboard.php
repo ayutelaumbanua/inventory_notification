@@ -42,30 +42,29 @@
 					<?php endif ?>
 					<div class="row">
 						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card border-right-danger shadow h-100 py-10">
+							<div class="card shadow h-100 py-10">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h4 mb-0 font-weight-bold text-gray-800">
+											<div class="h4 mb-0 font-weight-bold text-black">
 												<?= $jumlah_barang ?>
 											</div>
-											<div class="text-sm font-weight-bold text-primary mb-1">Total Barang</div>
+											<div class="text-sm font-weight-bold text-primary">Total Barang</div>
 
 										</div>
 										<div class="col-auto">
 											<i class="fas fa-box fa-3x text-primary"></i>
 										</div>
-
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card shadow h-100 py-2">
+							<div class="card shadow h-100 py-10">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h4 mb-0 font-weight-bold text-gray-800">
+											<div class="h4 mb-0 font-weight-bold text-black">
 												<?= $jumlah_stock_habis ?>
 											</div>
 											<div class="text-md font-weight-bold text-danger mb-1">Stock Habis</div>
@@ -78,11 +77,11 @@
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card shadow h-100 py-2">
+							<div class="card shadow h-100 py-10">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h4 mb-0 font-weight-bold text-gray-800">
+											<div class="h4 mb-0 font-weight-bold text-black">
 												<?= $jumlah_penerimaan ?>
 											</div>
 											<div class="text-md font-weight-bold text-info mb-1">
@@ -96,18 +95,18 @@
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card shadow h-100 py-2">
+							<div class="card shadow h-100 py-10">
 								<div class="card-body">
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
-											<div class="h4 mb-0 mr-3 font-weight-bold text-gray-800">
+											<div class="h4 mb-0 mr-3 font-weight-bold text-black">
 												<?= $jumlah_pengeluaran ?>
 											</div>
-											<div class="text-md font-weight-bold text-warning mb-1">Barang Keluar
+											<div class="text-md font-weight-bold text-warning">Barang Keluar
 											</div>
 										</div>
 										<div class="col-auto">
-											<i class="fas fa-sign-in-alt fa-rotate-45 fa-3x text-warning"></i>
+											<i class="fas fa-sign-in-alt fa-rotate-270 fa-3x text-warning"></i>
 										</div>
 									</div>
 								</div>

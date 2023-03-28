@@ -3,8 +3,8 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 </head>
 
 <body id="page-top">
@@ -35,8 +35,10 @@
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
 											type="button">Barang Habis</a>
-										<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">Barang Expired</a>
-										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button">Data Satuan</a>
+										<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">Barang
+											Expired</a>
+										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button">Data
+											Satuan</a>
 									</div>
 								</span>
 								<span>
@@ -47,13 +49,9 @@
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownTambah">
 										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahBarang">
-											Tambah
-											Barang</a>
+											data-target="#tambahBarang">Tambah Barang</a>
 										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahSatuan">
-											Tambah
-											Satuan</a>
+											data-target="#tambahSatuan">Tambah Satuan</a>
 									</div>
 								</span>
 							<?php endif ?>
@@ -76,7 +74,7 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body" style="font-size:0.9rem">
+						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
@@ -86,7 +84,7 @@
 											<td>Kategori</td>
 											<td>Nama Barang</td>
 											<td>Stok</td>
-											<td>Satuan></td>
+											<td>Satuan</td>
 											<td>Tanggal Daftar</td>
 											</td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
