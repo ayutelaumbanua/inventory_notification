@@ -32,7 +32,7 @@
 					<hr>
 					<div class="row">
 						<div class="col">
-							<div class="card shadow">
+							<div class="card shadow" >
 								<div class="card-header"><strong>Isi Form Dibawah Ini</strong></div>
 								<div class="card-body">
 									<form action="<?= base_url('penerimaan/proses_tambah') ?>" id="form-tambah"

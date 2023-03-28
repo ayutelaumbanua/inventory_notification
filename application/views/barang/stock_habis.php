@@ -48,21 +48,21 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body">
+						<div class="card-body"style="font-size:0.9rem">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 									<tr style="background:#42444e;color:#fff;">
-										<td width="5%"><strong>No</strong></td>
-										<td><strong>Kode Barang</strong></td>
-										<td><strong>Kategori</strong></td>
-										<td><strong>Nama Barang</strong></td>
-										<td><strong>Stok</strong></td>
-										<td><strong>Satuan</strong></td>
-										<td><strong>Tanggal Daftar</strong></td>
+										<td width="5%">No</td>
+										<td>Kode Barang</td>
+										<td>>Kategori</td>
+										<td>Nama Barang</td>
+										<td>Stok</td>
+										<td>Satuan</td>
+										<td>Tanggal Daftar</td>
 										</td>
 										<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-											<!-- <td><strong>Aksi</strong></td> -->
+									
 										<?php endif ?>
 										</tr>
 									</thead>

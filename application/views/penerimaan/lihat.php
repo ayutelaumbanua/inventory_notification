@@ -49,17 +49,17 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body">
+						<div class="card-body" style="font-size:0.9rem">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 									<tr style="background:#42444e;color:#fff;">
-											<td width="5%"><strong>No</strong></td>
-											<td><strong>No Terima</strong></td>
-											<td><strong>Nama Petugas</strong></td>
-											<td><strong>Nama Supplier</strong></td>
-											<td><strong>Tanggal Terima</strong></td>
-											<td><strong>Aksi</strong></td>
+											<td width="5%">No</td>
+											<td>No Terima</td>
+											<td>Nama Petugas</td>
+											<td>Nama Supplier</td>
+											<td>Tanggal Terima</td>
+											<td width="5%">Aksi</td>
 										</tr>
 									</thead>
 									<tbody>

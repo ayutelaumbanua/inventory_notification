@@ -75,7 +75,6 @@ class Barang extends CI_Controller
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
-
 		$data = [
 			'kode_barang' => $this->input->post('kode_barang'),
 			'kategori_barang' => $this->input->post('kategori_barang'),
@@ -85,7 +84,6 @@ class Barang extends CI_Controller
 			'tgl_edit' => $this->input->post('tgl_edit'),
 
 		];
-
 		if ($this->m_barang->edit($data, $kode_barang)) {
 			$this->session->set_flashdata('success', 'Data barang <strong>berhasil</strong> diperbaharui');
 			redirect('barang');
@@ -151,25 +149,6 @@ class Barang extends CI_Controller
 		}
 	}
 
-	// Data Stock Habis
-	public function stock_habis()
-	{
-		$this->data['title'] = 'Data Barang Habis';
-		$this->data['all_stock_habis'] = $this->m_barang->lihat_stock_habis();
-		$this->data['no'] = 1;
-
-		$this->load->view('barang/stock_habis', $this->data);
-	}
-	// Data Stock Expired
-	public function stock_expired()
-	{
-		$this->data['title'] = 'Data Barang Expired';
-		$this->data['all_stock_expired'] = $this->m_barang->lihat_stock_expired();
-		$this->data['no'] = 1;
-
-		$this->load->view('barang/stock_expired', $this->data);
-	}
-	// modifikasi satuan
 	public function edit_satuan($kode_satuan)
 	{
 		if ($this->session->login['role'] == 'staff_gudang') {
@@ -180,7 +159,7 @@ class Barang extends CI_Controller
 		$this->data['title'] = 'Edit Satuan';
 		$this->data['satuan'] = $this->m_barang->lihat_id_satuan($kode_satuan);
 
-		$this->load->view('satuan/edit', $this->data);
+		$this->load->view('barang/satuan', $this->data);
 	}
 
 	public function proses_edit_satuan($kode_satuan)
@@ -211,14 +190,34 @@ class Barang extends CI_Controller
 			redirect('dashboard');
 		}
 
-		if ($this->m_barang->hapus($kode_satuan)) {
+		if ($this->m_barang->hapus_satuan($kode_satuan)) {
 			$this->session->set_flashdata('success', 'Data satuan <strong>Berhasil</strong> dihapus');
-			redirect('barang');
+			redirect('barang/satuan');
 		} else {
 			$this->session->set_flashdata('error', 'Data satuan <strong>Gagal</strong> dihapus');
-			redirect('barang');
+			redirect('barang/satuan');
 		}
 	}
+
+	// Data Stock Habis
+	public function stock_habis()
+	{
+		$this->data['title'] = 'Data Barang Habis';
+		$this->data['all_stock_habis'] = $this->m_barang->lihat_stock_habis();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/stock_habis', $this->data);
+	}
+	// Data Stock Expired
+	public function stock_expired()
+	{
+		$this->data['title'] = 'Data Barang Expired';
+		$this->data['all_stock_expired'] = $this->m_barang->lihat_stock_expired();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/stock_expired', $this->data);
+	}
+
 
 	public function export()
 	{

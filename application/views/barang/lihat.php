@@ -4,7 +4,7 @@
 <head>
 	<?php $this->load->view('partials/head.php') ?>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
@@ -25,6 +25,8 @@
 						</div>
 						<div class="float-right">
 							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
+										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<span><a class="btn btn-warning btn-sm btn-sm dropdown-toggle" href="#" role="button"
 										id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
 										aria-expanded="false" style="color:#fff">
@@ -32,16 +34,11 @@
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 										<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
-											type="button"><i class="fa fa-box" style="color: orange"></i> Stock Barang
-											Habis</a>
-										<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">
-											<i class="fa fa-box" style="color: #e74a3b"></i> Stock Barang Expired</a>
-										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button"><i
-												class="fa fa-list" style="color: blue"></i> Data Satuan</a>
+											type="button">Barang Habis</a>
+										<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">Barang Expired</a>
+										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button">Data Satuan</a>
 									</div>
 								</span>
-								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
-										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<span>
 									<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
 										id="dropdownTambah" data-toggle="dropdown" aria-haspopup="true"
@@ -50,11 +47,11 @@
 									</a>
 									<div class="dropdown-menu" aria-labelledby="dropdownTambah">
 										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahBarang"><i class="fa fa-box" style="color: orange"></i>
+											data-target="#tambahBarang">
 											Tambah
 											Barang</a>
 										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahSatuan"><i class="fa fa-list" style="color: blue"></i>
+											data-target="#tambahSatuan">
 											Tambah
 											Satuan</a>
 									</div>
@@ -79,21 +76,21 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body">
+						<div class="card-body" style="font-size:0.9rem">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr style="background:#42444e;color:#fff;size:100px">
-											<td width="5%"><strong>No</strong></td>
-											<td><strong>Kode Barang</strong></td>
-											<td><strong>Kategori</strong></td>
-											<td><strong>Nama Barang</strong></td>
-											<td><strong>Stok</strong></td>
-											<td><strong>Satuan</strong></td>
-											<td><strong>Tanggal Daftar</strong></td>
+											<td width="5%">No</td>
+											<td>Kode Barang</td>
+											<td>Kategori</td>
+											<td>Nama Barang</td>
+											<td>Stok</td>
+											<td>Satuan></td>
+											<td>Tanggal Daftar</td>
 											</td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-												<td><strong>Aksi</strong></td>
+												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
 									</thead>

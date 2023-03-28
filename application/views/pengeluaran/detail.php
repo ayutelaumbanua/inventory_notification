@@ -47,7 +47,7 @@
 							</button>
 						</div>
 					<?php endif ?>
-					<div class="card shadow">
+					<div class="card shadow" style="font-size:0.9rem">
 						<div class="card-header"><strong>
 								<?= $title ?> -
 								<?= $pengeluaran->no_keluar ?>

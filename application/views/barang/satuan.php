@@ -46,24 +46,24 @@
                         </div>
                     <?php endif ?>
                     <div class="card shadow">
-                        <div class="card-body">
-                            <div class="table-responsive">
+                        <div class="card-body" style="font-size:0.9rem">
+                            <div class="table-responsive" font-weight-bold>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                    <thead >
                                         <tr style="background:#42444e;color:#fff;">
-                                            <td width="5%"><strong>No</strong></td>
-                                            <td><strong>Kode Satuan</strong></td>
-                                            <td><strong>Satuan</strong></td>
-                                            <td><strong>Tanggal Daftar</strong></td>
+                                            <td width="5%">No</td>
+                                            <td>Kode Satuan</td>
+                                            <td>Satuan</td>
+                                            <td>Tanggal Daftar</td>
                                             </td>
                                             <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-                                                <td><strong>Aksi</strong></td>
+                                                <td width="5%">Aksi</td>
                                             <?php endif ?>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($all_satuan as $satuan): ?>
-                                            <tr>
+                                            <tr >
                                                 <td>
                                                     <?= $no++ ?>
                                                 </td>
@@ -93,12 +93,11 @@
                                                                 <i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
                                                                 Edit Satuan
                                                             </a>
-
                                                             <a class="dropdown-item alert_notif"
-                                                                href="<?= base_url('barang/satuan/hapus/' . $satuan->kode_satuan) ?>"
+                                                                href="<?= base_url('barang/hapus_satuan/' . $satuan->kode_satuan) ?>"
                                                                 id="alert_notif">
-                                                                <i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-                                                                Hapus Satuan
+                                                                <i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>Hapus
+                                                                Satuan
                                                             </a>
                                                         </div>
                                                     </td>
@@ -115,7 +114,7 @@
                 <?php $no = 0; foreach ($all_satuan as $satuan):
                     $no++; ?>
                     <div id="editSatuan<?= $satuan->kode_satuan ?>" class="modal fade" role="dialog"
-                        data-url="<?= base_url('barang/satuan') ?>">
+                        data-url="<?= base_url('barang') ?>">
                         <div class="modal-dialog">
                             <div class="modal-content" style=" border-radius:0px;">
                                 <div class="modal-header" style="background:white;color:#fff;">
@@ -124,10 +123,9 @@
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
-
                                 <div class="modal-body">
-                                    <form action="<?= base_url('barang/satuan/proses_edit_satuan'. $satuan->kode_satuan) ?>" id="form-edit"
-                                        method="POST">
+                                    <form action="<?= base_url('barang/satuan/proses_edit_satuan' . $satuan->kode_satuan) ?>"
+                                        id="form-edit" method="POST">
                                         <div class="table-responsive">
                                             <table class="table" width="100%" cellspacing="0">
                                                 <thead>
@@ -168,6 +166,27 @@
     <script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
     <script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+   <script>
+        $('.alert_notif').on('click', function () {
+            var getLink = $(this).attr('href');
+            Swal.fire({
+                title: "Yakin hapus data?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'Ya',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: "Batal"
+
+            }).then(result => {
+                if (result.isConfirmed) {
+                    window.location.href = getLink
+                }
+            })
+            return false;
+        });
+    </script>
 </body>
 
 </html>

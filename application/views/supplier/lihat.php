@@ -50,20 +50,20 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body">
+						<div class="card-body" style="font-size:0.9rem">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 									<tr style="background:#42444e;color:#fff;">
-											<td><strong>No</strong></td>
-											<td><strong>Kode</strong></td>
-											<td><strong>Nama</strong></td>
-											<td><strong>Telepon</strong></td>
-											<td><strong>Email</strong></td>
-											<td><strong>Alamat</strong></td>
-											<td><strong>Tanggal Daftar</strong></td>
+											<td>No</td>
+											<td>Kode</td>
+											<td>Nama</td>
+											<td>Telepon</td>
+											<td>Email</td>
+											<td>Alamat</td>
+											<td>Tanggal Daftar</td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-												<td><strong>Aksi</strong></td>
+												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
 									</thead>

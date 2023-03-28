@@ -80,13 +80,16 @@ class M_barang extends CI_Model
 	{
 		return $this->db->insert($this->_table_satuan, $data);
 	}
-
 	public function edit_satuan($data, $kode_satuan)
 	{
 		$query = $this->db->set($data);
 		$query = $this->db->where(['kode_satuan' => $kode_satuan]);
 		$query = $this->db->update($this->_table_satuan);
 		return $query;
+	}
+	public function hapus_satuan($kode_satuan)
+	{
+		return $this->db->delete($this->_table_satuan, ['kode_satuan' => $kode_satuan]);
 	}
 
 	// Data Stock Habis

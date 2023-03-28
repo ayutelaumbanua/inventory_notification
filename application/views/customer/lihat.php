@@ -50,20 +50,20 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body">
+						<div class="card-body"style="font-size:0.9rem">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
-											<td><strong>No</strong></td>
-											<td><strong>Kode</strong></td>
-											<td><strong>Nama</strong></td>
-											<td><strong>Telepon</strong></td>
-											<td><strong>Email</strong></td>
-											<td><strong>Alamat</strong></td>
-											<td><strong>Tanggal Daftar</strong></td>
+											<td>No</td>
+											<td>Kode</td>
+											<td>Nama</td>
+											<td>Telepon</td>
+											<td>Email</td>
+											<td>Alamat</td>
+											<td>Tanggal Daftar</td>
 											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'staff_gudang'): ?>
-												<td><strong>Aksi</strong></td>
+												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
 									</thead>
@@ -133,7 +133,6 @@
 				<!-- Modals Tambah Customer -->
 				<div id="tambahCustomer" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
 					<div class="modal-dialog">
-						<!-- Modal content-->
 						<div class="modal-content" style=" border-radius:0px;">
 							<div class="modal-header" style="background:white;color:#fff;">
 								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i>
@@ -201,11 +200,9 @@
 				<!-- Modals Edit Customer -->
 				<?php $no = 0; foreach ($all_customer as $customer):
 					$no++; ?>
-
 					<div id="editCustomer<?= $customer->kode ?>" class="modal fade" role="dialog"
 						data-url="<?= base_url('customer') ?>">
 						<div class="modal-dialog">
-							<!-- Modal content-->
 							<div class="modal-content" style=" border-radius:0px;">
 								<div class="modal-header" style="background:white;color:#fff;">
 									<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
@@ -292,8 +289,6 @@
 		<!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
 		<?php unset($session['sukses']);
 	} ?>
-
-
 	<!-- di bawah ini adalah script untuk konfirmasi hapus data dengan sweet alert  -->
 	<script>
 		$('.alert_notif').on('click', function () {
