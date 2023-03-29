@@ -3,22 +3,18 @@
 
 <head>
     <?php $this->load->view('partials/head.php') ?>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
     <div id="wrapper">
-        <!-- load sidebar -->
         <?php $this->load->view('partials/sidebar.php') ?>
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content" data-url="<?= base_url('barang/satuan') ?>">
-                <!-- load Topbar -->
                 <?php $this->load->view('partials/topbar.php') ?>
                 <div class="container-fluid">
                     <div class="clearfix">
                         <div class="float-left">
-                            <h1 class="h3 m-0 text-gray-800">
+                            <h1 class="h4 m-0 text-gray-800">
                                 <?= $title ?>
                             </h1>
                         </div>
@@ -46,10 +42,10 @@
                         </div>
                     <?php endif ?>
                     <div class="card shadow">
-                        <div class="card-body" style="font-size:0.9rem">
+                        <div class="card-body">
                             <div class="table-responsive" font-weight-bold>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead >
+                                    <thead>
                                         <tr style="background:#42444e;color:#fff;">
                                             <td width="5%">No</td>
                                             <td>Kode Satuan</td>
@@ -63,7 +59,7 @@
                                     </thead>
                                     <tbody>
                                         <?php foreach ($all_satuan as $satuan): ?>
-                                            <tr >
+                                            <tr>
                                                 <td>
                                                     <?= $no++ ?>
                                                 </td>
@@ -75,7 +71,6 @@
                                                 </td>
                                                 <td>
                                                     <?= $satuan->tgl_daftar ?>
-
                                                 </td>
                                                 <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
                                                     <td>
@@ -110,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Modals Edit Satuan -->
+                <!-- Modal Edit Satuan -->
                 <?php $no = 0; foreach ($all_satuan as $satuan):
                     $no++; ?>
                     <div id="editSatuan<?= $satuan->kode_satuan ?>" class="modal fade" role="dialog"
@@ -124,7 +119,8 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="<?= base_url('barang/satuan/proses_edit_satuan' . $satuan->kode_satuan) ?>"
+                                    <form
+                                        action="<?= base_url('barang/satuan/proses_edit_satuan' . $satuan->kode_satuan) ?>"
                                         id="form-edit" method="POST">
                                         <div class="table-responsive">
                                             <table class="table" width="100%" cellspacing="0">
@@ -159,15 +155,11 @@
                     </div>
                 <?php endforeach ?>
             </div>
-            <!-- load footer -->
             <?php $this->load->view('partials/footer.php') ?>
         </div>
     </div>
-    <script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-    <script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
-   <script>
+    <?php $this->load->view('partials/js.php') ?>
+    <script>
         $('.alert_notif').on('click', function () {
             var getLink = $(this).attr('href');
             Swal.fire({

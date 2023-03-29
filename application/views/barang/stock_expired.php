@@ -3,32 +3,26 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
 	<div id="wrapper">
-		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('barang') ?>">
-				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
-							<h1 class="h3 m-0 text-gray-800">
+							<h1 class="h4 m-0 text-gray-800">
 								<?= $title ?>
 							</h1>
 						</div>
 						<div class="float-right">
-							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
 								<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
 										class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
-							<?php endif ?>
 						</div>
 					</div>
 					<hr>
@@ -88,15 +82,10 @@
 					</div>
 				</div>
 			</div>
-			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-
 	<?php $this->load->view('partials/js.php') ?>
-	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 </body>
 
 </html>

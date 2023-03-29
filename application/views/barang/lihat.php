@@ -3,44 +3,39 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
 </head>
 
 <body id="page-top">
 	<div id="wrapper">
-		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('barang') ?>">
-				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
-
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
-							<h1 class="h3 m-0 text-gray-800">
+							<h1 class="h4 m-0 text-gray-800">
 								<?= $title ?>
 							</h1>
 						</div>
 						<div class="float-right">
+							<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
+									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+							<span><a class="btn btn-warning btn-sm btn-sm dropdown-toggle" href="#" role="button"
+									id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false" style="color:#fff">
+									<i class="fas fa-clipboard-list"></i> Data Stock
+								</a>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
+										type="button">Barang Habis</a>
+									<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">Barang
+										Expired</a>
+									<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button">Data
+										Satuan</a>
+								</div>
+							</span>
 							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
-								<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
-										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-								<span><a class="btn btn-warning btn-sm btn-sm dropdown-toggle" href="#" role="button"
-										id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false" style="color:#fff">
-										<i class="fas fa-clipboard-list"></i> Data Stock
-									</a>
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-										<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
-											type="button">Barang Habis</a>
-										<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">Barang
-											Expired</a>
-										<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button">Data
-											Satuan</a>
-									</div>
-								</span>
 								<span>
 									<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
 										id="dropdownTambah" data-toggle="dropdown" aria-haspopup="true"
@@ -130,15 +125,14 @@
 															aria-labelledby="userDropdown">
 															<a class="dropdown-item" type="button" data-toggle="modal"
 																data-target="#editBarang<?= $barang->kode_barang ?>">
-																<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
-																Edit Barang
-															</a>
-															<a class="dropdown-item alert_notif"
+																<i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i> Edit
+																Barang</a>
+															<a class="dropdown-item alert_notif" style="color:black"
+																type="button"
 																href="<?= base_url('barang/hapus/' . $barang->kode_barang) ?>"
 																id="alert_notif">
-																<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-																Hapus Customer
-															</a>
+																<i class="fa fa-trash fa-sm fa-fw sm-2 text-danger"></i> Hapus
+																barang</a>
 														</div>
 													</td>
 												<?php endif ?>
@@ -156,16 +150,20 @@
 					<div class="modal-dialog">
 						<div class="modal-content" style=" border-radius:0px;">
 							<div class="modal-header" style="background:white;color:#fff;">
-								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800">Tambah
 									Barang
 								</h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
-
+							<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<span class="text-sm mb-0 text-danger">Note: Input <strong>stok</strong> pada Transaksi
+									Penerimaan Barang
+								</span>
+							</div>
 							<div class="modal-body">
 								<form action="<?= base_url('barang/proses_tambah_barang') ?>" id="form-tambah"
 									method="POST">
-									<div class="table-responsive">
+									<div class="table-responsive" styles="font-size:1rem">
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
 												<tr>
@@ -177,7 +175,6 @@
 												</tr>
 												<tr>
 													<td>Kategori Barang</td>
-
 													<td><select name="kategori_barang" id="kategori_barang"
 															class="form-control" required>
 															<option value="">-- Pilih Kategori --</option>
@@ -217,9 +214,7 @@
 															class="form-control"></td>
 												</tr>
 												<tr>
-													<i class="fa fa-paperclip text-danger"></i>
-													<i class="text-danger"> Input <strong>stok</strong> pada Transaksi
-														Penerimaan Barang</i>
+
 												</tr>
 											</thead>
 										</table>
@@ -369,17 +364,11 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
-			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
-	<!-- di bawah ini adalah script untuk konfirmasi hapus data dengan sweet alert  -->
+	<?php $this->load->view('partials/footer.php') ?>
 	<script>
 		$('.alert_notif').on('click', function () {
 			var getLink = $(this).attr('href');

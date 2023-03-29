@@ -45,8 +45,7 @@ class Login extends CI_Controller
 					'nama' => $get_staff_gudang->nama,
 					'username' => $get_staff_gudang->username,
 					'password' => $get_staff_gudang->password,
-					'role' => $this->input->post('role'),
-					'jam_masuk' => date('H:i:s')
+					'role' => $this->input->post('role')
 				];
 
 				$this->session->set_userdata('login', $session);

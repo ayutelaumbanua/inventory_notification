@@ -3,24 +3,18 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
 	<div id="wrapper">
-		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
-
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('customer') ?>">
-				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
-
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
-							<h1 class="h3 m-0 text-gray-800">
+							<h1 class="h4 m-0 text-gray-800">
 								<?= $title ?>
 							</h1>
 						</div>
@@ -50,7 +44,7 @@
 						</div>
 					<?php endif ?>
 					<div class="card shadow">
-						<div class="card-body"style="font-size:0.9rem">
+						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
@@ -104,24 +98,18 @@
 															aria-labelledby="userDropdown">
 															<a class="dropdown-item" type="button" data-toggle="modal"
 																data-target="#editCustomer<?= $customer->kode ?>">
-																<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
-																Edit Customer
-															</a>
-															<!-- <a href="<?php echo site_url('customer/hapus/' . $customer->kode); ?>"
-																onclick="return confirm('Apakah Anda Ingin Menghapus Data <?= $customer->kode ?> ?');"
-																class="btn btn-danger btn-circle" data-placement="top"
-																title="Hapus Data"><i class="fa fa-trash"></i></a> -->
-															<a class="dropdown-item alert_notif"
+																<i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i> Edit
+																Customer</a>
+															<a class="dropdown-item alert_notif" style="color:black"
+																type="button"
 																href="<?= base_url('customer/hapus/' . $customer->kode) ?>"
-																 id="alert_notif">
-																<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-																Hapus Customer
-															</a>
+																id="alert_notif">
+																<i class="fa fa-trash fa-sm fa-fw sm-2 text-danger"></i> Hapus
+																Customer</a>
 														</div>
 													</td>
 												<?php endif ?>
 											</tr>
-
 										<?php endforeach ?>
 									</tbody>
 								</table>
@@ -130,12 +118,12 @@
 					</div>
 				</div>
 
-				<!-- Modals Tambah Customer -->
+				<!-- Modal Tambah Customer -->
 				<div id="tambahCustomer" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
 					<div class="modal-dialog">
 						<div class="modal-content" style=" border-radius:0px;">
 							<div class="modal-header" style="background:white;color:#fff;">
-								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i>
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800">
 									Tambah Customer
 								</h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -197,11 +185,11 @@
 						</div>
 					</div>
 				</div>
-				<!-- Modals Edit Customer -->
+
+				<!-- Modal Edit Customer -->
 				<?php $no = 0; foreach ($all_customer as $customer):
 					$no++; ?>
-					<div id="editCustomer<?= $customer->kode ?>" class="modal fade" role="dialog"
-						data-url="<?= base_url('customer') ?>">
+					<div id="editCustomer<?= $customer->kode ?>" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
 						<div class="modal-dialog">
 							<div class="modal-content" style=" border-radius:0px;">
 								<div class="modal-header" style="background:white;color:#fff;">
@@ -217,7 +205,7 @@
 											<table class="table" width="100%" cellspacing="0">
 												<thead>
 													<tr>
-														<td><label for="kode_barang">Kode Customer</label></td>
+														<td><label for="kode_customer">Kode Customer</label></td>
 														<td><input type="text" name="kode" placeholder="Masukkan Kode"
 																autocomplete="off" class="form-control" required
 																value="<?= $customer->kode ?>" maxlength="8" readonly>
@@ -266,14 +254,9 @@
 					</div>
 				<?php endforeach ?>
 			</div>
-			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
 	<!-- jika ada session sukses maka tampilkan sweet alert dengan pesan yang telah di set
 	di dalam session sukses  -->
 	<?php if (@$m_customer->hapus->session['success']) { ?>
@@ -301,7 +284,6 @@
 				confirmButtonText: 'Ya',
 				cancelButtonColor: '#3085d6',
 				cancelButtonText: "Batal"
-
 			}).then(result => {
 				if (result.isConfirmed) {
 					window.location.href = getLink

@@ -4,20 +4,14 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
 	<div id="wrapper">
-		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
-
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content" data-url="<?= base_url('pengeluaran') ?>">
-				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
-
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
@@ -138,7 +132,7 @@
 												</tbody>
 												<tfoot>
 													<tr>
-														<td colspan="5" align="center">
+														<td colspan="5">
 															<input type="hidden" name="max_hidden" value="">
 															<button type="submit" class="btn btn-primary"><i
 																	class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>

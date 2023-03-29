@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 	<meta name="theme-color" content="#f45">
 	<!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 	<title>Inventory Management- Login</title>
@@ -82,11 +81,7 @@
 			</div>
 		</div>
 	</div>
-
-	<script src="<?= base_url('assets') ?>/vendor/jquery/jquery.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script src="<?= base_url('assets') ?>/js/bootstrap.min.js"></script>
+	<?php $this->load->view('partials/js.php') ?>
 	<script>
 		var BASE_URL = '<?= base_url() ?>';
 		document.addEventListener('DOMContentLoaded', init, false);

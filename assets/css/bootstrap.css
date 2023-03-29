@@ -178,7 +178,7 @@ a:hover {
 }
 
 a:not([href]):not([tabindex]) {
-  color: inherit;
+  color: black;
   text-decoration: none
 }
 
@@ -1624,7 +1624,7 @@ pre code {
 .table th {
   padding: .75rem;
   vertical-align: top;
-  border-top: 1px solid #e3e6f0
+
 }
 
 .table thead th {
@@ -1966,7 +1966,7 @@ pre code {
   width: 100%;
   height: calc(1.5em + .75rem + 2px);
   padding: .375rem .75rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.5;
   color: #6e707e;
@@ -2524,7 +2524,7 @@ textarea.form-control.is-invalid {
   background-color: transparent;
   border: 1px solid transparent;
   padding: .375rem .75rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.5;
   border-radius: .35rem;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
@@ -4794,10 +4794,10 @@ input[type=submit].btn-block {
 }
 
 .card-header {
-  padding: .75rem 1.25rem;
-  margin-bottom: 0;
-  background-color: #0a2f9c;
-  border-bottom: 1px solid #e3e6f0
+  padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
 .card-header:first-child {
