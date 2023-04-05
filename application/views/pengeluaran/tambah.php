@@ -32,38 +32,29 @@
 								<div class="card-body">
 									<form action="<?= base_url('pengeluaran/proses_tambah') ?>" id="form-tambah"
 										method="POST">
-										<h5>Data Petugas</h5>
-										<hr>
-										<div class="form-row">
-											<div class="form-group col-3">
-												<label>No. Terima</label>
-												<input type="text" name="no_keluar" value="TR<?= time() ?>" readonly
-													class="form-control">
-											</div>
-											<div class="form-group col-3">
-												<label>Kode Petugas</label>
-												<input type="text" name="kode_petugas"
-													value="<?= $this->session->login['kode'] ?>" readonly
-													class="form-control">
-											</div>
-											<div class="form-group col-3">
-												<label>Nama Petugas</label>
-												<input type="text" name="nama_petugas"
-													value="<?= $this->session->login['nama'] ?>" readonly
-													class="form-control">
-											</div>
-											<div class="form-group col-3">
-												<label>Tanggal Keluar</label>
-												<input type="text" name="tgl_keluar" value="<?= date("j F Y, G:i"); ?>"
-													readonly class="form-control">
-											</div>
-										</div>
 										<div class="row">
-											<div class="col-md-4">
-												<h5>Data Customer</h5>
+											<div class="col-md-6">
+												<h5>Data Petugas</h5>
 												<hr>
 												<div class="form-row">
-													<div class="form-group col-10">
+													<div class="form-group col-5">
+														<label>No. Keluar</label>
+														<input type="text" name="no_keluar" value="TR<?= time() ?>"
+															readonly class="form-control">
+													</div>
+													<div class="form-group col-5">
+														<label>Nama Petugas</label>
+														<input type="text" name="nama_petugas"
+															value="<?= $this->session->userdata['nama'] ?>" readonly
+															class="form-control">
+													</div>
+													<div class="form-group col-md-5">
+														<label>Tanggal Keluar</label>
+														<input type="text" name="tgl_keluar"
+															value="<?= date("Y-m-d H:i:s"); ?>" readonly
+															class="form-control">
+													</div>
+													<div class="form-group col-5">
 														<label for="nama_customer">Nama Customer</label>
 														<select name="nama_customer" id="nama_customer"
 															class="form-control">
@@ -81,11 +72,16 @@
 													<input type="hidden" name="nama_customer" value="">
 												</div>
 											</div>
-											<div class="col-md-8">
+											<div class="col-md-6">
 												<h5>Data Barang</h5>
 												<hr>
 												<div class="form-row">
-													<div class="form-group col-4">
+													<div class="form-group col-6">
+														<label>Kode Barang</label>
+														<input type="text" name="kode_barang" value="" readonly
+															class="form-control">
+													</div>
+													<div class="form-group col-6">
 														<label for="nama_barang">Nama Barang</label>
 														<select name="nama_barang" id="nama_barang"
 															class="form-control">
@@ -95,17 +91,12 @@
 															<?php endforeach ?>
 														</select>
 													</div>
-													<div class="form-group col-4">
-														<label>Kode Barang</label>
-														<input type="text" name="kode_barang" value="" readonly
-															class="form-control">
-													</div>
-													<div class="form-group col-3">
+													<div class="form-group col-6">
 														<label>Jumlah</label>
 														<input type="number" name="jumlah" value="" class="form-control"
 															readonly min='1'>
 													</div>
-													<div class="form-group col-1">
+													<div class="form-group col-6">
 														<label for="">&nbsp;</label>
 														<button disabled type="button" class="btn btn-primary btn-block"
 															id="tambah"><i class="fa fa-plus"></i></button>
@@ -132,7 +123,7 @@
 												</tbody>
 												<tfoot>
 													<tr>
-														<td colspan="5">
+														<td colspan="5" align="center">
 															<input type="hidden" name="max_hidden" value="">
 															<button type="submit" class="btn btn-primary"><i
 																	class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
@@ -148,7 +139,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
@@ -201,7 +191,7 @@
 				}
 			})
 
-		$(document).on('click', '#tambah', function (e) {
+			$(document).on('click', '#tambah', function (e) {
 				const url_keranjang_barang = $('#content').data('url') + '/keranjang_barang'
 				const data_keranjang = {
 					nama_barang: $('select[name="nama_barang"]').val(),
@@ -263,4 +253,5 @@
 		})
 	</script>
 </body>
+
 </html>

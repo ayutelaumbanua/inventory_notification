@@ -19,10 +19,10 @@
 							</h1>
 						</div>
 						<div class="float-right">
-								<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
-										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-								<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
-										class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
+							<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
+									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+							<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
+									class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
 						</div>
 					</div>
 					<hr>
@@ -47,6 +47,7 @@
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
+											<td><strong>No</strong></td>
 											<td><strong>No Terima</strong></td>
 											<td><strong>Nama Barang</strong></td>
 											<td><strong>Jumlah</strong></td>
@@ -56,22 +57,25 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach ($all_stock_expired as $detail_barang_masuk): ?>
+										<?php foreach ($all_stock_expired as $detail_penerimaan): ?>
 											<tr>
 												<td>
-													<?= $detail_barang_masuk->no_terima ?>
+													<?= $no++ ?>
 												</td>
 												<td>
-													<?= $detail_barang_masuk->nama_barang ?>
+													<?= $detail_penerimaan->no_terima ?>
 												</td>
 												<td>
-													<?= $detail_barang_masuk->jumlah ?>
+													<?= $detail_penerimaan->nama_barang ?>
 												</td>
 												<td>
-													<?= $detail_barang_masuk->satuan ?>
+													<?= $detail_penerimaan->jumlah ?>
 												</td>
 												<td>
-													<?= $detail_barang_masuk->tgl_expired  ?>
+													<?= $detail_penerimaan->satuan ?>
+												</td>
+												<td>
+													<?= $detail_penerimaan->tgl_expired ?>
 												</td>
 											</tr>
 										<?php endforeach ?>

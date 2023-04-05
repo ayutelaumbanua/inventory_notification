@@ -7,8 +7,9 @@ class Customer extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		if ($this->session->login['role'] != 'staff_gudang' && $this->session->login['role'] != 'purchasing' && $this->session->login['role'] != 'manager')
+		if ($this->session->userdata('access') != 'Manager' && $this->session->userdata('access') != 'Purchasing' && $this->session->userdata('access') != 'Staff Gudang')
 			redirect();
+
 		$this->load->model('M_customer', 'm_customer');
 		$this->data['aktif'] = 'customer';
 	}
@@ -24,7 +25,7 @@ class Customer extends CI_Controller
 
 	public function tambah()
 	{
-		if ($this->session->login['role'] == 'purchasing') {
+		if ($this->session->userdata('access') == 'Purchasing') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
@@ -36,13 +37,12 @@ class Customer extends CI_Controller
 
 	public function proses_tambah()
 	{
-		if ($this->session->login['role'] == 'purchasing') {
+		if ($this->session->userdata('access') == 'Purchasing') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
 		$data = [
-			'kode' => $this->input->post('kode'),
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
 			'telepon' => $this->input->post('telepon'),
@@ -59,27 +59,26 @@ class Customer extends CI_Controller
 		}
 	}
 
-	public function edit($kode)
+	public function edit($id)
 	{
-		if ($this->session->login['role'] == 'purchasing') {
+		if ($this->session->userdata('access') == 'Purchasing') {
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
 		$this->data['title'] = 'Edit Customer';
-		$this->data['customer'] = $this->m_customer->lihat_id($kode);
+		$this->data['customer'] = $this->m_customer->lihat_id($id);
 		$this->load->view('customer/edit', $this->data);
 	}
 
-	public function proses_edit($kode)
+	public function proses_edit($id)
 	{
-		if ($this->session->login['role'] == 'purchasing') {
+		if ($this->session->userdata('access') == 'Purchasing') {
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
 		$data = [
-			'kode' => $this->input->post('kode'),
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
 			'telepon' => $this->input->post('telepon'),
@@ -87,7 +86,7 @@ class Customer extends CI_Controller
 
 		];
 
-		if ($this->m_customer->edit($data, $kode)) {
+		if ($this->m_customer->edit($data, $id)) {
 			$this->session->set_flashdata('success', 'Data customer <strong>berhasil</strong> diperbaharui');
 			redirect('customer');
 		} else {
@@ -96,14 +95,14 @@ class Customer extends CI_Controller
 		}
 	}
 
-	public function hapus($kode)
+	public function hapus($id)
 	{
-		if ($this->session->login['role'] == 'purchasing') {
+		if ($this->session->userdata('access') == 'Purchasing') {
 			$this->session->set_flashdata('error', 'Hapus data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
-		if ($this->m_customer->hapus($kode)) {
+		if ($this->m_customer->hapus($id)) {
 			$this->session->set_flashdata('success', 'Data customer <strong>berhasil</strong> dihapus');
 			redirect('customer');
 		} else {

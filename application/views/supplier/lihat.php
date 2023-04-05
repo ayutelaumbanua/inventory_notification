@@ -19,7 +19,7 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
 								<a href="<?= base_url('supplier/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -50,13 +50,13 @@
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
 											<td>No</td>
-											<td>Kode</td>
+											<td>ID</td>
 											<td>Nama</td>
 											<td>Telepon</td>
 											<td>Email</td>
 											<td>Alamat</td>
 											<td>Tanggal Daftar</td>
-											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+											<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
 												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
@@ -68,7 +68,7 @@
 													<?= $no++ ?>
 												</td>
 												<td>
-													<?= $supplier->kode ?>
+													<?= $supplier->id ?>
 												</td>
 												<td>
 													<?= $supplier->nama ?>
@@ -83,9 +83,9 @@
 													<?= $supplier->alamat ?>
 												</td>
 												<td>
-													<?= $supplier->tgl_daftar ?>
+													<?= date('d-m-Y H:i:s', strtotime($supplier->tgl_daftar)) ?>
 												</td>
-												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+												<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -97,12 +97,12 @@
 														<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 															aria-labelledby="userDropdown">
 															<a class="dropdown-item" type="button" data-toggle="modal"
-																data-target="#editSupplier<?= $supplier->kode ?>">
+																data-target="#editSupplier<?= $supplier->id ?>">
 																<i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i> Edit
 																Supplier</a>
 															<a class="dropdown-item alert_notif" style="color:black"
 																type="button"
-																href="<?= base_url('supplier/hapus/' . $supplier->kode) ?>"
+																href="<?= base_url('supplier/hapus/' . $supplier->id) ?>"
 																id="alert_notif">
 																<i class="fa fa-trash fa-sm fa-fw sm-2 text-danger"></i> Hapus
 																Supplier</a>
@@ -132,13 +132,6 @@
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<td><label for="kode">Kode Supplier</label></td>
-													<td><input type="text" name="kode" placeholder="Masukkan Kode"
-															autocomplete="off" class="form-control" required
-															value="SPL<?= mt_rand(100, 999) ?>" maxlength="8" readonly>
-													</td>
-												</tr>
-												<tr>
 													<td>Nama Supplier</td>
 													<td><input type="text" name="nama" placeholder="Masukkan Nama"
 															autocomplete="off" class="form-control" required></td>
@@ -161,11 +154,8 @@
 															placeholder="Masukkan Alamat"></textarea></td>
 												</tr>
 												<tr>
-													<td>
-														Tanggal Daftar
-													</td>
-													<td><input type="text" name="tgl_daftar"
-															value="<?= date("j F Y, G:i"); ?>" readonly
+													<td><input type="hidden" name="tgl_daftar"
+															value="<?= date('Y-m-d H:i:s'); ?>" readonly
 															class="form-control"></td>
 												</tr>
 											</thead>
@@ -186,7 +176,7 @@
 				<!-- Modal Edit Supplier -->
 				<?php $no = 0; foreach ($all_supplier as $supplier):
 					$no++; ?>
-					<div id="editSupplier<?= $supplier->kode ?>" class="modal fade" role="dialog"
+					<div id="editSupplier<?= $supplier->id ?>" class="modal fade" role="dialog"
 						data-url="<?= base_url('supplier') ?>">
 						<div class="modal-dialog">
 							<div class="modal-content" style=" border-radius:0px;">
@@ -197,18 +187,11 @@
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div class="modal-body">
-									<form action="<?= base_url('supplier/proses_edit/' . $supplier->kode) ?>"
-										id="form-tambah" method="POST">
+									<form action="<?= base_url('supplier/proses_edit/' . $supplier->id) ?>" id="form-tambah"
+										method="POST">
 										<div class="table-responsive">
 											<table class="table" width="100%" cellspacing="0">
 												<thead>
-													<tr>
-														<td><label for="kode_barang">Kode Supplier</label></td>
-														<td><input type="text" name="kode" placeholder="Masukkan Kode"
-																autocomplete="off" class="form-control" required
-																value="<?= $supplier->kode ?>" maxlength="8" readonly>
-														</td>
-													</tr>
 													<tr>
 														<td>Nama Supplier</td>
 														<td><input type="text" name="nama" placeholder="Masukkan Nama"

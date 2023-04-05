@@ -4,7 +4,7 @@ class M_barang extends CI_Model
 {
 	protected $_table = 'barang';
 	protected $_table_satuan = 'satuan';
-	protected $_table_expired = 'detail_barang_masuk';
+
 
 	// Data Barang
 	public function lihat()
@@ -60,6 +60,7 @@ class M_barang extends CI_Model
 		$query = $this->db->update($this->_table);
 		return $query;
 	}
+
 	public function hapus($kode_barang)
 	{
 		return $this->db->delete($this->_table, ['kode_barang' => $kode_barang]);
@@ -71,25 +72,25 @@ class M_barang extends CI_Model
 		$query = $this->db->get($this->_table_satuan);
 		return $query->result();
 	}
-	public function lihat_id_satuan($kode_satuan)
+	public function lihat_id_satuan($id_satuan)
 	{
-		$query = $this->db->get_where($this->_table_satuan, ['kode_satuan' => $kode_satuan]);
+		$query = $this->db->get_where($this->_table_satuan, ['id_satuan' => $id_satuan]);
 		return $query->row();
 	}
 	public function tambah_satuan($data)
 	{
 		return $this->db->insert($this->_table_satuan, $data);
 	}
-	public function edit_satuan($data, $kode_satuan)
+	public function edit_satuan($data, $id_satuan)
 	{
 		$query = $this->db->set($data);
-		$query = $this->db->where(['kode_satuan' => $kode_satuan]);
+		$query = $this->db->where(['id_satuan' => $id_satuan]);
 		$query = $this->db->update($this->_table_satuan);
 		return $query;
 	}
-	public function hapus_satuan($kode_satuan)
+	public function hapus_satuan($id_satuan)
 	{
-		return $this->db->delete($this->_table_satuan, ['kode_satuan' => $kode_satuan]);
+		return $this->db->delete($this->_table_satuan, ['id_satuan' => $id_satuan]);
 	}
 
 	// Data Stock Habis
@@ -98,23 +99,24 @@ class M_barang extends CI_Model
 		$query = $this->db->get_where($this->_table, 'stok < 5');
 		return $query->result();
 	}
+
+	public function stock_habis($data)
+	{
+		return $this->db->insert($this->_table, $data);
+	}
 	public function jumlah_stock_habis()
 	{
 		$query = $this->db->get_where($this->_table, 'stok < 5');
 		return $query->num_rows();
 	}
-	public function stock_habis($data)
-	{
-		return $this->db->insert($this->_table, $data);
-	}
-
 
 	// Data Stock Expired
 	public function lihat_stock_expired()
 	{
-		$tgl_now = date("j F Y");
-		$tgl_exp = "tgl_expired";
-		$query = $this->db->get_where($this->_table_expired, $tgl_now > $tgl_exp );
+		$this->db->select('*');
+		$this->db->from('detail_penerimaan');
+		$this->db->where('tgl_expired <=', date('Y-m-d', strtotime('+14 days')));
+		$query = $this->db->get();
 		return $query->result();
 	}
 

@@ -22,8 +22,10 @@
 						<div class="float-right">
 							<a href="<?= base_url('penerimaan/export') ?>" class="btn btn-danger btn-sm"><i
 									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+									<?php if($this->session->userdata('access')=='Manager' or $this->session->userdata('access')=='Purchasing'): ?>
 							<a href="<?= base_url('penerimaan/tambah') ?>" class="btn btn-primary btn-sm"><i
 									class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+									<?php endif ?>
 						</div>
 					</div>
 					<hr>
@@ -72,7 +74,7 @@
 													<?= $penerimaan->nama_supplier ?>
 												</td>
 												<td>
-													<?= $penerimaan->tgl_terima ?>
+													<?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima))?>
 												</td>
 												<td>
 													<a class="dropdown-toggle" href="#" id="userDropdown" role="button"

@@ -23,11 +23,11 @@
 		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 			<thead>
 				<tr>
-					<td width="10%"><strong>No</strong></td>
+					<td width="5%"><strong>No</strong></td>
 					<td><strong>No Keluar</strong></td>
-						<td><strong>Nama Petugas</strong></td>
-						<td><strong>Nama Customer</strong></td>
-						<td><strong>Tanggal Keluar</strong></td>
+					<td><strong>Nama Petugas</strong></td>
+					<td><strong>Nama Customer</strong></td>
+					<td><strong>Tanggal Keluar</strong></td>
 				</tr>
 			</thead>
 			<tbody>

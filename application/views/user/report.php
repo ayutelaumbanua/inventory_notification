@@ -20,45 +20,45 @@
 	</div>
 	<hr>
 	<div class="row">
-		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		<table class="table" id="dataTable" width="100%" cellspacing="0">
 			<thead>
 				<tr>
 					<td><strong>No</strong></td>
-					<td><strong>ID Staff</strong></td>
 					<td><strong>Nama Staff</strong></td>
 					<td><strong>Email</strong></td>
 					<td><strong>Telpon</strong></td>
 					<td><strong>Alamat</strong></td>
 					<td><strong>Username</strong></td>
-					<td><strong>Password</strong></td>
+					<td><strong>Level</strong></td>
+					<td><strong>Status</strong></td>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($all_staff_gudang as $staff_gudang): ?>
+				<?php foreach ($all_user as $user): ?>
 					<tr>
 						<td>
 							<?= $no++ ?>
 						</td>
 						<td>
-							<?= $staff_gudang->kode ?>
+							<?= $user->nama ?>
 						</td>
 						<td>
-							<?= $staff_gudang->nama ?>
+							<?= $user->email ?>
 						</td>
 						<td>
-							<?= $staff_gudang->email ?>
+							<?= $user->telepon ?>
 						</td>
 						<td>
-							<?= $staff_gudang->telepon ?>
+							<?= $user->alamat ?>
 						</td>
 						<td>
-							<?= $staff_gudang->alamat?>
-						</td>
-												<td>
-							<?= $staff_gudang->username ?>
+							<?= $user->username ?>
 						</td>
 						<td>
-							<?= $staff_gudang->password ?>
+							<?= $user->level ?>
+						</td>
+						<td>
+							<?= $user->status ?>
 						</td>
 					</tr>
 				<?php endforeach ?>

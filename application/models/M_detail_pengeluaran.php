@@ -1,8 +1,8 @@
 <?php
 
-class M_detail_barang_keluar extends CI_Model
+class M_detail_pengeluaran extends CI_Model
 {
-	protected $_table = 'detail_barang_keluar';
+	protected $_table = 'detail_pengeluaran';
 
 	public function tambah($data)
 	{

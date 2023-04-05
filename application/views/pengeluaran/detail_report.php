@@ -50,12 +50,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($all_detail_barang_keluar as $detail_barang_keluar): ?>
+					<?php foreach ($all_detail_pengeluaran as $detail_pengeluaran): ?>
 						<tr>
 							<td><?= $no++ ?></td>
-							<td><?= $detail_barang_keluar->nama_barang ?></td>
-							<td><?= $detail_barang_keluar->jumlah ?> </td>
-							<td><?= $detail_barang_keluar->satuan ?></td>
+							<td><?= $detail_pengeluaran->nama_barang ?></td>
+							<td><?= $detail_pengeluaran->jumlah ?> </td>
+							<td><?= $detail_pengeluaran->satuan ?></td>
 						</tr>
 					<?php endforeach ?>
 				</tbody>

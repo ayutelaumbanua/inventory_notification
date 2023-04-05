@@ -7,7 +7,7 @@ class Supplier extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		if ($this->session->login['role'] != 'staff_gudang' && $this->session->login['role'] != 'purchasing' && $this->session->login['role'] != 'manager')
+		if ($this->session->userdata('access') != 'Manager' && $this->session->userdata('access') != 'Purchasing' && $this->session->userdata('access') != 'Staff Gudang')
 			redirect();
 		$this->load->model('M_supplier', 'm_supplier');
 		$this->data['aktif'] = 'supplier';
@@ -24,7 +24,7 @@ class Supplier extends CI_Controller
 
 	public function tambah()
 	{
-		if ($this->session->login['role'] == 'staff_gudang') {
+		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
@@ -36,13 +36,12 @@ class Supplier extends CI_Controller
 
 	public function proses_tambah()
 	{
-		if ($this->session->login['role'] == 'staff_gudang') {
+		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
 		$data = [
-			'kode' => $this->input->post('kode'),
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
 			'telepon' => $this->input->post('telepon'),
@@ -59,35 +58,34 @@ class Supplier extends CI_Controller
 		}
 	}
 
-	public function edit($kode)
+	public function edit($id)
 	{
-		if ($this->session->login['role'] == 'staff_gudang') {
+		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
 		$this->data['title'] = 'Edit Supplier';
-		$this->data['supplier'] = $this->m_supplier->lihat_id($kode);
+		$this->data['supplier'] = $this->m_supplier->lihat_id($id);
 
 		$this->load->view('supplier/edit', $this->data);
 	}
 
-	public function proses_edit($kode)
+	public function proses_edit($id)
 	{
-		if ($this->session->login['role'] == 'staff_gudang') {
+		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
 		$data = [
-			'kode' => $this->input->post('kode'),
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
 			'telepon' => $this->input->post('telepon'),
 			'alamat' => $this->input->post('alamat'),
 		];
 
-		if ($this->m_supplier->edit($data, $kode)) {
+		if ($this->m_supplier->edit($data, $id)) {
 			$this->session->set_flashdata('success', 'Data supplier <strong>berhasil</strong> diperbaharui');
 			redirect('supplier');
 		} else {
@@ -96,14 +94,14 @@ class Supplier extends CI_Controller
 		}
 	}
 
-	public function hapus($kode)
+	public function hapus($id)
 	{
-		if ($this->session->login['role'] == 'staff_gudang') {
+		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Hapus data tidak dapat dilakukan!');
 			redirect('dashboard');
 		}
 
-		if ($this->m_supplier->hapus($kode)) {
+		if ($this->m_supplier->hapus($id)) {
 			$this->session->set_flashdata('success', 'Data supplier <strong>berhasil</strong> dihapus');
 			redirect('supplier');
 		} else {

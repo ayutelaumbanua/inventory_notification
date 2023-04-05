@@ -1,9 +1,9 @@
 <?php
 
-class M_purchasing extends CI_Model
+class M_user extends CI_Model
 {
-	protected $_table = 'purchasing';
-
+	protected $_table = 'user';
+	
 	public function lihat()
 	{
 		$query = $this->db->get($this->_table);

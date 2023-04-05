@@ -49,11 +49,10 @@
 										<tr style="background:#42444e;color:#fff;">
 											<td width="5%">No</td>
 											<td width="15%">Kode Barang</td>
-											<td >Kategori</td>
+											<td>Kategori</td>
 											<td width="35%">Nama Barang</td>
 											<td>Stok</td>
 											<td witdh="5%">Satuan</td>
-											<td width="18%">Tanggal Daftar</td>
 											</td>
 										</tr>
 									</thead>
@@ -77,9 +76,6 @@
 												</td>
 												<td>
 													<?= $barang->satuan ?>
-												</td>
-												<td>
-													<?= $barang->tgl_daftar ?>
 												</td>
 											</tr>
 										<?php endforeach ?>

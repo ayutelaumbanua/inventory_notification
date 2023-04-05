@@ -21,8 +21,10 @@
 						<div class="float-right">
 							<a href="<?= base_url('pengeluaran/export') ?>" class="btn btn-danger btn-sm"><i
 									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-							<a href="<?= base_url('pengeluaran/tambah') ?>" class="btn btn-primary btn-sm"><i
-									class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
+								<a href="<?= base_url('pengeluaran/tambah') ?>" class="btn btn-primary btn-sm"><i
+										class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+							<?php endif ?>
 						</div>
 					</div>
 					<hr>
@@ -50,9 +52,9 @@
 											<td width="5%">No</td>
 											<td>No Terima</td>
 											<td>Nama Petugas</td>
-											<td>Nama Supplier</td>
+											<td>Nama Customer</td>
 											<td>Tanggal Terima</td>
-											<td>Aksi</td>
+											<td width="5%">Aksi</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -71,7 +73,7 @@
 													<?= $pengeluaran->nama_customer ?>
 												</td>
 												<td>
-													<?= $pengeluaran->tgl_keluar ?>
+													<?= date('d-m-Y H:i:s', strtotime($pengeluaran->tgl_keluar)) ?>
 
 												</td>
 												<td>

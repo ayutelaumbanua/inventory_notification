@@ -3,29 +3,28 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body id="page-top">
 	<div id="wrapper">
 		<!-- load sidebar -->
 		<?php $this->load->view('partials/sidebar.php') ?>
 		<div id="content-wrapper" class="d-flex flex-column">
-			<div id="content" data-url="<?= base_url('manager') ?>">
+			<div id="content" data-url="<?= base_url('user') ?>">
 				<!-- load Topbar -->
 				<?php $this->load->view('partials/topbar.php') ?>
 				<div class="container-fluid">
 					<div class="clearfix">
 						<div class="float-left">
-							<h1 class="h3 m-0 text-gray-800">
+							<h1 class="h4 m-0 text-gray-800">
 								<?= $title ?>
 							</h1>
 						</div>
 						<div class="float-right">
-							<a href="<?= base_url('manager/export') ?>" class="btn btn-danger btn-sm"><i
+							<a href="<?= base_url('user/export') ?>" class="btn btn-danger btn-sm"><i
 									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 							<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
-								data-target="#tambahManager"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+								data-target="#tambahUser"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
 						</div>
 					</div>
 					<hr>
@@ -50,43 +49,43 @@
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
-											<td width="5%"><strong>No</strong></td>
-											<td width="10%"><strong>ID Staff</strong></td>
-											<td><strong>Nama</strong></td>
-											<td><strong>Email</strong></td>
-											<td><strong>Telepon</strong></td>
-											<td><strong>Alamat</strong></td>
-											<td><strong>Username</strong></td>
-											<td><strong>Password</strong></td>
-											<td><strong>Aksi</strong></td>
+											<td width="5%">No</td>
+											<td>Nama</td>
+											<td>Email</td>
+											<td>Telepon</td>
+											<td>Jabatan</td>
+											<td>Username</td>
+											<!-- <td>Password</td> -->
+											<td>Status</td>
+											<td>Aksi</td>
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach ($all_manager as $manager): ?>
+										<?php foreach ($all_user as $user): ?>
 											<tr>
 												<td>
 													<?= $no++ ?>
 												</td>
 												<td>
-													<?= $manager->kode ?>
+													<?= $user->nama ?>
 												</td>
 												<td>
-													<?= $manager->nama ?>
+													<?= $user->email ?>
 												</td>
 												<td>
-													<?= $manager->email ?>
+													<?= $user->telepon ?>
 												</td>
 												<td>
-													<?= $manager->telepon ?>
+													<?= $user->level ?>
 												</td>
 												<td>
-													<?= $manager->alamat ?>
+													<?= $user->username ?>
 												</td>
+												<!-- <td>
+													<?= $user->password ?>
+												</td> -->
 												<td>
-													<?= $manager->username ?>
-												</td>
-												<td>
-													<?= $manager->password ?>
+													<?= $user->status ?>
 												</td>
 												<td>
 													<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -99,15 +98,16 @@
 													<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 														aria-labelledby="userDropdown">
 														<a class="dropdown-item" type="button" data-toggle="modal"
-															data-target="#editManager<?= $manager->kode ?>">
-															<i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
-															Edit Manager
+															data-target="#editUser<?= $user->id ?>">
+															<i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i>
+															Edit User
 														</a>
-														<a class="dropdown-item alert_notif"
-															href="<?= base_url('manager/hapus/' . $manager->id) ?>"
+														<a class="dropdown-item alert_notif" type="button"
+															style="color:black"
+															href="<?= base_url('user/hapus/' . $user->id) ?>"
 															id="alert_notif">
-															<i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>
-															Hapus Customer
+															<i class="fa fa-trash fa-sm fa-fw sm-2 text-danger"></i>
+															Hapus User
 														</a>
 													</div>
 												</td>
@@ -118,31 +118,23 @@
 						</div>
 					</div>
 				</div>
-				<!-- Modals Tambah Manager -->
-				<div id="tambahManager" class="modal fade" role="dialog" data-url="<?= base_url('manager') ?>">
+				<!-- Modals Tambah User -->
+				<div id="tambahUser" class="modal fade" role="dialog" data-url="<?= base_url('user') ?>">
 					<div class="modal-dialog">
 						<div class="modal-content" style=" border-radius:0px;">
 							<div class="modal-header" style="background:white;color:#fff;">
-								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i>
-									Tambah Manager
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800">&nbsp;&nbsp;Tambah User
 								</h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 
 							<div class="modal-body">
-								<form action="<?= base_url('manager/proses_tambah') ?>" id="form-edit" method="POST">
+								<form action="<?= base_url('user/proses_tambah') ?>" id="form-edit" method="POST">
 									<div class="table-responsive">
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<td><label for="kode_barang">Kode Manager</label></td>
-													<td><input type="text" name="kode" placeholder="Masukkan Kode"
-															autocomplete="off" class="form-control" required
-															value="MNG<?= mt_rand(100, 999) ?>" maxlength="8" readonly>
-													</td>
-												</tr>
-												<tr>
-													<td>Nama Manager</td>
+													<td>Nama</td>
 													<td><input type="text" name="nama" placeholder="Masukkan Nama"
 															autocomplete="off" class="form-control" required></td>
 												</tr>
@@ -158,22 +150,45 @@
 															autocomplete="off" class="form-control" required></td>
 												</tr>
 												<tr>
-													<td>Alamat</td>
-													<td><textarea name="alamat" id="alamat" style="resize: none;"
-															class="form-control"
-															placeholder="Masukkan Alamat"></textarea></td>
+													<td>Jabatan</td>
+													<td>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio"
+																class="form-control" name="level" id="level"
+																value="Manager" />
+															<label class="form-check-label"
+																for="inlineRadio1">Manager</label>
+														</div>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio"
+																class="form-control" name="level" id="level"
+																value="Staff Gudang" />
+															<label class="form-check-label"
+																for="inlineRadio2">Purchasing</label>
+														</div>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio"
+																class="form-control" name="level" id="level"
+																value="Staff Gudang" />
+															<label class="form-check-label" for="inlineRadio2">Staff
+																Gudang</label>
+														</div>
+													</td>
 												</tr>
 												<tr>
 													<td>Username</td>
 													<td><input type="text" name="username"
 															placeholder="Masukkan Username" autocomplete="off"
-															class="form-control" required readonly></td>
+															class="form-control" required></td>
 												</tr>
 												<tr>
 													<td>Password</td>
 													<td><input type="text" name="password"
 															placeholder="Masukkan Password" autocomplete="off"
 															class="form-control" required></td>
+												</tr>
+												<tr>
+													<td><input type="hidden" name="status" value="Aktif"></td>
 												</tr>
 											</thead>
 										</table>
@@ -189,64 +204,100 @@
 						</div>
 					</div>
 				</div>
-				<!-- Modals Edit Manager -->
-				<?php $no = 0; foreach ($all_manager as $manager):
+				<!-- Modal Edit User -->
+				<?php $no = 0; foreach ($all_user as $user):
 					$no++; ?>
-					<div id="editManager<?= $manager->kode ?>" class="modal fade" role="dialog"
-						data-url="<?= base_url('manager') ?>">
+					<div id="editUser<?= $user->id ?>" class="modal fade" role="dialog" data-url="<?= base_url('user') ?>">
 						<div class="modal-dialog">
 							<div class="modal-content" style=" border-radius:0px;">
 								<div class="modal-header" style="background:white;color:#fff;">
-									<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Edit
-										Manager
-									</h5>
+									<h5 class="h5 mb-0 font-weight-bold text-gray-800"></i> Edit Data User </h5>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div class="modal-body">
-									<form action="<?= base_url('manager/proses_edit/' . $manager->id) ?>" id="form-tambah"
+									<form action="<?= base_url('user/proses_edit/' . $user->id) ?>" id="form-tambah"
 										method="POST">
 										<div class="table-responsive">
 											<table class="table" width="100%" cellspacing="0">
 												<thead>
 													<tr>
-														<td><label for="kode">Kode Manager</label></td>
-														<td><input type="text" name="kode" placeholder="Masukkan Kode"
-																autocomplete="off" class="form-control" required
-																value="<?= $manager->kode ?>" maxlength="8" readonly>
-														</td>
-													</tr>
-													<tr>
-														<td>Nama Manager</td>
+														<td>Nama </td>
 														<td><input type="text" name="nama" placeholder="Masukkan Nama"
 																autocomplete="off" class="form-control"
-																value="<?= $manager->nama ?>" required></td>
+																value="<?= $user->nama ?>" required></td>
 													</tr>
 													<tr>
 														<td>Telepon</td>
 														<td><input type="number" name="telepon"
 																placeholder="Masukkan Nomor Telepon" autocomplete="off"
-																class="form-control" value="<?= $manager->telepon ?>"
-																required></td>
+																class="form-control" value="<?= $user->telepon ?>" required>
+														</td>
 													</tr>
 													<tr>
 														<td>Email</td>
 														<td><input type="email" name="email" placeholder="Masukkan Email"
 																autocomplete="off" class="form-control"
-																value="<?= $manager->email ?>" required></td>
+																value="<?= $user->email ?>" required></td>
 													</tr>
 													<tr>
-														<td>Alamat</td>
-														<td><textarea name="alamat" id="alamat" style="resize: none;"
-																class="form-control"
-																placeholder="Masukkan Alamat"><?= $manager->alamat ?></textarea>
+														<td>Jabatan</td>
+														<td>
+															<div class="form-check form-check-inline">
+																<input class="form-check-input" type="radio"
+																	class="form-control" name="level" id="level"
+																	value="Manager" <?php echo ($user->level == 'Manager') ? 'checked' : '' ?> />
+																<label class="form-check-label"
+																	for="inlineRadio1">Manager</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input class="form-check-input" type="radio"
+																	class="form-control" name="level" id="level"
+																	value="Staff Gudang" <?php echo ($user->level == 'Purchasing') ? 'checked' : '' ?> />
+																<label class="form-check-label"
+																	for="inlineRadio2">Purchasing</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input class="form-check-input" type="radio"
+																	class="form-control" name="level" id="level"
+																	value="Staff Gudang" <?php echo ($user->level == 'Staff Gudang') ? 'checked' : '' ?> />
+																<label class="form-check-label" for="inlineRadio2">Staff
+																	Gudang</label>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>Username</td>
+														<td><input type="text" name="username"
+																placeholder="Masukkan Username" autocomplete="off"
+																class="form-control" value="<?= $user->username ?>"
+																required>
 														</td>
 													</tr>
 													<tr>
 														<td>Password</td>
 														<td><input type="text" name="password"
 																placeholder="Masukkan Password" autocomplete="off"
-																class="form-control" value="<?= $manager->password ?>"
+																class="form-control" value="<?= $user->password ?>"
 																required></td>
+													</tr>
+													<tr>
+														<td>Status</td>
+														<td>
+															<div class="form-check form-check-inline">
+																<input class="form-check-input" type="radio"
+																	class="form-control" name="status" id="status"
+																	value="Aktif" <?php echo ($user->status == 'Aktif') ? 'checked' : '' ?> />
+																<label class="form-check-label"
+																	for="inlineRadio1">Aktif</label>
+															</div>
+															<div class="form-check form-check-inline">
+																<input class="form-check-input" type="radio"
+																	class="form-control" name="status" id="status"
+																	value="Tidak Aktif" <?php echo ($user->status == 'Tidak Aktif') ? 'checked' : '' ?> />
+																<label class="form-check-label" for="inlineRadio2">Tidak
+																	Aktif</label>
+															</div>
+														</td>
 													</tr>
 												</thead>
 											</table>
@@ -264,21 +315,10 @@
 					</div>
 				<?php endforeach ?>
 			</div>
-			<!-- load footer -->
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function () {
-			let username = $('input[name="kode"]').val().split('MNG');
-			username = 'Manager-' + username[1]
-			$('input[name="username"]').val(username)
-		})
-	</script>
-	<script src="<?= base_url('assets/js/demo/datatables-demo.js') ?>"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.7/dist/sweetalert2.all.min.js"></script>
+	<?php $this->load->view('partials/js.php') ?>
 	<script>
 		$('.alert_notif').on('click', function () {
 			var getLink = $(this).attr('href');

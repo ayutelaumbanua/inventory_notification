@@ -1,116 +1,90 @@
 <?php
-
 class Login extends CI_Controller
 {
-	public function __construct()
-	{
-		parent::__construct();
-		date_default_timezone_set('Asia/Jakarta');
-		if ($this->session->login)
-			redirect('dashboard');
-		$this->load->model('M_manager', 'm_manager');
-		$this->load->model('M_staff_gudang', 'm_staff_gudang');
-		$this->load->model('M_purchasing', 'm_purchasing');
-	}
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('M_login', 'M_login');
+    }
 
-	public function index()
-	{
-		$this->load->view('login');
-	}
+    function index()
+    {
+        if ($this->session->userdata('logged') != TRUE) {
+            $this->load->view('login');
+        } else {
+            $url = base_url('dashboard');
+            redirect($url);
+        }
+        ;
+    }
 
-	public function proses_login()
-	{
-		if ($this->input->post('role') === 'staff_gudang')
-			$this->_proses_login_staff_gudang($this->input->post('username'));
-		elseif ($this->input->post('role') === 'purchasing')
-			$this->_proses_login_purchasing($this->input->post('username'));
-		elseif ($this->input->post('role') === 'manager')
-			$this->_proses_login_manager($this->input->post('username'));
-		else {
-			?>
-			<script>
-				alert('role tidak tersedia!')
-			</script>
-			<?php
-		}
-	}
+    function autentikasi()
+    {
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
 
-	protected function _proses_login_staff_gudang($username)
-	{
-		$get_staff_gudang = $this->m_staff_gudang->lihat_username($username);
-		if ($get_staff_gudang) {
-			if ($get_staff_gudang->password == $this->input->post('password')) {
-				$session = [
-					'kode' => $get_staff_gudang->kode,
-					'nama' => $get_staff_gudang->nama,
-					'username' => $get_staff_gudang->username,
-					'password' => $get_staff_gudang->password,
-					'role' => $this->input->post('role')
-				];
+        $validasi_username = $this->M_login->query_validasi_username($username);
+        if ($validasi_username->num_rows() > 0) {
+            $validate_ps = $this->M_login->query_validasi_password($username, $password);
+            if ($validate_ps->num_rows() > 0) {
+                $x = $validate_ps->row_array();
+                if ($x['status'] == 'Aktif') {
+                    $this->session->set_userdata('logged', TRUE);
+                    $this->session->set_userdata('user', $username);
+                    $id = $x['id'];
+                    if ($x['level'] == 'Manager') {
+                        $nama = $x['nama'];
+                        $this->session->set_userdata('access', 'Manager');
+                        $this->session->set_userdata('id', $id);
+                        $this->session->set_userdata('nama', $nama);
+                        $this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
+                        redirect('dashboard');
 
-				$this->session->set_userdata('login', $session);
-				$this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
-				redirect('dashboard');
-			} else {
-				$this->session->set_flashdata('error', 'Password Salah!');
-				redirect();
-			}
-		} else {
-			$this->session->set_flashdata('error', 'Username Salah!');
-			redirect();
-		}
-	}
-	
-	protected function _proses_login_purchasing($username)
-	{
-		$get_purchasing = $this->m_purchasing->lihat_username($username);
-		if ($get_purchasing) {
-			if ($get_purchasing->password == $this->input->post('password')) {
-				$session = [
-					'kode' => $get_purchasing->kode,
-					'nama' => $get_purchasing->nama,
-					'username' => $get_purchasing->username,
-					'password' => $get_purchasing->password,
-					'role' => $this->input->post('role'),
-					'jam_masuk' => date('H:i:s')
-				];
+                    } else if ($x['level'] == 'Purchasing') {
+                        $nama = $x['nama'];
+                        $this->session->set_userdata('access', 'Purchasing');
+                        $this->session->set_userdata('id', $id);
+                        $this->session->set_userdata('nama', $nama);
+                        $this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
+                        redirect('dashboard');
 
-				$this->session->set_userdata('login', $session);
-				$this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
-				redirect('dashboard');
-			} else {
-				$this->session->set_flashdata('error', 'Password Salah!');
-				redirect();
-			}
-		} else {
-			$this->session->set_flashdata('error', 'Username Salah!');
-			redirect();
-		}
-	}
-	protected function _proses_login_manager($username)
-	{
-		$get_manager = $this->m_manager->lihat_username($username);
-		if ($get_manager) {
-			if ($get_manager->password == $this->input->post('password')) {
-				$session = [
-					'kode' => $get_manager->kode,
-					'nama' => $get_manager->nama,
-					'username' => $get_manager->username,
-					'password' => $get_manager->password,
-					'role' => $this->input->post('role'),
-					'jam_masuk' => date('H:i:s')
-				];
+                    } else if ($x['level'] == 'Staff Gudang') {
+                        $nama = $x['nama'];
+                        $this->session->set_userdata('access', 'Staff Gudang');
+                        $this->session->set_userdata('id', $id);
+                        $this->session->set_userdata('nama', $nama);
+                        $this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
+                        redirect('dashboard');
+                    }
+                } else {
+                    $url = base_url('login');
+                    echo $this->session->set_flashdata('msg', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
+                    <h3>Uupps!</h3>
+                    <p>Akun kamu telah di blokir. Silahkan hubungi admin.</p>');
+                    redirect($url);
+                }
+            } else {
+                $url = base_url('login');
+                echo $this->session->set_flashdata('msg', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
+                    <h3>Uupps!</h3>
+                    <p>Password yang kamu masukan salah.</p>');
+                redirect($url);
+            }
 
-				$this->session->set_userdata('login', $session);
-				$this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
-				redirect('dashboard');
-			} else {
-				$this->session->set_flashdata('error', 'Password Salah!');
-				redirect();
-			}
-		} else {
-			$this->session->set_flashdata('error', 'Username Salah!');
-			redirect();
-		}
-	}
+        } else {
+            $url = base_url('login');
+            echo $this->session->set_flashdata('msg', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
+            <h3>Uupps!</h3>
+            <p>Username yang kamu masukan salah.</p>');
+            redirect($url);
+        }
+
+    }
+
+    function logout()
+    {
+        $this->session->sess_destroy();
+        $url = base_url('login');
+        redirect($url);
+    }
 }

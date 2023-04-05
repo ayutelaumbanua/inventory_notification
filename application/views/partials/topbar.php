@@ -1,18 +1,14 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-	<!-- Sidebar Toggle (Topbar) -->
 	<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 		<i class="fa fa-bars"></i>
 	</button>
-	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
-		<!-- Nav Item - Alerts -->
 		<div class="dropdown">
 			<li class="nav-item dropdown no-arrow sm-1">
 				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-bell fa-fw"></i>
+					<i class="fas fa-bell fa-fw text-warning"></i>
 					<span id="notif"></span></a>
-				<!-- Dropdown - Alerts -->
 				<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 					aria-labelledby="alertsDropdown">
 					<a class="dropdown-item text-left medium bg-primary text-white"
@@ -23,15 +19,13 @@
 				</div>
 			</li>
 		</div>
-		<!-- Nav Item - Messages -->
 		<div class="topbar-divider d-none d-sm-block"></div>
-		<!-- Nav Item - User Information -->
 		<li class="nav-item dropdown no-arrow">
 			<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">
 				<span class="mr-2 d-none d-lg-inline text-gray-600 large">
 					<i class="fas fa-fw fa-user"></i>
-					<?= $this->session->login['nama'] ?>
+					<?php echo $this->session->userdata('nama'); ?>
 				</span>
 			</a>
 			<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -65,7 +59,7 @@
 					console.log(a);
 					var nama_barang = element.nama_barang
 					$('#dropdown').append(
-						'<a class="dropdown-item d-flex align-items-center" href="#" id="dropdown">' +
+						'<a class="dropdown-item d-flex align-items-center" href="<?= base_url('barang/stock_habis') ?>" id="dropdown">' +
 						'<div class="mr-3">' +
 						'<div class="icon-circle bg-warning">' +
 						'<i class="fas fa-exclamation-triangle text-white"></i></div></div>' +
@@ -76,7 +70,6 @@
 				i++
 				a++
 			});
-			// $('.dropdown').dropdown('show')
 			$('#notif').append(
 				'<span class="badge badge-danger badge-counter" id="notif">' + i + '</span>'
 			);

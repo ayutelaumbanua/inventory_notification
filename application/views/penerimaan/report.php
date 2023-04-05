@@ -30,7 +30,7 @@
 						<td><?= $penerimaan->no_terima ?></td>
 						<td><?= $penerimaan->nama_petugas ?></td>
 						<td><?= $penerimaan->nama_supplier ?></td>
-						<td><?= $penerimaan->tgl_terima ?></td>
+						<td><?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima))?></td>
 					</tr>
 				<?php endforeach ?>
 			</tbody>

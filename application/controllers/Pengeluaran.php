@@ -12,7 +12,7 @@ class Pengeluaran extends CI_Controller
 		$this->load->model('M_barang', 'm_barang');
 		$this->load->model('M_customer', 'm_customer');
 		$this->load->model('M_pengeluaran', 'm_pengeluaran');
-		$this->load->model('M_detail_barang_keluar', 'm_detail_barang_keluar');
+		$this->load->model('M_detail_pengeluaran', 'm_detail_pengeluaran');
 	}
 
 	public function index()
@@ -44,18 +44,18 @@ class Pengeluaran extends CI_Controller
 			'nama_petugas' => $this->input->post('nama_petugas'),
 		];
 
-		$data_detail_barang_keluar = [];
+		$data_detail_pengeluaran = [];
 
 		for ($i = 0; $i < $jumlah_barang_keluar; $i++) {
-			array_push($data_detail_barang_keluar, ['no_keluar' => $this->input->post('no_keluar')]);
-			$data_detail_barang_keluar[$i]['nama_barang'] = $this->input->post('nama_barang_hidden')[$i];
-			$data_detail_barang_keluar[$i]['jumlah'] = $this->input->post('jumlah_hidden')[$i];
-			$data_detail_barang_keluar[$i]['satuan'] = $this->input->post('satuan_hidden')[$i];
+			array_push($data_detail_pengeluaran, ['no_keluar' => $this->input->post('no_keluar')]);
+			$data_detail_pengeluaran[$i]['nama_barang'] = $this->input->post('nama_barang_hidden')[$i];
+			$data_detail_pengeluaran[$i]['jumlah'] = $this->input->post('jumlah_hidden')[$i];
+			$data_detail_pengeluaran[$i]['satuan'] = $this->input->post('satuan_hidden')[$i];
 		}
 
-		if ($this->m_pengeluaran->tambah($data_barang_keluar) && $this->m_detail_barang_keluar->tambah($data_detail_barang_keluar)) {
+		if ($this->m_pengeluaran->tambah($data_barang_keluar) && $this->m_detail_pengeluaran->tambah($data_detail_pengeluaran)) {
 			for ($i = 0; $i < $jumlah_barang_keluar; $i++) {
-				$this->m_barang->min_stok($data_detail_barang_keluar[$i]['jumlah'], $data_detail_barang_keluar[$i]['nama_barang']) or die('gagal min stok');
+				$this->m_barang->min_stok($data_detail_pengeluaran[$i]['jumlah'], $data_detail_pengeluaran[$i]['nama_barang']) or die('gagal min stok');
 			}
 			$this->session->set_flashdata('success', 'Invoice <strong>Pengeluaran</strong> Berhasil Dibuat!');
 			redirect('pengeluaran');
@@ -66,7 +66,7 @@ class Pengeluaran extends CI_Controller
 	{
 		$this->data['title'] = 'Detail Pengeluaran';
 		$this->data['pengeluaran'] = $this->m_pengeluaran->lihat_no_keluar($no_keluar);
-		$this->data['all_detail_barang_keluar'] = $this->m_detail_barang_keluar->lihat_no_keluar($no_keluar);
+		$this->data['all_detail_pengeluaran'] = $this->m_detail_pengeluaran->lihat_no_keluar($no_keluar);
 		$this->data['no'] = 1;
 
 		$this->load->view('pengeluaran/detail', $this->data);
@@ -74,7 +74,7 @@ class Pengeluaran extends CI_Controller
 
 	public function hapus($no_keluar)
 	{
-		if ($this->m_pengeluaran->hapus($no_keluar) && $this->m_detail_barang_keluar->hapus($no_keluar)) {
+		if ($this->m_pengeluaran->hapus($no_keluar) && $this->m_detail_pengeluaran->hapus($no_keluar)) {
 			$this->session->set_flashdata('success', 'Invoice pengeluaran <strong>berhasil</strong> dihapus');
 			redirect('pengeluaran');
 		} else {
@@ -114,7 +114,7 @@ class Pengeluaran extends CI_Controller
 		$dompdf = new Dompdf();
 		// $this->data['perusahaan'] = $this->m_usaha->lihat();
 		$this->data['pengeluaran'] = $this->m_pengeluaran->lihat_no_keluar($no_keluar);
-		$this->data['all_detail_barang_keluar'] = $this->m_detail_barang_keluar->lihat_no_keluar($no_keluar);
+		$this->data['all_detail_pengeluaran'] = $this->m_detail_pengeluaran->lihat_no_keluar($no_keluar);
 		$this->data['title'] = 'Laporan Detail Pengeluaran';
 		$this->data['no'] = 1;
 

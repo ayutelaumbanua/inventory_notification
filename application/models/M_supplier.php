@@ -23,9 +23,9 @@ class M_supplier extends CI_Model
 		return $query->result();
 	}
 
-	public function lihat_id($kode)
+	public function lihat_id($id)
 	{
-		$query = $this->db->get_where($this->_table, ['kode' => $kode]);
+		$query = $this->db->get_where($this->_table, ['id' => $id]);
 		return $query->row();
 	}
 
@@ -34,16 +34,16 @@ class M_supplier extends CI_Model
 		return $this->db->insert($this->_table, $data);
 	}
 
-	public function edit($data, $kode)
+	public function edit($data, $id)
 	{
 		$query = $this->db->set($data);
-		$query = $this->db->where(['kode' => $kode]);
+		$query = $this->db->where(['id' => $id]);
 		$query = $this->db->update($this->_table);
 		return $query;
 	}
 
-	public function hapus($kode)
+	public function hapus($id)
 	{
-		return $this->db->delete($this->_table, ['kode' => $kode]);
+		return $this->db->delete($this->_table, ['id' => $id]);
 	}
 }

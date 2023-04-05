@@ -19,7 +19,7 @@
                             </h1>
                         </div>
                         <div class="float-right">
-                            <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+                            <?php if ($this->session->userdata['access'] == 'Manager' or $this->session->userdata['access'] == 'Purchasing'): ?>
                                 <a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
                                         class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
                             <?php endif ?>
@@ -48,11 +48,11 @@
                                     <thead>
                                         <tr style="background:#42444e;color:#fff;">
                                             <td width="5%">No</td>
-                                            <td>Kode Satuan</td>
                                             <td>Satuan</td>
                                             <td>Tanggal Daftar</td>
                                             </td>
-                                            <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+                                            <?php if ($this->session->userdata['access'] == 'Manager' or $this->session->userdata['access'] == 'Purchasing'): ?>
+
                                                 <td width="5%">Aksi</td>
                                             <?php endif ?>
                                         </tr>
@@ -64,15 +64,12 @@
                                                     <?= $no++ ?>
                                                 </td>
                                                 <td>
-                                                    <?= $satuan->kode_satuan ?>
-                                                </td>
-                                                <td>
                                                     <?= $satuan->satuan ?>
                                                 </td>
                                                 <td>
-                                                    <?= $satuan->tgl_daftar ?>
+                                                    <?= date('d-m-Y H:i:s', strtotime($satuan->tgl_daftar)) ?>
                                                 </td>
-                                                <?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+                                                <?php if ($this->session->userdata['access'] == 'Manager' or $this->session->userdata['access'] == 'Purchasing'): ?>
                                                     <td>
                                                         <a class="dropdown-toggle" href="#" id="userDropdown" role="button"
                                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -84,14 +81,15 @@
                                                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                                             aria-labelledby="userDropdown">
                                                             <a class="dropdown-item" type="button" data-toggle="modal"
-                                                                data-target="#editSatuan<?= $satuan->kode_satuan ?>">
-                                                                <i class="fa fa-pen fa-sm fa-fw sm-2 text-gray-400"></i>
+                                                                data-target="#editSatuan<?= $satuan->id_satuan ?>">
+                                                                <i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i>
                                                                 Edit Satuan
                                                             </a>
-                                                            <a class="dropdown-item alert_notif"
-                                                                href="<?= base_url('barang/hapus_satuan/' . $satuan->kode_satuan) ?>"
+                                                            <a class="dropdown-item alert_notif" style="color:black"
+                                                                type="button"
+                                                                href="<?= base_url('barang/hapus_satuan/' . $satuan->id_satuan) ?>"
                                                                 id="alert_notif">
-                                                                <i class="fa fa-trash fa-sm fa-fw mr-2 text-gray-400"></i>Hapus
+                                                                <i class="fa fa-trash fa-sm fa-fw sm-2 text-danger"></i> Hapus
                                                                 Satuan
                                                             </a>
                                                         </div>
@@ -108,7 +106,7 @@
                 <!-- Modal Edit Satuan -->
                 <?php $no = 0; foreach ($all_satuan as $satuan):
                     $no++; ?>
-                    <div id="editSatuan<?= $satuan->kode_satuan ?>" class="modal fade" role="dialog"
+                    <div id="editSatuan<?= $satuan->id_satuan ?>" class="modal fade" role="dialog"
                         data-url="<?= base_url('barang') ?>">
                         <div class="modal-dialog">
                             <div class="modal-content" style=" border-radius:0px;">
@@ -119,20 +117,11 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form
-                                        action="<?= base_url('barang/satuan/proses_edit_satuan' . $satuan->kode_satuan) ?>"
+                                    <form action="<?= base_url('barang/satuan/proses_edit_satuan' . $satuan->id_satuan) ?>"
                                         id="form-edit" method="POST">
                                         <div class="table-responsive">
                                             <table class="table" width="100%" cellspacing="0">
                                                 <thead>
-                                                    <tr>
-                                                        <td><label for="kode_satuan">Kode Satuan</label></td>
-                                                        <td><input type="text" name="kode_satuan"
-                                                                placeholder="Masukkan Kode Satuan" autocomplete="off"
-                                                                class="form-control" required
-                                                                value="<?= $satuan->kode_satuan ?>" maxlength="8" readonly>
-                                                        </td>
-                                                    </tr>
                                                     <tr>
                                                         <td>Satuan</td>
                                                         <td><input type="text" name="satuan" placeholder="Masukkan Satuan"

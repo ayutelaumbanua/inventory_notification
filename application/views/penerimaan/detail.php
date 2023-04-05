@@ -75,7 +75,7 @@
 											<td>Waktu Penerimaan</td>
 											<td>:</td>
 											<td>
-												<?= $penerimaan->tgl_terima ?>
+											<?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima))?>
 											</td>
 										</tr>
 									</table>
@@ -95,22 +95,22 @@
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach ($all_detail_barang_masuk as $detail_barang_masuk): ?>
+											<?php foreach ($all_detail_penerimaan as $detail_penerimaan): ?>
 												<tr>
 													<td>
 														<?= $no++ ?>
 													</td>
 													<td>
-														<?= $detail_barang_masuk->nama_barang ?>
+														<?= $detail_penerimaan->nama_barang ?>
 													</td>
 													<td>
-														<?= $detail_barang_masuk->jumlah ?>
+														<?= $detail_penerimaan->jumlah ?>
 													</td>
 													<td>
-														<?= $detail_barang_masuk->satuan ?>
+														<?= $detail_penerimaan->satuan ?>
 													</td>
 													<td>
-														<?= $detail_barang_masuk->tgl_expired ?>
+														<?= date('d-m-Y H:i:s', strtotime($detail_penerimaan->tgl_expired)) ?>
 													</td>
 												</tr>
 											<?php endforeach ?>

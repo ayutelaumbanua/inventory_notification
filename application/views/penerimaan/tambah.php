@@ -3,7 +3,7 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	
+
 </head>
 
 <body id="page-top">
@@ -27,43 +27,34 @@
 					<hr>
 					<div class="row">
 						<div class="col">
-							<div class="card shadow" >
+							<div class="card shadow">
 								<div class="card-header"><strong>Isi Form Dibawah Ini</strong></div>
 								<div class="card-body">
 									<form action="<?= base_url('penerimaan/proses_tambah') ?>" id="form-tambah"
 										method="POST">
-										<h5>Data Petugas</h5>
-										<hr>
-										<div class="form-row">
-											<div class="form-group col-3">
-												<label>No. Terima</label>
-												<input type="text" name="no_terima" value="TR<?= time() ?>" readonly
-													class="form-control">
-											</div>
-											<div class="form-group col-3">
-												<label>Kode Petugas</label>
-												<input type="text" name="kode_petugas"
-													value="<?= $this->session->login['kode'] ?>" readonly
-													class="form-control">
-											</div>
-											<div class="form-group col-3">
-												<label>Nama Petugas</label>
-												<input type="text" name="nama_petugas"
-													value="<?= $this->session->login['nama'] ?>" readonly
-													class="form-control">
-											</div>
-											<div class="form-group col-md-3">
-												<label>Tanggal Terima</label>
-												<input type="text" name="tgl_terima" value="<?= date("j F Y, G:i"); ?>"
-													readonly class="form-control">
-											</div>
-										</div>
 										<div class="row">
-											<div class="col-md-4">
-												<h5>Data Suppplier</h5>
+											<div class="col-md-6">
+												<h5>Data Petugas</h5>
 												<hr>
 												<div class="form-row">
-													<div class="form-group col-10">
+													<div class="form-group col-6">
+														<label>No. Terima</label>
+														<input type="text" name="no_terima" value="TR<?= time() ?>"
+															readonly class="form-control">
+													</div>
+													<div class="form-group col-4">
+														<label>Nama Petugas</label>
+														<input type="text" name="nama_petugas"
+															value="<?= $this->session->userdata['nama'] ?>" readonly
+															class="form-control">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Tanggal Terima</label>
+														<input type="text" name="tgl_terima"
+															value="<?= date("Y-m-d H:i:s"); ?>" readonly
+															class="form-control">
+													</div>
+													<div class="form-group col-4">
 														<label for="nama_supplierr">Nama Supplier</label>
 														<select name="nama_supplier" id="nama_supplier"
 															class="form-control">
@@ -81,7 +72,7 @@
 													<input type="hidden" name="nama_supplier" value="">
 												</div>
 											</div>
-											<div class="col-md-8">
+											<div class="col-md-6">
 												<h5>Data Barang</h5>
 												<hr>
 												<div class="form-row">
@@ -107,8 +98,8 @@
 													</div>
 													<div class="form-group col-6">
 														<label>Tanggal Expired</label>
-														<input type="text" name="tgl_expired"
-															value="<?= date('j F Y') ?>" class="form-control">
+														<input type="date" name="tgl_expired" d-m-Y
+															value="<?= date('Y-m-d') ?>" class="form-control">
 													</div>
 
 													<div class="form-group col-2">
@@ -119,7 +110,6 @@
 													<input type="hidden" name="satuan" value="">
 												</div>
 											</div>
-
 										</div>
 										<div class="keranjang">
 											<h5>Detail Penerimaan</h5>
@@ -202,7 +192,6 @@
 							$('input[name="max_hidden"]').val(data.stok)
 							$('input[name="jumlah"]').prop('readonly', false)
 							$('button#tambah').prop('disabled', false)
-
 							$('input[name="jumlah"]').on('keydown keyup change blur', function () {
 								$('input[name="sub_total"]').val($('input[name="jumlah"]').val() * $('input[name="harga_barang"]').val())
 							})

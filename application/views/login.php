@@ -51,7 +51,7 @@
 											height="100px">
 									</div>
 									<br>
-									<form class="user" method="POST" action="<?= base_url('login/proses_login') ?>">
+									<form class="user" method="POST" action="<?php echo site_url('login/autentikasi');?>">
 										<div class="form-group">
 											<input type="text" class="form-control" id="username"
 												placeholder="Masukkan Username" autocomplete="off" required
@@ -61,14 +61,14 @@
 											<input type="password" class="form-control" id="password"
 												placeholder="Masukkan Password" required name="password">
 										</div>
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<select name="role" id="role" class="form-control" required>
 												<option value="">Login As</option>
 												<option value="manager">Manager</option>
 												<option value="purchasing">Purchasing</option>
 												<option value="staff_gudang">Staff Gudang</option>
 											</select>
-										</div>
+										</div> -->
 										<button type="submit" class="btn btn-primary btn-block" name="login">
 											Login
 										</button>

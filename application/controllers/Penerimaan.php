@@ -12,7 +12,7 @@ class Penerimaan extends CI_Controller
 		$this->load->model('M_barang', 'm_barang');
 		$this->load->model('M_supplier', 'm_supplier');
 		$this->load->model('M_penerimaan', 'm_penerimaan');
-		$this->load->model('M_detail_barang_masuk', 'm_detail_barang_masuk');
+		$this->load->model('M_detail_penerimaan', 'm_detail_penerimaan');
 	}
 
 	public function index()
@@ -42,18 +42,18 @@ class Penerimaan extends CI_Controller
 			'nama_petugas' => $this->input->post('nama_petugas'),
 		];
 
-		$data_detail_barang_masuk = [];
+		$data_detail_penerimaan = [];
 		for ($i = 0; $i < $jumlah_barang_diterima; $i++) {
-			array_push($data_detail_barang_masuk, ['no_terima' => $this->input->post('no_terima')]);
-			$data_detail_barang_masuk[$i]['nama_barang'] = $this->input->post('nama_barang_hidden')[$i];
-			$data_detail_barang_masuk[$i]['jumlah'] = $this->input->post('jumlah_hidden')[$i];
-			$data_detail_barang_masuk[$i]['satuan'] = $this->input->post('satuan_hidden')[$i];
-			$data_detail_barang_masuk[$i]['tgl_expired'] = $this->input->post('tgl_expired_hidden')[$i];
+			array_push($data_detail_penerimaan, ['no_terima' => $this->input->post('no_terima')]);
+			$data_detail_penerimaan[$i]['nama_barang'] = $this->input->post('nama_barang_hidden')[$i];
+			$data_detail_penerimaan[$i]['jumlah'] = $this->input->post('jumlah_hidden')[$i];
+			$data_detail_penerimaan[$i]['satuan'] = $this->input->post('satuan_hidden')[$i];
+			$data_detail_penerimaan[$i]['tgl_expired'] = $this->input->post('tgl_expired_hidden')[$i];
 		}
 
-		if ($this->m_penerimaan->tambah($data_terima) && $this->m_detail_barang_masuk->tambah($data_detail_barang_masuk)) {
+		if ($this->m_penerimaan->tambah($data_terima) && $this->m_detail_penerimaan->tambah($data_detail_penerimaan)) {
 			for ($i = 0; $i < $jumlah_barang_diterima; $i++) {
-				$this->m_barang->plus_stok($data_detail_barang_masuk[$i]['jumlah'], $data_detail_barang_masuk[$i]['nama_barang']) or die('gagal min stok');
+				$this->m_barang->plus_stok($data_detail_penerimaan[$i]['jumlah'], $data_detail_penerimaan[$i]['nama_barang']) or die('gagal min stok');
 			}
 			$this->session->set_flashdata('success', 'Invoice <strong>Penerimaan</strong> Berhasil Dibuat!');
 			redirect('penerimaan');
@@ -64,7 +64,7 @@ class Penerimaan extends CI_Controller
 	{
 		$this->data['title'] = 'Detail Penerimaan';
 		$this->data['penerimaan'] = $this->m_penerimaan->lihat_no_terima($no_terima);
-		$this->data['all_detail_barang_masuk'] = $this->m_detail_barang_masuk->lihat_no_terima($no_terima);
+		$this->data['all_detail_penerimaan'] = $this->m_detail_penerimaan->lihat_no_terima($no_terima);
 		$this->data['no'] = 1;
 
 		$this->load->view('penerimaan/detail', $this->data);
@@ -72,7 +72,7 @@ class Penerimaan extends CI_Controller
 
 	public function hapus($no_terima)
 	{
-		if ($this->m_penerimaan->hapus($no_terima) && $this->m_detail_barang_masuk->hapus($no_terima)) {
+		if ($this->m_penerimaan->hapus($no_terima) && $this->m_detail_penerimaan->hapus($no_terima)) {
 			$this->session->set_flashdata('success', 'Invoice penerimaan <strong>berhasil</strong> dihapus');
 			redirect('penerimaan');
 		} else {
@@ -112,7 +112,7 @@ class Penerimaan extends CI_Controller
 		$dompdf = new Dompdf();
 		// $this->data['perusahaan'] = $this->m_usaha->lihat();
 		$this->data['penerimaan'] = $this->m_penerimaan->lihat_no_terima($no_terima);
-		$this->data['all_detail_barang_masuk'] = $this->m_detail_barang_masuk->lihat_no_terima($no_terima);
+		$this->data['all_detail_penerimaan'] = $this->m_detail_penerimaan->lihat_no_terima($no_terima);
 		$this->data['title'] = 'Laporan Detail Penerimaan';
 		$this->data['no'] = 1;
 

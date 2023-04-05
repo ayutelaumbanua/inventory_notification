@@ -19,7 +19,7 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'staff_gudang'): ?>
+							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
 								<a href="<?= base_url('customer/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -50,13 +50,13 @@
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
 											<td>No</td>
-											<td>Kode</td>
+											<td>ID</td>
 											<td>Nama</td>
 											<td>Telepon</td>
 											<td>Email</td>
 											<td>Alamat</td>
 											<td>Tanggal Daftar</td>
-											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'staff_gudang'): ?>
+											<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
 												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
@@ -68,7 +68,7 @@
 													<?= $no++ ?>
 												</td>
 												<td>
-													<?= $customer->kode ?>
+													<?= $customer->id ?>
 												</td>
 												<td>
 													<?= $customer->nama ?>
@@ -83,9 +83,9 @@
 													<?= $customer->alamat ?>
 												</td>
 												<td>
-													<?= $customer->tgl_daftar ?>
+													<?= date('d-m-Y H:i:s', strtotime($customer->tgl_daftar)) ?>
 												</td>
-												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'staff_gudang'): ?>
+												<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -97,12 +97,12 @@
 														<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 															aria-labelledby="userDropdown">
 															<a class="dropdown-item" type="button" data-toggle="modal"
-																data-target="#editCustomer<?= $customer->kode ?>">
+																data-target="#editCustomer<?= $customer->id ?>">
 																<i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i> Edit
 																Customer</a>
 															<a class="dropdown-item alert_notif" style="color:black"
 																type="button"
-																href="<?= base_url('customer/hapus/' . $customer->kode) ?>"
+																href="<?= base_url('customer/hapus/' . $customer->id) ?>"
 																id="alert_notif">
 																<i class="fa fa-trash fa-sm fa-fw sm-2 text-danger"></i> Hapus
 																Customer</a>
@@ -117,30 +117,22 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- Modal Tambah Customer -->
+				<!-- Modals Tambah Customer -->
 				<div id="tambahCustomer" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
 					<div class="modal-dialog">
 						<div class="modal-content" style=" border-radius:0px;">
 							<div class="modal-header" style="background:white;color:#fff;">
-								<h5 class="h5 mb-0 font-weight-bold text-gray-800">
-									Tambah Customer
+								<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
+									Customer
 								</h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
-
 							<div class="modal-body">
 								<form action="<?= base_url('customer/proses_tambah') ?>" id="form-edit" method="POST">
 									<div class="table-responsive">
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
-												<tr>
-													<td><label for="kode">Kode Customer</label></td>
-													<td><input type="text" name="kode" placeholder="Masukkan Kode"
-															autocomplete="off" class="form-control" required
-															value="CST<?= mt_rand(100, 999) ?>" maxlength="8" readonly>
-													</td>
-												</tr>
+
 												<tr>
 													<td>Nama Customer</td>
 													<td><input type="text" name="nama" placeholder="Masukkan Nama"
@@ -164,11 +156,8 @@
 															placeholder="Masukkan Alamat"></textarea></td>
 												</tr>
 												<tr>
-													<td>
-														Tanggal Daftar
-													</td>
-													<td><input type="text" name="tgl_daftar"
-															value="<?= date("j F Y, G:i"); ?>" readonly
+													<td><input type="hidden" name="tgl_daftar"
+															value="<?= date('Y-m-d H:i:s'); ?>" readonly
 															class="form-control"></td>
 												</tr>
 											</thead>
@@ -186,31 +175,25 @@
 					</div>
 				</div>
 
-				<!-- Modal Edit Customer -->
+				<!-- Modal Edit Customer-->
 				<?php $no = 0; foreach ($all_customer as $customer):
 					$no++; ?>
-					<div id="editCustomer<?= $customer->kode ?>" class="modal fade" role="dialog" data-url="<?= base_url('customer') ?>">
+					<div id="editCustomer<?= $customer->id ?>" class="modal fade" role="dialog"
+						data-url="<?= base_url('customer') ?>">
 						<div class="modal-dialog">
 							<div class="modal-content" style=" border-radius:0px;">
 								<div class="modal-header" style="background:white;color:#fff;">
-									<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-plus"></i> Tambah
+									<h5 class="h5 mb-0 font-weight-bold text-gray-800"><i class="fa fa-pen"></i> Edit
 										Customer
 									</h5>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
 								<div class="modal-body">
-									<form action="<?= base_url('customer/proses_edit/' . $customer->kode) ?>"
-										id="form-tambah" method="POST">
+									<form action="<?= base_url('customer/proses_edit/' . $customer->id) ?>" id="form-tambah"
+										method="POST">
 										<div class="table-responsive">
 											<table class="table" width="100%" cellspacing="0">
 												<thead>
-													<tr>
-														<td><label for="kode_customer">Kode Customer</label></td>
-														<td><input type="text" name="kode" placeholder="Masukkan Kode"
-																autocomplete="off" class="form-control" required
-																value="<?= $customer->kode ?>" maxlength="8" readonly>
-														</td>
-													</tr>
 													<tr>
 														<td>Nama Customer</td>
 														<td><input type="text" name="nama" placeholder="Masukkan Nama"
@@ -237,7 +220,6 @@
 																placeholder="Masukkan Alamat"><?= $customer->alamat ?></textarea>
 														</td>
 													</tr>
-
 												</thead>
 											</table>
 										</div>

@@ -47,11 +47,13 @@
 											<div class="text-sm font-weight-bold text-primary">Total Barang</div>
 
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-box fa-3x text-primary"></i>
-										</div>
+										<a href="<?= base_url('barang') ?>">
+											<div class="col-auto">
+												<i class="fas fa-box fa-3x text-primary"></i>
+											</div>
 									</div>
 								</div>
+								</a>
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
@@ -64,11 +66,13 @@
 											</div>
 											<div class="text-md font-weight-bold text-danger mb-1">Stock Habis</div>
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-minus-square fa-3x text-danger"></i>
-										</div>
+										<a href="<?= base_url('barang/stock_habis') ?>">
+											<div class="col-auto">
+												<i class="fas fa-minus-square fa-3x text-danger"></i>
+											</div>
 									</div>
 								</div>
+								</a>
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
@@ -82,11 +86,13 @@
 											<div class="text-md font-weight-bold text-info mb-1">
 												Barang Masuk</div>
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-sign-in-alt fa-rotate-90 fa-3x text-info"></i>
-										</div>
+										<a href="<?= base_url('penerimaan') ?>">
+											<div class="col-auto">
+												<i class="fas fa-sign-in-alt fa-rotate-90 fa-3x text-info"></i>
+											</div>
 									</div>
 								</div>
+								</a>
 							</div>
 						</div>
 						<div class="col-xl-3 col-md-6 mb-4">
@@ -100,11 +106,13 @@
 											<div class="text-md font-weight-bold text-warning">Barang Keluar
 											</div>
 										</div>
-										<div class="col-auto">
-											<i class="fas fa-sign-in-alt fa-rotate-270 fa-3x text-warning"></i>
-										</div>
+										<a href="<?= base_url('penerimaan') ?>">
+											<div class="col-auto">
+												<i class="fas fa-sign-in-alt fa-rotate-270 fa-3x text-warning"></i>
+											</div>
 									</div>
 								</div>
+								</a>
 							</div>
 						</div>
 					</div>

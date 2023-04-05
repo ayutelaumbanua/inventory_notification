@@ -71,7 +71,7 @@
 										<tr>
 											<td>Waktu Keluar</td>
 											<td>:
-												<?= $pengeluaran->tgl_keluar ?>
+											<?= date('d-m-Y H:i:s', strtotime($pengeluaran->tgl_keluar)) ?>
 											</td>
 										</tr>
 									</table>
@@ -90,19 +90,19 @@
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach ($all_detail_barang_keluar as $detail_barang_keluar): ?>
+											<?php foreach ($all_detail_pengeluaran as $detail_pengeluaran): ?>
 												<tr>
 													<td width="10%">
 														<?= $no++ ?>
 													</td>
 													<td width="40%">
-														<?= $detail_barang_keluar->nama_barang ?>
+														<?= $detail_pengeluaran->nama_barang ?>
 													</td>
 													<td>
-														<?= $detail_barang_keluar->jumlah ?>
+														<?= $detail_pengeluaran->jumlah ?>
 													</td>
 													<td>
-														<?= $detail_barang_keluar->satuan ?>
+														<?= $detail_pengeluaran->satuan ?>
 													</td>
 												</tr>
 											<?php endforeach ?>

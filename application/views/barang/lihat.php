@@ -35,7 +35,7 @@
 										Satuan</a>
 								</div>
 							</span>
-							<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
 								<span>
 									<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
 										id="dropdownTambah" data-toggle="dropdown" aria-haspopup="true"
@@ -82,7 +82,7 @@
 											<td>Satuan</td>
 											<td>Tanggal Daftar</td>
 											</td>
-											<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+											<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
 												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
@@ -109,10 +109,9 @@
 													<?= $barang->satuan ?>
 												</td>
 												<td>
-													<?= $barang->tgl_daftar ?>
-
+													<?= date('d-m-Y H:i:s', strtotime($barang->tgl_daftar)) ?>
 												</td>
-												<?php if ($this->session->login['role'] == 'manager' or $this->session->login['role'] == 'purchasing'): ?>
+												<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -206,15 +205,11 @@
 														</select></td>
 												</tr>
 												<tr>
-													<td>
-														Tanggal Daftar
-													</td>
-													<td><input type="text" name="tgl_daftar"
-															value="<?= date("j F Y, G:i"); ?>" readonly
+													<td><input type="hidden" name="tgl_daftar"
+															value="<?= date('Y-m-d H:i:s'); ?>" readonly
 															class="form-control"></td>
 												</tr>
 												<tr>
-
 												</tr>
 											</thead>
 										</table>
@@ -231,7 +226,7 @@
 					</div>
 				</div>
 
-				<!-- Modals Edit Barang -->
+				<!-- Modal Edit Barang -->
 				<?php $no = 0; foreach ($all_barang as $barang):
 					$no++; ?>
 					<div id="editBarang<?= $barang->kode_barang ?>" class="modal fade" role="dialog"
@@ -244,7 +239,6 @@
 									</h5>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 								</div>
-
 								<div class="modal-body">
 									<form action="<?= base_url('barang/proses_edit/' . $barang->kode_barang) ?>"
 										method="POST">
@@ -278,12 +272,14 @@
 																class="form-control" required
 																value="<?= $barang->nama_barang ?>"></td>
 													</tr>
-													<tr>
-														<td>Stok</td>
-														<td> <input type="number" name="stok" placeholder="Masukkan Stok"
-																autocomplete="off" class="form-control" required
-																value="<?= $barang->stok ?>"></td>
-													</tr>
+													<?php if ($this->session->userdata('access') == 'Manager'): ?>
+														<tr>
+															<td>Stok</td>
+															<td> <input type="number" name="stok" placeholder="Masukkan Stok"
+																	autocomplete="off" class="form-control" required
+																	value="<?= $barang->stok ?>"></td>
+														</tr>
+													<?php endif ?>
 													<tr>
 														<td>Satuan</td>
 														<td><select name="satuan" id="satuan" class="form-control" required>
@@ -292,6 +288,11 @@
 																	<option value="<?= $satuan->satuan ?>"><?= $satuan->satuan ?></option>
 																<?php endforeach ?>
 															</select></td>
+													</tr>
+													<tr>
+														<td><input type="hidden" name="tgl_edit"
+																value="<?= date('Y-m-d H:i:s'); ?>" readonly
+																class="form-control"></td>
 													</tr>
 													<tr>
 														<i class="fa fa-paperclip text-danger"></i>
@@ -313,7 +314,7 @@
 						</div>
 					</div>
 				<?php endforeach ?>
-				<!-- Modals Tambah Satuan -->
+				<!-- Modal Tambah Satuan -->
 				<div id="tambahSatuan" class="modal fade" role="dialog" data-url="<?= base_url('satuan') ?>">
 					<div class="modal-dialog">
 						<div class="modal-content" style=" border-radius:0px;">
@@ -331,23 +332,13 @@
 										<table class="table" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<td><label for="kode_satuan">Kode Satuan</label></td>
-													<td><input type="text" name="kode_satuan" placeholder="Masukkan Kode
-													Satuan" autocomplete="off" class="form-control" required value="ST<?= mt_rand(10000, 99999999) ?>"
-															maxlength="8" readonly>
-													</td>
-												</tr>
-												<tr>
 													<td>Satuan Barang</td>
 													<td><input type="text" name="satuan" placeholder="Masukkan Satuan"
 															autocomplete="off" class="form-control" required></td>
 												</tr>
 												<tr>
-													<td>
-														Tanggal Daftar
-													</td>
-													<td><input type="text" name="tgl_daftar"
-															value="<?= date("j F Y, G:i"); ?>" readonly
+													<td><input type="hidden" name="tgl_daftar"
+															value="<?= date('Y-m-d H:i:s'); ?>" readonly
 															class="form-control"></td>
 												</tr>
 											</thead>
@@ -368,7 +359,7 @@
 			<?php $this->load->view('partials/footer.php') ?>
 		</div>
 	</div>
-	<?php $this->load->view('partials/footer.php') ?>
+	<?php $this->load->view('partials/js.php') ?>
 	<script>
 		$('.alert_notif').on('click', function () {
 			var getLink = $(this).attr('href');
