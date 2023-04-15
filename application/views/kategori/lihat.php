@@ -19,6 +19,8 @@
 							</h1>
 						</div>
 						<div class="float-right">
+							<a href="<?= base_url('kategori/export') ?>" class="btn btn-danger btn-sm"><i
+									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 							<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 								<span>
 									<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -129,7 +131,7 @@
 														<td><input type="text" name="kategori"
 																placeholder="Masukkan Kategori Barang" autocomplete="off"
 																class="form-control" required
-																value="<?= $kategori->kategori?>"></td>
+																value="<?= $kategori->kategori ?>"></td>
 													</tr>
 												</thead>
 											</table>
@@ -163,8 +165,9 @@
 											<thead>
 												<tr>
 													<td>Kategori Barang</td>
-													<td><input type="text" name="kategori" placeholder="Masukkan Kategori"
-															autocomplete="off" class="form-control" required></td>
+													<td><input type="text" name="kategori"
+															placeholder="Masukkan Kategori" autocomplete="off"
+															class="form-control" required></td>
 												</tr>
 												<tr>
 													<td><input type="hidden" name="tgl_daftar"

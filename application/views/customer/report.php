@@ -8,7 +8,6 @@
 	</title>
 
 </head>
-
 <body>
 	<div class="row">
 		<div class="col text-center">
@@ -23,7 +22,6 @@
 			<thead>
 				<tr>
 					<td><strong>No</strong></td>
-					<td><strong>Kode Customer</strong></td>
 					<td><strong>Nama Customer</strong></td>
 					<td><strong>Telepon</strong></td>
 					<td><strong>Email</strong></td>
@@ -36,9 +34,6 @@
 					<tr>
 						<td>
 							<?= $no++ ?>
-						</td>
-						<td>
-							<?= $customer->kode ?>
 						</td>
 						<td>
 							<?= $customer->nama ?>

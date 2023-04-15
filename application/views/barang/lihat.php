@@ -48,7 +48,7 @@
 					<div class="card shadow">
 						<div class="card-body">
 							<div class="form-row">
-								<div class="form-group col-2">
+								<!-- <div class="form-group col-2">
 									<label for="start_date">Tanggal Mulai:</label>
 									<input type="date" name="start_date" id="start_date" class="form-control">
 								</div>
@@ -58,7 +58,7 @@
 								</div>
 								<div class="form-group col-2"> <button id="filter_button">Filter</button>
 									<a href="" id="cetak_button">Cetak</a>
-								</div>
+								</div> -->
 							</div>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -66,7 +66,7 @@
 										<tr style="background:#42444e;color:#fff;size:100px">
 											<td width="5%">No</td>
 											<td>Kode Barang</td>
-											<td>Kategori</td>
+											<td>Kategori Barang</td>
 											<td>Nama Barang</td>
 											<td>Stok</td>
 											<td>Satuan</td>

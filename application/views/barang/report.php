@@ -11,14 +11,9 @@
 </head>
 
 <body>
-	<div class="row">
-		<div style="text-align:left">
-			<h3>
-				<?= $title ?>
-			</h3>
-
-		</div>
-	</div>
+	<h3>
+		<?= $title ?>
+	</h3>
 	<hr>
 	<div class="row">
 		<table class="table table-bordered" width="100%">

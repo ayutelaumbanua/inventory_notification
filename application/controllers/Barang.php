@@ -103,15 +103,15 @@ class Barang extends CI_Controller
 
 		$this->load->view('barang/kategori', $this->data);
 	}
-		// Data Kategori
-		public function satuan()
-		{
-			$this->data['title'] = 'Data Satuan';
-			$this->data['all_satuan'] = $this->m_satuan->lihat();
-			$this->data['no'] = 1;
-	
-			$this->load->view('barang/satuan', $this->data);
-		}
+	// Data Kategori
+	public function satuan()
+	{
+		$this->data['title'] = 'Data Satuan';
+		$this->data['all_satuan'] = $this->m_satuan->lihat();
+		$this->data['no'] = 1;
+
+		$this->load->view('barang/satuan', $this->data);
+	}
 	// Data Stock Habis
 	public function stock_habis()
 	{
@@ -149,10 +149,9 @@ class Barang extends CI_Controller
 	{
 		$dompdf = new Dompdf();
 		$this->data['all_barang'] = $this->m_barang->lihat();
-
 		$this->data['title'] = 'Laporan Data Barang';
 		$this->data['no'] = 1;
-
+		
 		$dompdf->setPaper('A4', 'Landscape');
 		$html = $this->load->view('barang/report', $this->data, true);
 		$dompdf->load_html($html);
@@ -174,11 +173,6 @@ class Barang extends CI_Controller
 		$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
 	}
 
-	public function cetak_data($start_date, $end_date)
-	{
-		$data['result'] = $this->m_barang->get_data_by_date_range($start_date, $end_date);
-		$this->load->view('barang/cetak_data', $data);
-	}
 	public function export_pdf($start_date, $end_date)
 	{
 		$this->load->library('pdf');
@@ -188,11 +182,10 @@ class Barang extends CI_Controller
 		$this->pdf->render();
 		$this->pdf->stream('cetak_data.pdf');
 	}
-
 	public function export_excel($start_date, $end_date)
 	{
 		$data['result'] = $this->m_barang->get_data_by_date_range($start_date, $end_date);
 		$this->load->view('export_excel', $data);
 	}
-
+	
 }

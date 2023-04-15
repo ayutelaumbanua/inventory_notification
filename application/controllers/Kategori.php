@@ -18,7 +18,7 @@ class Kategori extends CI_Controller
         $this->data['title'] = 'Data Kategori';
         $this->data['all_kategori'] = $this->m_kategori->lihat();
         $this->data['no'] = 1;
-        $this->load->view('kategori', $this->data);
+        $this->load->view('kategori/lihat', $this->data);
     }
 
     public function proses_tambah()
@@ -60,7 +60,6 @@ class Kategori extends CI_Controller
         }
     }
 
-
     public function hapus($id)
     {
         if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing') {
@@ -75,4 +74,17 @@ class Kategori extends CI_Controller
             redirect('kategori');
         }
     }
+    public function export()
+	{
+		$dompdf = new Dompdf();
+		$this->data['all_kategori'] = $this->m_kategori->lihat();
+		$this->data['title'] = 'Laporan Data Kategori';
+		$this->data['no'] = 1;
+        
+		$dompdf->setPaper('A4', 'Potrait');
+		$html = $this->load->view('kategori/report', $this->data, true);
+		$dompdf->load_html($html);
+		$dompdf->render();
+		$dompdf->stream('Laporan Data Kategori Tanggal ' . date('d F Y'), array("Attachment" => false));
+	}
 }

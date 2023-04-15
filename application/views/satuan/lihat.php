@@ -19,6 +19,8 @@
 							</h1>
 						</div>
 						<div class="float-right">
+							<a href="<?= base_url('satuan/export') ?>" class="btn btn-danger btn-sm"><i
+									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 							<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 								<span>
 									<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"

@@ -46,7 +46,7 @@
 					<td><strong>Waktu Terima</strong></td>
 					<td>:</td>
 					<td>
-						<?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima))?>
+						<?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima)) ?>
 					</td>
 				</tr>
 			</table>
@@ -61,6 +61,7 @@
 						<td width="10%"><strong>No</strong></td>
 						<td width="40%"><strong>Nama Barang</strong></td>
 						<td width="40%"><strong>Jumlah</strong></td>
+						<td width="40%"><strong>Satuan</strong></td>
 						<td width="40%"><strong>Tanggal Expired</strong></td>
 					</tr>
 				</thead>
@@ -75,7 +76,9 @@
 							</td>
 							<td>
 								<?= $detail_penerimaan->jumlah ?>
-								<?= $detail_penerimaan->satuan ?>
+							</td>
+							<td>
+							<?= $detail_penerimaan->satuan ?>
 							</td>
 							<td>
 								<?= $detail_penerimaan->tgl_expired ?>
