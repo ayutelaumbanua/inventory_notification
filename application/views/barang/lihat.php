@@ -21,34 +21,11 @@
 						<div class="float-right">
 							<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
 									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-							<span><a class="btn btn-warning btn-sm btn-sm dropdown-toggle" href="#" role="button"
-									id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false" style="color:#fff">
-									<i class="fas fa-clipboard-list"></i> Data Stock
-								</a>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-									<a href="<?= base_url('barang/stock_habis') ?>" class="dropdown-item"
-										type="button">Barang Habis</a>
-									<a href="<?= base_url('barang/stock_expired') ?>" class="dropdown-item">Barang
-										Expired</a>
-									<a href="<?= base_url('barang/satuan') ?>" class="dropdown-item" type="button">Data
-										Satuan</a>
-								</div>
-							</span>
-							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
+							<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 								<span>
-									<a class="btn btn-primary btn-sm dropdown-toggle" href="#" role="button"
-										id="dropdownTambah" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-plus"></i> Tambah Data
-									</a>
-									<div class="dropdown-menu" aria-labelledby="dropdownTambah">
-										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahBarang">Tambah Barang</a>
-										<a class="dropdown-item" type="button" data-toggle="modal"
-											data-target="#tambahSatuan">Tambah Satuan</a>
-									</div>
-								</span>
+									<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
+										data-target="#tambahBarang"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+								</span>							
 							<?php endif ?>
 						</div>
 					</div>
@@ -70,6 +47,19 @@
 					<?php endif ?>
 					<div class="card shadow">
 						<div class="card-body">
+							<div class="form-row">
+								<div class="form-group col-2">
+									<label for="start_date">Tanggal Mulai:</label>
+									<input type="date" name="start_date" id="start_date" class="form-control">
+								</div>
+								<div class="form-group col-2">
+									<label for="end_date">Tanggal Akhir:</label>
+									<input type="date" name="end_date" id="end_date" class="form-control">
+								</div>
+								<div class="form-group col-2"> <button id="filter_button">Filter</button>
+									<a href="" id="cetak_button">Cetak</a>
+								</div>
+							</div>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
@@ -82,7 +72,7 @@
 											<td>Satuan</td>
 											<td>Tanggal Daftar</td>
 											</td>
-											<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
+											<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
@@ -111,7 +101,7 @@
 												<td>
 													<?= date('d-m-Y H:i:s', strtotime($barang->tgl_daftar)) ?>
 												</td>
-												<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
+												<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -173,16 +163,14 @@
 													</td>
 												</tr>
 												<tr>
-													<td>Kategori Barang</td>
+													<td>Kategori</td>
 													<td><select name="kategori_barang" id="kategori_barang"
 															class="form-control" required>
 															<option value="">-- Pilih Kategori --</option>
-															<option value="Buah">Buah</option>
-															<option value="Daging">Daging</option>
-															<option value="Makanan">Makanan</option>
-															<option value="Minuman">Minuman</option>
-														</select>
-													</td>
+															<?php foreach ($all_kategori as $kategori): ?>
+																<option value="<?= ($kategori->kategori) ?>"><?= $kategori->kategori ?></option>
+															<?php endforeach ?>
+														</select></td>
 												</tr>
 												<tr>
 													<td>Nama Barang</td>
@@ -257,13 +245,11 @@
 														<td>Kategori Barang</td>
 														<td><select name="kategori_barang" id="kategori_barang"
 																class="form-control" required>
-																<option value="<?= $barang->kategori_barang ?>"><?= $barang->kategori_barang ?></option>
-																<option value="Buah">Buah</option>
-																<option value="Daging">Daging</option>
-																<option value="Makanan">Makanan</option>
-																<option value="Minuman">Minuman</option>
-															</select>
-														</td>
+																<option value="<?= $kategori->kategori ?>"><?= $kategori->kategori ?></option>
+																<?php foreach ($all_kategori as $kategori): ?>
+																	<option value="<?= ($kategori->kategori) ?>"><?= $kategori->kategori ?></option>
+																<?php endforeach ?>
+															</select></td>
 													</tr>
 													<tr>
 														<td>Nama Barang</td>
@@ -324,7 +310,6 @@
 								</h5>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
-
 							<div class="modal-body">
 								<form action="<?= base_url('barang/proses_tambah_satuan') ?>" id="form-tambah"
 									method="POST">
@@ -364,7 +349,7 @@
 		$('.alert_notif').on('click', function () {
 			var getLink = $(this).attr('href');
 			Swal.fire({
-				title: "Yakin hapus data?",
+				title: "Yakin hapus barang?",
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#d33',
@@ -380,6 +365,18 @@
 			return false;
 		});
 	</script>
+	<script>
+		$(document).ready(function () {
+			$('#filter_button').click(function () {
+				var start_date = $('#start_date').val();
+				var end_date = $('#end_date').val();
+				var url = 'http://localhost/inventori/application/controllers/Barang' + start_date + '/' + end_date;
+				table.ajax.url(url).load();
+				$('#cetak_button').attr('href', 'http://localhost/inventori/application/views/barangcetak_data/' + start_date + '/' + end_date);
+			});
+		});
+	</script>
+
 </body>
 
 </html>

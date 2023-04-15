@@ -17,6 +17,16 @@
 			<i class="fas fa-fw fa-box"></i>
 			<span style="color:#42444e">Master Barang</span></a>
 	</li>
+	<li class="nav-item <?= $aktif == 'barang' ? 'active' : '' ?>">
+		<a class="nav-link" href="<?= base_url('kategori') ?>">
+			<i class="fas fa-fw fa-box"></i>
+			<span style="color:#42444e">Master Kategori</span></a>
+	</li>
+	<li class="nav-item <?= $aktif == 'barang' ? 'active' : '' ?>">
+		<a class="nav-link" href="<?= base_url('satuan') ?>">
+			<i class="fas fa-fw fa-box"></i>
+			<span style="color:#42444e">Master Satuan</span></a>
+	</li>
 	<?php if ($this->session->userdata('access') != 'Purchasing'): ?>
 		<li class="nav-item <?= $aktif == 'customer' ? 'active' : '' ?>">
 			<a class="nav-link" href="<?= base_url('customer') ?>">

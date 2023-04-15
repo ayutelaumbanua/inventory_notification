@@ -15,11 +15,6 @@ class User extends CI_Controller
 
 	public function index()
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' && $this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Management User tidak dapat dilakukan!');
-			redirect('dashboard');
-		}
-
 		$this->data['title'] = 'Data User';
 		$this->data['all_user'] = $this->m_user->lihat();
 		$this->data['no'] = 1;
@@ -29,23 +24,12 @@ class User extends CI_Controller
 
 	public function tambah()
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' && $this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
-			redirect('dashboard');
-		}
-
 		$this->data['title'] = 'Tambah User';
-
 		$this->load->view('user/tambah', $this->data);
 	}
 
 	public function proses_tambah()
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' && $this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
-			redirect('dashboard');
-		}
-
 		$data = [
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
@@ -67,11 +51,6 @@ class User extends CI_Controller
 
 	public function edit($id)
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' && $this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Tidak dapat diakses!');
-			redirect('dashboard');
-		}
-
 		$this->data['title'] = 'Edit User';
 		$this->data['user'] = $this->m_user->lihat_id($id);
 
@@ -80,11 +59,7 @@ class User extends CI_Controller
 
 	public function proses_edit($id)
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' && $this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
-			redirect('dashboard');
-		}
-
+		
 		$data = [
 			'nama' => $this->input->post('nama'),
 			'email' => $this->input->post('email'),
@@ -106,11 +81,7 @@ class User extends CI_Controller
 
 	public function hapus($id)
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' && $this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Tidak dapat diakses!');
-			redirect('dashboard');
-		}
-
+		
 		if ($this->m_user->hapus($id)) {
 			$this->session->set_flashdata('success', 'Data User <strong>berhasil</strong> dihapus');
 			redirect('user');

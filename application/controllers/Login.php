@@ -58,24 +58,18 @@ class Login extends CI_Controller
                     }
                 } else {
                     $url = base_url('login');
-                    echo $this->session->set_flashdata('msg', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-                    <h3>Uupps!</h3>
-                    <p>Akun kamu telah di blokir. Silahkan hubungi admin.</p>');
+                    echo $this->session->set_flashdata('error','<strong>Username</strong> atau <strong>Password</strong> salah !');
                     redirect($url);
                 }
             } else {
                 $url = base_url('login');
-                echo $this->session->set_flashdata('msg', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-                    <h3>Uupps!</h3>
-                    <p>Password yang kamu masukan salah.</p>');
+                echo $this->session->set_flashdata('error','<strong>Username</strong> atau <strong>Password</strong> salah !');
                 redirect($url);
             }
 
         } else {
             $url = base_url('login');
-            echo $this->session->set_flashdata('msg', '<span onclick="this.parentElement.style.display=`none`" class="w3-button w3-large w3-display-topright">&times;</span>
-            <h3>Uupps!</h3>
-            <p>Username yang kamu masukan salah.</p>');
+            echo $this->session->set_flashdata('error','<strong>Username</strong> atau <strong>Password</strong> salah !');
             redirect($url);
         }
 

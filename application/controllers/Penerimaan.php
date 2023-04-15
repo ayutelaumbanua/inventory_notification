@@ -72,6 +72,11 @@ class Penerimaan extends CI_Controller
 
 	public function hapus($no_terima)
 	{
+		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing') {
+			$this->session->set_flashdata('error', 'Hapus <strong>Transaksi Penerimaan</strong> tidak dilakukan!');
+			redirect('penerimaan');
+		}
+
 		if ($this->m_penerimaan->hapus($no_terima) && $this->m_detail_penerimaan->hapus($no_terima)) {
 			$this->session->set_flashdata('success', 'Invoice penerimaan <strong>berhasil</strong> dihapus');
 			redirect('penerimaan');

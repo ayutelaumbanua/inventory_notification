@@ -97,9 +97,9 @@ class Customer extends CI_Controller
 
 	public function hapus($id)
 	{
-		if ($this->session->userdata('access') == 'Purchasing') {
-			$this->session->set_flashdata('error', 'Hapus data tidak dapat dilakukan!');
-			redirect('dashboard');
+		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing' ) {
+			$this->session->set_flashdata('error', 'Hapus <strong>Customer</strong> tidak dilakukan!');
+			redirect('customer');
 		}
 
 		if ($this->m_customer->hapus($id)) {

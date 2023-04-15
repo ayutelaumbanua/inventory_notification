@@ -96,9 +96,9 @@ class Supplier extends CI_Controller
 
 	public function hapus($id)
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang') {
-			$this->session->set_flashdata('error', 'Hapus data tidak dapat dilakukan!');
-			redirect('dashboard');
+		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing' ) {
+			$this->session->set_flashdata('error', 'Hapus <strong>Supplier</strong> tidak dapat dilakukan!');
+			redirect('supplier');
 		}
 
 		if ($this->m_supplier->hapus($id)) {

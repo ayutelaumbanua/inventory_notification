@@ -74,6 +74,11 @@ class Pengeluaran extends CI_Controller
 
 	public function hapus($no_keluar)
 	{
+		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing') {
+			$this->session->set_flashdata('error', 'Hapus <strong>Transaksi Pengeluaran</strong> tidak dilakukan!');
+			redirect('pengeluaran');
+		}
+
 		if ($this->m_pengeluaran->hapus($no_keluar) && $this->m_detail_pengeluaran->hapus($no_keluar)) {
 			$this->session->set_flashdata('success', 'Invoice pengeluaran <strong>berhasil</strong> dihapus');
 			redirect('pengeluaran');

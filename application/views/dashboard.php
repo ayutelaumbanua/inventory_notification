@@ -81,40 +81,85 @@
 									<div class="row no-gutters align-items-center">
 										<div class="col mr-2">
 											<div class="h4 mb-0 font-weight-bold text-black">
-												<?= $jumlah_penerimaan ?>
+												<?= $jumlah_stock_expired ?>
 											</div>
-											<div class="text-md font-weight-bold text-info mb-1">
-												Barang Masuk</div>
+											<div class="text-md font-weight-bold text-warning mb-1">Stock Expired</div>
 										</div>
-										<a href="<?= base_url('penerimaan') ?>">
+										<a href="<?= base_url('barang/stock_expired') ?>">
 											<div class="col-auto">
-												<i class="fas fa-sign-in-alt fa-rotate-90 fa-3x text-info"></i>
+												<i class="fas fa-exclamation-triangle fa-3x text-warning"></i>
 											</div>
 									</div>
 								</div>
 								</a>
 							</div>
 						</div>
-						<div class="col-xl-3 col-md-6 mb-4">
-							<div class="card shadow h-100 py-10">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<div class="h4 mb-0 mr-3 font-weight-bold text-black">
-												<?= $jumlah_pengeluaran ?>
+						<?php if ($this->session->userdata('access') == 'Manager'): ?>
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card shadow h-100 py-10">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div class="h4 mb-0 font-weight-bold text-black">
+													<?= $jumlah_user ?>
+												</div>
+												<div class="text-md font-weight-bold text-success mb-1">
+													Users</div>
 											</div>
-											<div class="text-md font-weight-bold text-warning">Barang Keluar
-											</div>
+											<a href="<?= base_url('user') ?>">
+												<div class="col-auto">
+													<i class="fas fa-user fa-3x text-success"></i>
+												</div>
 										</div>
-										<a href="<?= base_url('penerimaan') ?>">
-											<div class="col-auto">
-												<i class="fas fa-sign-in-alt fa-rotate-270 fa-3x text-warning"></i>
-											</div>
 									</div>
+									</a>
 								</div>
-								</a>
 							</div>
-						</div>
+						<?php endif ?>
+						<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card shadow h-100 py-10">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div class="h4 mb-0 font-weight-bold text-black">
+													<?= $jumlah_penerimaan ?>
+												</div>
+												<div class="text-md font-weight-bold text-info mb-1">
+													Barang Masuk</div>
+											</div>
+											<a href="<?= base_url('penerimaan') ?>">
+												<div class="col-auto">
+													<i class="fas fa-sign-in-alt fa-rotate-90 fa-3x text-info"></i>
+												</div>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+						<?php endif ?>
+						<?php if ($this->session->userdata('access') != 'Purchasing'): ?>
+							<div class="col-xl-3 col-md-6 mb-4">
+								<div class="card shadow h-100 py-10">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div class="h4 mb-0 mr-3 font-weight-bold text-black">
+													<?= $jumlah_pengeluaran ?>
+												</div>
+												<div class="text-md font-weight-bold text-secondary">Barang Keluar
+												</div>
+											</div>
+											<a href="<?= base_url('pengeluaran') ?>">
+												<div class="col-auto">
+													<i class="fas fa-sign-in-alt fa-rotate-270 fa-3x text-secondary"></i>
+												</div>
+										</div>
+									</div>
+									</a>
+								</div>
+							</div>
+						<?php endif ?>
 					</div>
 				</div>
 			</div>

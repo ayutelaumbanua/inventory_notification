@@ -19,7 +19,7 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
+							<?php if ($this->session->userdata('access') != 'Purchasing'): ?>
 								<a href="<?= base_url('customer/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -56,7 +56,7 @@
 											<td>Email</td>
 											<td>Alamat</td>
 											<td>Tanggal Daftar</td>
-											<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
+											<?php if ($this->session->userdata('access') != 'Purchasing'): ?>
 												<td>Aksi</td>
 											<?php endif ?>
 										</tr>
@@ -85,7 +85,7 @@
 												<td>
 													<?= date('d-m-Y H:i:s', strtotime($customer->tgl_daftar)) ?>
 												</td>
-												<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Staff Gudang'): ?>
+												<?php if ($this->session->userdata('access') != 'Purchasing'): ?>
 													<td>
 														<a class="dropdown-toggle" href="#" id="userDropdown" role="button"
 															data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"

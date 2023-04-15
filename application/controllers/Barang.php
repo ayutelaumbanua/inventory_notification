@@ -14,14 +14,16 @@ class Barang extends CI_Controller
 		$this->data['aktif'] = 'satuan';
 		$this->data['aktif'] = 'usaha';
 		$this->load->model('M_barang', 'm_barang');
-		$this->load->model('M_usaha', 'm_usaha');
+		$this->load->model('M_satuan', 'm_satuan');
+		$this->load->model('M_kategori', 'm_kategori');
 	}
 
 	public function index()
 	{
 		$this->data['title'] = 'Data Barang';
 		$this->data['all_barang'] = $this->m_barang->lihat();
-		$this->data['all_satuan'] = $this->m_barang->lihat_satuan();
+		// $this->data['all_kategori'] = $this->m_kategori->lihat();
+		// $this->data['all_satuan'] = $this->m_satuan->lihat();
 		$this->data['no'] = 1;
 
 		$this->load->view('barang/lihat', $this->data);
@@ -32,7 +34,7 @@ class Barang extends CI_Controller
 	{
 		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
-			redirect('dashboard');
+			redirect('barang');
 		}
 		$data = [
 			'kode_barang' => $this->input->post('kode_barang'),
@@ -52,12 +54,11 @@ class Barang extends CI_Controller
 		}
 	}
 
-
 	public function proses_edit($kode_barang)
 	{
 		if ($this->session->userdata('access') == 'Staff Gudang') {
 			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
-			redirect('dashboard');
+			redirect('barang');
 		}
 		$data = [
 			'kode_barang' => $this->input->post('kode_barang'),
@@ -79,84 +80,38 @@ class Barang extends CI_Controller
 
 	public function hapus($kode_barang)
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang') {
-			$this->session->set_flashdata('error', 'Hapus data tidak dilakukan');
-			redirect('dashboard');
+		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing') {
+			$this->session->set_flashdata('error', 'Hapus <strong>Barang</strong> tidak dilakukan!');
+			redirect('barang');
 		}
 
 		if ($this->m_barang->hapus($kode_barang)) {
-			$this->session->set_flashdata('success', 'Data barang <strong>Berhasil</strong> dihapus');
+			$this->session->set_flashdata('success', 'Data barang <strong>berhasil</strong> dihapus');
 			redirect('barang');
 		} else {
-			$this->session->set_flashdata('error', 'Data barang <strong>Gagal</strong> dihapus');
+			$this->session->set_flashdata('error', 'Data barang <strong>gagal</strong> dihapus');
 			redirect('barang');
 		}
 	}
 
-	// Data Satuan
-	public function satuan()
+	// Data Kategori
+	public function kategori()
 	{
-		$this->data['title'] = 'Data Satuan Barang';
-		$this->data['all_satuan'] = $this->m_barang->lihat_satuan();
+		$this->data['title'] = 'Data Kategori';
+		$this->data['all_kategori'] = $this->m_kategori->lihat();
 		$this->data['no'] = 1;
 
-		$this->load->view('barang/satuan', $this->data);
+		$this->load->view('barang/kategori', $this->data);
 	}
-	public function proses_tambah_satuan()
-	{
-		if ($this->session->userdata('access') == 'Staff Gudang') {
-			$this->session->set_flashdata('error', 'Tambah data tidak dapat dilakukan!');
-			redirect('dashboard');
+		// Data Kategori
+		public function satuan()
+		{
+			$this->data['title'] = 'Data Satuan';
+			$this->data['all_satuan'] = $this->m_satuan->lihat();
+			$this->data['no'] = 1;
+	
+			$this->load->view('barang/satuan', $this->data);
 		}
-		$data = [
-			'satuan' => $this->input->post('satuan'),
-			'tgl_daftar' => $this->input->post('tgl_daftar'),
-		];
-
-		if ($this->m_barang->tambah_satuan($data)) {
-			$this->session->set_flashdata('success', 'Data Satuan <strong>Berhasil</strong> Ditambahkan!');
-			redirect('barang/satuan');
-		} else {
-			$this->session->set_flashdata('error', 'Data Satuan <strong>Gagal</strong> Ditambahkan!');
-			redirect('barang/satuan');
-		}
-	}
-
-
-	public function proses_edit_satuan($id_satuan)
-	{
-		if ($$this->session->userdata('access') == 'Staff Gudang') {
-			$this->session->set_flashdata('error', 'Edit data tidak dapat dilakukan!');
-			redirect('dashboard');
-		}
-		$data = [
-			'satuan' => $this->input->post('satuan'),
-		];
-		if ($this->m_barang->edit_satuan($data, $id_satuan)) {
-			$this->session->set_flashdata('success', 'Data satuan <strong>berhasil</strong> diperbaharui');
-			redirect('barang/satuan');
-		} else {
-			$this->session->set_flashdata('error', 'Data satuan <strong>gagal</strong> diperbaharui');
-			redirect('barang/satuan');
-		}
-	}
-
-	public function hapus_satuan($id_satuan)
-	{
-		if ($this->session->userdata('access') == 'Staff Gudang') {
-			$this->session->set_flashdata('error', 'Hapus data tidak dilakukan');
-			redirect('dashboard');
-		}
-
-		if ($this->m_barang->hapus_satuan($id_satuan)) {
-			$this->session->set_flashdata('success', 'Data satuan <strong>Berhasil</strong> dihapus');
-			redirect('barang/satuan');
-		} else {
-			$this->session->set_flashdata('error', 'Data satuan <strong>Gagal</strong> dihapus');
-			redirect('barang/satuan');
-		}
-	}
-
 	// Data Stock Habis
 	public function stock_habis()
 	{
@@ -194,7 +149,7 @@ class Barang extends CI_Controller
 	{
 		$dompdf = new Dompdf();
 		$this->data['all_barang'] = $this->m_barang->lihat();
-		$this->data['all_data_usaha'] = $this->m_usaha->lihat();
+
 		$this->data['title'] = 'Laporan Data Barang';
 		$this->data['no'] = 1;
 
@@ -217,6 +172,27 @@ class Barang extends CI_Controller
 		$dompdf->load_html($html);
 		$dompdf->render();
 		$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
+	}
+
+	public function cetak_data($start_date, $end_date)
+	{
+		$data['result'] = $this->m_barang->get_data_by_date_range($start_date, $end_date);
+		$this->load->view('barang/cetak_data', $data);
+	}
+	public function export_pdf($start_date, $end_date)
+	{
+		$this->load->library('pdf');
+		$data['result'] = $this->m_barang->get_data_by_date_range($start_date, $end_date);
+		$html = $this->load->view('barang/cetak_data', $data, true);
+		$this->pdf->loadHtml($html);
+		$this->pdf->render();
+		$this->pdf->stream('cetak_data.pdf');
+	}
+
+	public function export_excel($start_date, $end_date)
+	{
+		$data['result'] = $this->m_barang->get_data_by_date_range($start_date, $end_date);
+		$this->load->view('export_excel', $data);
 	}
 
 }
