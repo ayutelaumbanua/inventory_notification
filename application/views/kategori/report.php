@@ -7,26 +7,50 @@
 	<title>
 		<?= $title ?>
 	</title>
+	<style>
+		.tabel {
+			font-family: sans-serif;
+			color: #444;
+			border-collapse: collapse;
+			width: 100%;
+		}
 
+		.tabel tr th {
+			background: #35A9DB;
+			color: #fff;
+			font-weight: normal;
+		}
+
+		.tabel,
+		th,
+		td {
+			padding: 10px 20px;
+			text-align: left;
+		}
+
+		.tabel tr:hover {
+			background-color: #f5f5f5;
+		}
+
+		.tabel tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	</style>
 </head>
 
 <body>
-	<div class="row">
-		<div style="text-align:left">
-			<h3>
-				<?= $title ?>
-			</h3>
-
-		</div>
+	<div style="text-align:left">
+		<h3>
+			<?= $title ?>
+		</h3>
 	</div>
-	<hr>
 	<div class="row">
-		<table class="table table-bordered" width="100%">
+		<table class="tabel" width="100%">
 			<thead>
-				<tr>
-					<td><strong>No</strong></td>
+				<tr style="background:#42444e;color:#fff;">
+					<td width="5%"><strong>No</strong></td>
 					<td><strong>Kategori</strong></td>
-					<td><strong>Tanggal Daftar</strong></td>					
+					<td><strong>Tanggal Daftar</strong></td>
 				</tr>
 			</thead>
 			<tbody>

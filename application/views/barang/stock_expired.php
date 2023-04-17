@@ -19,7 +19,7 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
+							<a href="<?= base_url('barang/export_barang_expired') ?>" class="btn btn-danger btn-sm"><i
 									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 							<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
 									class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
@@ -47,12 +47,12 @@
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
-											<td><strong>No</strong></td>
-											<td><strong>No Terima</strong></td>
+											<td width="5%"><strong>No</strong></td>
+											<td width="15%"><strong>No Terima</strong></td>
 											<td><strong>Nama Barang</strong></td>
-											<td><strong>Jumlah</strong></td>
-											<td><strong>Satuan</strong></td>
-											<td><strong>Tanggal Expired</strong></td>
+											<td width="5%"><strong>Jumlah</strong></td>
+											<td width="5%"><strong>Satuan</strong></td>
+											<td width="20%"><strong>Tanggal Expired</strong></td>											
 											</td>
 										</tr>
 									</thead>
@@ -76,7 +76,7 @@
 												</td>
 												<td>
 													<?= $detail_penerimaan->tgl_expired ?>
-												</td>
+												</td>												
 											</tr>
 										<?php endforeach ?>
 									</tbody>
