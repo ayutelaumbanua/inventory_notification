@@ -1,43 +1,59 @@
-// Installing service worker
-const CACHE_NAME  = 'pwa-inventory';
+const preLoad = function () {
+  return caches.open("offline").then(function (cache) {
+      // caching index and important routes
+      return cache.addAll(filesToCache);
+  });
+};
 
-/* Add relative URL of all the static content you want to store in
- * cache storage (this will help us use our app offline)*/
-let resourcesToCache = ["assets/js/app.js", "assets/css/app.css"];
-
-self.addEventListener("install", e=>{
-    e.waitUntil(
-        caches.open(CACHE_NAME).then(cache =>{
-            return cache.addAll(resourcesToCache);
-        }).then(self.skipWaiting())
-    );
+self.addEventListener("oninstall", function (event) {
+  event.waitUntil(preLoad());
 });
 
-// Cache and return requests
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        fetch(event.request)
-        .catch(() => {
-            return caches.open(CACHE_NAME)
-            .then((cache) => {
-                return cache.match(event.request)
-            })
-        })
-    )
-})
+const filesToCache = [
+  "application/",
+  "assets/",
+  "system/",
+];
 
-// Update a service worker
-const cacheWhitelist = [ CACHE_NAME ];
-self.addEventListener('activate', event => {
-    event.waitUntil(
-      caches.keys().then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => {
-            if (cacheWhitelist.indexOf(cacheName) === -1) {
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      }).then(() => self.clients.claim())
-    );
+const checkResponse = function (request) {
+  return new Promise(function (fulfill, reject) {
+      fetch(request).then(function (response) {
+          if (response.status !== 404) {
+              fulfill(response);
+          } else {
+              reject();
+          }
+      }, reject);
+  });
+};
+
+const addToCache = function (request) {
+  return caches.open("offline").then(function (cache) {
+      return fetch(request).then(function (response) {
+          return cache.put(request, response);
+      });
+  });
+};
+
+const returnFromCache = function (request) {
+  return caches.open("offline").then(function (cache) {
+      return cache.match(request).then(function (matching) {
+          if (!matching || matching.status === 404) {
+              return cache.match("offline.html");
+          } else {
+              return matching;
+          }
+      });
+  });
+};
+
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+      checkResponse(event.request).catch(function () {
+          return returnFromCache(event.request);
+      })
+  );
+  if (!event.request.url.startsWith("http")) {
+      event.waitUntil(addToCache(event.request));
+  }
 });

@@ -3,6 +3,11 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
+	<link rel="manifest" href="manifest.json"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#f45">
+	<link rel="shortcut icon" href="assets/img/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="icons-192.png" type="image/png">
 </head>
 
 <body id="page-top">
@@ -194,7 +199,98 @@
 				});
 				$('.toast').toast('show')
 			}
-		})	</script>
+		})	
+		</script>
+		<!-- Script browser notification -->
+		<script>
+			$.ajax({
+				url: get_low_stock,
+				type: 'GET',
+				dataType: 'json',
+				success: function (data) {
+					let perm=Notification.permission;
+				// default, granted, denied
+				console.log(perm);
+				if(!window.Notification)
+				{
+				  alert('Your system does not support notification');
+				}
+				else
+				{
+				  if(Notification.permission==='granted')
+				  {
+					// show notification
+						data.forEach(element => {
+							var nama_barang = element.nama_barang
+							var greeting=new Notification("Notification",{
+								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
+								  icon:""
+								})
+								console.log(greeting);
+								greeting.addEventListener("click",function(){
+								  window.open("http://localhost/inventori/barang")
+								})		
+						});
+				  }
+				  else
+				  {
+					Notification.requestPermission().then(function(p)
+					{
+					  if(p==='granted')
+					  {
+						// show notification
+						alert('hey permision taken')
+						data.forEach(element => {
+							var nama_barang = element.nama_barang
+							var greeting=new Notification("Notification",{
+								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
+								  icon:""
+								})
+								console.log(greeting);
+								greeting.addEventListener("click",function(){
+								  window.open("http://localhost/inventori/barang")
+								})		
+						});
+					  }
+					  else
+					  {
+						alert('User Blocked');
+			
+					  }
+					}
+					)
+				  }
+				}
+				}
+			})	
+			 
+		</script>
+		<!-- Script browser notification -->
+		<!-- script pwa -->
+		<script src="service-worker.js"></script>
+        <script>
+            if (!navigator.serviceWorker.controller) {
+                navigator.serviceWorker.register("service-worker.js").then(function (reg) {
+                    console.log("Service worker has been registered for scope: " + reg.scope);
+                });
+            }
+        </script>
+		<!-- <script>
+			            var BASE_URL = '<?= base_url() ?>';
+            document.addEventListener('DOMContentLoaded', init, false);
+				
+            function init() {
+                if ('serviceWorker' in navigator && navigator.onLine) {
+                    navigator.serviceWorker.register( BASE_URL + 'service-worker.js')
+                    .then((reg) => {
+                        console.log('Registrasi service worker Berhasil', reg);
+                    }, (err) => {
+                        console.error('Registrasi service worker Gagal', err);
+                    });
+                }
+            }
+		</script> -->
+		<!-- script pwa -->
 </body>
 
 </html>
