@@ -1,7 +1,7 @@
 {
   "name": "Inventory with Notification",
   "short_name": "Inventory",
-  "start_url": "http://localhost/inventori/",
+  "start_url": "https://inventorystocknotification.000webhostapp.com/",
   "background_color": "#ffffff",
   "description": "Inventory with Notification",
   "display": "fullscreen",

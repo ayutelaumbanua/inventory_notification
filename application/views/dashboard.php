@@ -228,7 +228,7 @@
 								})
 								console.log(greeting);
 								greeting.addEventListener("click",function(){
-								  window.open("http://localhost/inventori/barang")
+								  window.open("https://inventorystocknotification.000webhostapp.com/barang")
 								})		
 						});
 				  }
@@ -248,7 +248,7 @@
 								})
 								console.log(greeting);
 								greeting.addEventListener("click",function(){
-								  window.open("http://localhost/inventori/barang")
+								  window.open("https://inventorystocknotification.000webhostapp.com/barang")
 								})		
 						});
 					  }

@@ -370,9 +370,9 @@
 			$('#filter_button').click(function () {
 				var start_date = $('#start_date').val();
 				var end_date = $('#end_date').val();
-				var url = 'http://localhost/inventori/application/controllers/Barang' + start_date + '/' + end_date;
+				var url = 'https://inventorystocknotification.000webhostapp.com/application/controllers/Barang' + start_date + '/' + end_date;
 				table.ajax.url(url).load();
-				$('#cetak_button').attr('href', 'http://localhost/inventori/application/views/barangcetak_data/' + start_date + '/' + end_date);
+				$('#cetak_button').attr('href', 'https://inventorystocknotification.000webhostapp.com/application/views/barangcetak_data/' + start_date + '/' + end_date);
 			});
 		});
 	</script>
