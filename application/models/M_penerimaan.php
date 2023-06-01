@@ -8,6 +8,13 @@ class M_penerimaan extends CI_Model
 	{
 		return $this->db->get($this->_table)->result();
 	}
+	public function lihat_from_to($from, $to = '')
+	{
+		$query = $this->db->query(
+			'select * from penerimaan where tgl_daftar >= "' . $from . '" and tgl_daftar <= "' . $to . '"'
+		);
+		return $query->result();
+	}
 
 	public function jumlah()
 	{

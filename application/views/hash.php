@@ -14,7 +14,7 @@ if ($row) {
     // Verifikasi password
     $password_hash = $row['password_hash'];
     if (password_verify($password, $password_hash)) {
-        // Password cocok, lakukan tindakan setelah berhasil login
+        // Password cocok, lihat detail barang setelah berhasil login
         // Misalnya, arahkan pengguna ke halaman selamat datang
         header("Location: welcome.php");
         exit();

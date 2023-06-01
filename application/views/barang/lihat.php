@@ -19,8 +19,8 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<a href="<?= base_url('barang/export') ?>" class="btn btn-danger btn-sm"><i
-									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+							<a href="<?= base_url('barang/export') ?>" class="btn btn-success btn-sm"><i
+									class="fa fa-file-excel"></i>&nbsp;&nbsp;Export</a>
 							<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 								<span>
 									<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -369,18 +369,6 @@
 			return false;
 		});
 	</script>
-	<script>
-		$(document).ready(function () {
-			$('#filter_button').click(function () {
-				var start_date = $('#start_date').val();
-				var end_date = $('#end_date').val();
-				var url = 'http://localhost/inventori/application/controllers/Barang' + start_date + '/' + end_date;
-				table.ajax.url(url).load();
-				$('#cetak_button').attr('href', 'http://localhost/inventori/application/views/barangcetak_data/' + start_date + '/' + end_date);
-			});
-		});
-	</script>
-
 </body>
 
 </html>

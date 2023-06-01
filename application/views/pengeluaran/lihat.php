@@ -150,7 +150,7 @@
 						data.forEach(element => {
 							var nama_barang = element.nama_barang
 							var greeting=new Notification("Notification",{
-								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
+								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lihat detail barang!',
 								  icon:""
 								})
 								console.log(greeting);
@@ -170,7 +170,7 @@
 						data.forEach(element => {
 							var nama_barang = element.nama_barang
 							var greeting=new Notification("Notification",{
-								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
+								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lihat detail barang!',
 								  icon:""
 								})
 								console.log(greeting);

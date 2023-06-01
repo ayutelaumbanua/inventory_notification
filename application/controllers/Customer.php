@@ -97,7 +97,7 @@ class Customer extends CI_Controller
 
 	public function hapus($id)
 	{
-		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing' ) {
+		if ($this->session->userdata('access') == 'Staff Gudang' or $this->session->userdata('access') == 'Purchasing') {
 			$this->session->set_flashdata('error', 'Hapus <strong>Customer</strong> tidak dilakukan!');
 			redirect('customer');
 		}
@@ -113,15 +113,14 @@ class Customer extends CI_Controller
 
 	public function export()
 	{
-		$dompdf = new Dompdf();
-		$this->data['all_customer'] = $this->m_customer->lihat();
+		if ($this->input->post('fromDate')) {
+
+			$this->data['all_customer'] = $this->m_customer->lihat_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+		} else {
+			$this->data['all_customer'] = $this->m_customer->lihat();
+		}
 		$this->data['title'] = 'Laporan Data Customer';
 		$this->data['no'] = 1;
-
-		$dompdf->setPaper('A4', 'Landscape');
-		$html = $this->load->view('customer/report', $this->data, true);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream('Laporan Data Customer Tanggal ' . date('d F Y'), array("Attachment" => false));
+		$html = $this->load->view('customer/report', $this->data);
 	}
 }

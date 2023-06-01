@@ -112,15 +112,14 @@ class Supplier extends CI_Controller
 
 	public function export()
 	{
-		$dompdf = new Dompdf();
-		$this->data['all_supplier'] = $this->m_supplier->lihat();
+		if ($this->input->post('fromDate')) {
+
+			$this->data['all_supplier'] = $this->m_supplier->lihat_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+		} else {
+			$this->data['all_supplier'] = $this->m_supplier->lihat();
+		}
 		$this->data['title'] = 'Laporan Data Supplier';
 		$this->data['no'] = 1;
-
-		$dompdf->setPaper('A4', 'Landscape');
-		$html = $this->load->view('supplier/report', $this->data, true);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream('Laporan Data Supplier Tanggal ' . date('d F Y'), array("Attachment" => false));
+		$html = $this->load->view('supplier/report', $this->data);
 	}
 }

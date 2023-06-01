@@ -71,7 +71,7 @@
 					<td><?= $barang->nama_barang ?></td>
 					<td><?= $barang->stok ?></td>
 					<td><?= $barang->satuan ?></td>
-					<td><?= date('m-d-Y H:i:s', strtotime($barang->tgl_edit)) ?></td>
+					<td><?= date('d-m-Y H:i:s', strtotime($barang->tgl_edit)) ?></td>
 				</tr>
 			<?php endforeach ?>
 		</table>

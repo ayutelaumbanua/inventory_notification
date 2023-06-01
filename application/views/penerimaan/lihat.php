@@ -20,12 +20,12 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<a href="<?= base_url('penerimaan/export') ?>" class="btn btn-danger btn-sm"><i
-									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-									<?php if($this->session->userdata('access')=='Manager' or $this->session->userdata('access')=='Purchasing'): ?>
-							<a href="<?= base_url('penerimaan/tambah') ?>" class="btn btn-primary btn-sm"><i
-									class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-									<?php endif ?>
+							<a href="<?= base_url('penerimaan/export') ?>" class="btn btn-success btn-sm"><i
+									class="fa fa-file-excel"></i>&nbsp;&nbsp;Export</a>
+							<?php if ($this->session->userdata('access') == 'Manager' or $this->session->userdata('access') == 'Purchasing'): ?>
+								<a href="<?= base_url('penerimaan/tambah') ?>" class="btn btn-primary btn-sm"><i
+										class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
+							<?php endif ?>
 						</div>
 					</div>
 					<hr>
@@ -46,12 +46,28 @@
 					<?php endif ?>
 					<div class="card shadow">
 						<div class="card-body">
+							<form action="<?= base_url('penerimaan/export') ?>" method="POST">
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="fromDate">From Date:</label>
+										<input type="date" class="form-control" id="fromDate" name="fromDate">
+									</div>
+									<div class="col-md-3">
+										<label for="toDate">To Date:</label>
+										<input type="date" class="form-control" id="toDate" name="toDate">
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-primary mt-4"
+											id="filterBtn">Filter</button>
+									</div>
+								</div>
+							</form>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
 											<td width="5%">No</td>
-											<td>No Terima</td>
+											<td>Kode Transaksi</td>
 											<td>Nama Petugas</td>
 											<td>Nama Supplier</td>
 											<td>Tanggal Terima</td>
@@ -74,7 +90,7 @@
 													<?= $penerimaan->nama_supplier ?>
 												</td>
 												<td>
-													<?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima))?>
+													<?= date('d-m-Y H:i:s', strtotime($penerimaan->tgl_terima)) ?>
 												</td>
 												<td>
 													<a class="dropdown-toggle" href="#" id="userDropdown" role="button"

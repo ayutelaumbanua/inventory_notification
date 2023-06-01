@@ -52,7 +52,7 @@
 
 	<div style="text-align:left">
 		<h3 class="h1">
-			<?= "Data Barang " . date('d-m-Y') ?>
+			<?= $title ?>
 		</h3>
 	</div>
 	<div class="row">

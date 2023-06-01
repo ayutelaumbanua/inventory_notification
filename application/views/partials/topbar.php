@@ -64,7 +64,7 @@
 						'<div class="icon-circle bg-warning">' +
 						'<i class="fas fa-exclamation-triangle text-white"></i></div></div>' +
 						'<div>' + '<div class="small text-gray-500" >' + $.timeago(new Date()) + '</div>' +
-						'<span class="medium text-black-500">' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan.</span></div></a >'
+						'<span class="medium text-black-500">' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lihat detail barang.</span></div></a >'
 					);
 				}
 				i++

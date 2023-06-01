@@ -3,11 +3,11 @@
 
 <head>
 	<?php $this->load->view('partials/head.php') ?>
-	<link rel="manifest" href="manifest.json"/>
+	<link rel="manifest" href="manifest.json" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#f45">
 	<link rel="shortcut icon" href="assets/img/icon.png" type="image/png">
-<link rel="apple-touch-icon" href="icons-192.png" type="image/png">
+	<link rel="apple-touch-icon" href="icons-192.png" type="image/png">
 </head>
 
 <body id="page-top">
@@ -174,125 +174,88 @@
 		</div>
 	</div>
 	<?php $this->load->view('partials/js.php') ?>
-	
-	<!-- <script>
-		const get_low_stock = 'barang/get_low_stock';
+	<script>
 		$.ajax({
 			url: get_low_stock,
 			type: 'GET',
 			dataType: 'json',
 			success: function (data) {
-				data.forEach(element => {
-					var nama_barang = element.nama_barang
-					$('#toast').append(
-						'<div class="toast" role="alert" aria-live="assertive" data-autohide="false">' +
-						'<div class="toast-header">' +
-						'<strong class="mr-auto">Stock berkurang!</strong>' +
-						'<small>' + $.timeago(new Date()) + '</small>' +
-						'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' +
-						'<span aria-hidden="true">&times;</span>' +
-						'</button>' +
-						'</div>' +
-						'<div class="toast-body">' +
-						'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!' +
-						'</div>' +
-						'</div>');
-				});
-				$('.toast').toast('show')
-			}
-		})	
-		</script> -->
-
-		<!-- Script browser notification -->
-		<script>
-			$.ajax({
-				url: get_low_stock,
-				type: 'GET',
-				dataType: 'json',
-				success: function (data) {
-					let perm=Notification.permission;
+				let perm = Notification.permission;
 				// default, granted, denied
 				console.log(perm);
-				if(!window.Notification)
-				{
-				  alert('Your system does not support notification');
+				if (!window.Notification) {
+					alert('Your system does not support notification');
 				}
-				else
-				{
-				  if(Notification.permission==='granted')
-				  {
-					// show notification
-						data.forEach(element => {
-							var nama_barang = element.nama_barang
-							var greeting=new Notification("Notification",{
-								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
-								  icon:""
-								})
-								console.log(greeting);
-								greeting.addEventListener("click",function(){
-								  window.open("http://localhost/inventori/barang")
-								})		
-						});
-				  }
-				  else
-				  {
-					Notification.requestPermission().then(function(p)
-					{
-					  if(p==='granted')
-					  {
+				else {
+					if (Notification.permission === 'granted') {
 						// show notification
-						alert('hey permision taken')
 						data.forEach(element => {
 							var nama_barang = element.nama_barang
-							var greeting=new Notification("Notification",{
-								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
-								  icon:""
-								})
-								console.log(greeting);
-								greeting.addEventListener("click",function(){
-								  window.open("http://localhost/inventori/barang")
-								})		
+							var greeting = new Notification("Notification", {
+								body: '' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lihat detail barang!',
+								icon: ""
+							})
+							console.log(greeting);
+							greeting.addEventListener("click", function () {
+								window.open("http://localhost/inventori/barang")
+							})
 						});
-					  }
-					  else
-					  {
-						alert('User Blocked');
-			
-					  }
 					}
-					)
-				  }
+					else {
+						Notification.requestPermission().then(function (p) {
+							if (p === 'granted') {
+								// show notification
+								alert('hey permision taken')
+								data.forEach(element => {
+									var nama_barang = element.nama_barang
+									var greeting = new Notification("Notification", {
+										body: '' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lihat detail barang!',
+										icon: ""
+									})
+									console.log(greeting);
+									greeting.addEventListener("click", function () {
+										window.open("http://localhost/inventori/barang")
+									})
+								});
+							}
+							else {
+								alert('User Blocked');
+
+							}
+						}
+						)
+					}
 				}
-				}
-			})	
-			 
-		</script>
-		<!-- Script browser notification -->
-		<!-- script pwa -->
-		<script src="service-worker.js"></script>
-        <script>
-            if (!navigator.serviceWorker.controller) {
-                navigator.serviceWorker.register("service-worker.js").then(function (reg) {
-                    console.log("Service worker has been registered for scope: " + reg.scope);
-                });
-            }
-        </script>
-		<!-- <script>
-			            var BASE_URL = '<?= base_url() ?>';
-            document.addEventListener('DOMContentLoaded', init, false);
+			}
+		})
+
+	</script>
+	<!-- Script browser notification -->
+	<!-- script pwa -->
+	<script src="service-worker.js"></script>
+	<script>
+		if (!navigator.serviceWorker.controller) {
+			navigator.serviceWorker.register("service-worker.js").then(function (reg) {
+				console.log("Service worker has been registered for scope: " + reg.scope);
+			});
+		}
+	</script>
+	<!-- <script>
+						var BASE_URL = '<?= base_url() ?>';
+			document.addEventListener('DOMContentLoaded', init, false);
 				
-            function init() {
-                if ('serviceWorker' in navigator && navigator.onLine) {
-                    navigator.serviceWorker.register( BASE_URL + 'service-worker.js')
-                    .then((reg) => {
-                        console.log('Registrasi service worker Berhasil', reg);
-                    }, (err) => {
-                        console.error('Registrasi service worker Gagal', err);
-                    });
-                }
-            }
+			function init() {
+				if ('serviceWorker' in navigator && navigator.onLine) {
+					navigator.serviceWorker.register( BASE_URL + 'service-worker.js')
+					.then((reg) => {
+						console.log('Registrasi service worker Berhasil', reg);
+					}, (err) => {
+						console.error('Registrasi service worker Gagal', err);
+					});
+				}
+			}
 		</script> -->
-		<!-- script pwa -->
+	<!-- script pwa -->
 </body>
 
 </html>

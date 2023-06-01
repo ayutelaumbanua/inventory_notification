@@ -141,7 +141,7 @@ class Barang extends CI_Controller
 	public function get_stock_low_alert()
 	{
 		$query = $this->db->query(
-			'select * from barang where id = "'.$this->input->post('id').'"'
+			'select * from barang where id = "' . $this->input->post('id') . '"'
 		);
 		return $this->output
 			->set_content_type('application/json')
@@ -155,45 +155,32 @@ class Barang extends CI_Controller
 			->set_output(json_encode($this->db->get_where('barang', 'stok <= 5')->result()));
 	}
 
-	// public function export()
-	// {
-	// 	$dompdf = new Dompdf();
-	// 	$this->data['all_barang'] = $this->m_barang->lihat();
-	// 	$this->data['title'] = 'Laporan Data Barang';
-	// 	$this->data['no'] = 1;
-		
-	// 	$dompdf->setPaper('A4', 'Landscape');
-	// 	$html = $this->load->view('barang/report', $this->data, true);
-	// 	$dompdf->load_html($html);
-	// 	$dompdf->render();
-	// 	$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
-	// }
-
+	// Export laporan data barang, barang expired dan barang habis
 	public function export()
 	{
 		if ($this->input->post('fromDate')) {
-			
-			$this->data['all_barang'] = $this->m_barang->lihat_from_to($this->input->post('fromDate'),$this->input->post('toDate'));
 
-		}else{
+			$this->data['all_barang'] = $this->m_barang->lihat_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+
+		} else {
 			$this->data['all_barang'] = $this->m_barang->lihat();
 		}
-		$this->data['title'] = 'Laporan Data Barang Habis';
+		$this->data['title'] = 'Laporan Data Barang';
 		$this->data['no'] = 1;
 		$html = $this->load->view('barang/report_barang', $this->data);
 	}
 	public function export_barang_habis()
 	{
 		if ($this->input->post('fromDate')) {
-			
-			$this->data['all_barang'] = $this->m_barang->lihat_stock_habis_from_to($this->input->post('fromDate'),$this->input->post('toDate'));
 
-		}else{
+			$this->data['all_barang'] = $this->m_barang->lihat_stock_habis_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+
+		} else {
 			$this->data['all_barang'] = $this->m_barang->lihat_stock_habis();
 		}
 		$this->data['title'] = 'Laporan Data Barang Habis';
 		$this->data['no'] = 1;
-		$html = $this->load->view('barang/report_barang_habis_excel', $this->data);
+		$html = $this->load->view('barang/report_barang_habis', $this->data);
 	}
 
 
@@ -210,5 +197,25 @@ class Barang extends CI_Controller
 		$dompdf->render();
 		$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
 	}
-	
+
+	// public function export_barang_habis_pdf()
+	// {
+	// 	if ($this->input->post('fromDate')) {
+
+	// 		$this->data['all_barang'] = $this->m_barang->lihat_stock_habis_from_to($this->input->post('fromDate'),$this->input->post('toDate'));
+
+	// 	}else{
+	// 		$this->data['all_barang'] = $this->m_barang->lihat_stock_habis();
+	// 	}
+	// 	$dompdf = new Dompdf();
+	// 	$this->data['title'] = 'Laporan Data Barang Habis';
+	// 	$this->data['no'] = 1;
+
+	// 	$dompdf->setPaper('A4', 'Landscape');
+	// 	$html = $this->load->view('barang/report_barang_habis_pdf', $this->data, true);
+	// 	$dompdf->load_html($html);
+	// 	$dompdf->render();
+	// 	$dompdf->stream('Laporan Data Barang Tanggal ' . date('d F Y'), array("Attachment" => false));
+	// }
+
 }

@@ -73,17 +73,17 @@ class Satuan extends CI_Controller
             redirect('satuan');
         }
     }
-    public function export()
+	public function export()
 	{
-		$dompdf = new Dompdf();
-		$this->data['all_satuan'] = $this->m_satuan->lihat();
-		$this->data['title'] = 'Laporan Data Satuan';
+		if ($this->input->post('fromDate')) {
+
+			$this->data['all_satuan'] = $this->m_satuan->lihat_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+
+		} else {
+			$this->data['all_satuan'] = $this->m_satuan->lihat();
+		}
+		$this->data['title'] = 'Laporan Data Satuan Barang';
 		$this->data['no'] = 1;
-        
-		$dompdf->setPaper('A4', 'Potrait');
-		$html = $this->load->view('satuan/report', $this->data, true);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream('Laporan Data Satuan Tanggal ' . date('d F Y'), array("Attachment" => false));
+		$html = $this->load->view('satuan/report', $this->data);
 	}
 }

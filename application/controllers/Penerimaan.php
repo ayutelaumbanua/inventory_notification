@@ -99,23 +99,22 @@ class Penerimaan extends CI_Controller
 
 	public function export()
 	{
-		$dompdf = new Dompdf();
-		// $this->data['perusahaan'] = $this->m_usaha->lihat();
-		$this->data['all_penerimaan'] = $this->m_penerimaan->lihat();
-		$this->data['title'] = 'Laporan Data Penerimaan';
-		$this->data['no'] = 1;
+		if ($this->input->post('fromDate')) {
 
-		$dompdf->setPaper('A4', 'Potrait');
-		$html = $this->load->view('penerimaan/report', $this->data, true);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream('Laporan Data Penerimaan Tanggal ' . date('d F Y'), array("Attachment" => false));
+			$this->data['all_penerimaan'] = $this->m_penerimaan->lihat_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+
+		} else {
+			$this->data['all_penerimaan'] = $this->m_penerimaan->lihat();
+		}
+		$this->data['title'] = 'Laporan Data Penerimaan Barang';
+		$this->data['no'] = 1;
+		$html = $this->load->view('penerimaan/report', $this->data);
 	}
 
 	public function export_detail($no_terima)
 	{
 		$dompdf = new Dompdf();
-		// $this->data['perusahaan'] = $this->m_usaha->lihat();
+	
 		$this->data['penerimaan'] = $this->m_penerimaan->lihat_no_terima($no_terima);
 		$this->data['all_detail_penerimaan'] = $this->m_detail_penerimaan->lihat_no_terima($no_terima);
 		$this->data['title'] = 'Laporan Detail Penerimaan';

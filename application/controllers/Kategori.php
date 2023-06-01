@@ -76,15 +76,15 @@ class Kategori extends CI_Controller
     }
     public function export()
 	{
-		$dompdf = new Dompdf();
-		$this->data['all_kategori'] = $this->m_kategori->lihat();
-		$this->data['title'] = 'Laporan Data Kategori';
+		if ($this->input->post('fromDate')) {
+
+			$this->data['all_kategori'] = $this->m_kategori->lihat_from_to($this->input->post('fromDate'), $this->input->post('toDate'));
+
+		} else {
+			$this->data['all_kategori'] = $this->m_kategori->lihat();
+		}
+		$this->data['title'] = 'Laporan Data Kategori Barang';
 		$this->data['no'] = 1;
-        
-		$dompdf->setPaper('A4', 'Potrait');
-		$html = $this->load->view('kategori/report', $this->data, true);
-		$dompdf->load_html($html);
-		$dompdf->render();
-		$dompdf->stream('Laporan Data Kategori Tanggal ' . date('d F Y'), array("Attachment" => false));
+		$html = $this->load->view('kategori/report', $this->data);
 	}
 }

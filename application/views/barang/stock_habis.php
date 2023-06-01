@@ -21,7 +21,7 @@
 						<div class="float-right">
 							<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-success btn-sm"><i
 									class="fa fa-file-excel"></i>&nbsp;&nbsp;Export</a>
-							<!-- <a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
+							<!-- <a href="<?= base_url('barang/export_barang_habis_pdf') ?>" class="btn btn-danger btn-sm"><i
 									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a> -->
 							<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
 									class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>

@@ -19,8 +19,8 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<a href="<?= base_url('satuan/export') ?>" class="btn btn-danger btn-sm"><i
-									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+							<a href="<?= base_url('satuan/export') ?>" class="btn btn-success btn-sm"><i
+									class="fa fa-file-excel"></i>&nbsp;&nbsp;Export</a>
 							<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 								<span>
 									<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -47,8 +47,22 @@
 					<?php endif ?>
 					<div class="card shadow">
 						<div class="card-body">
-							<div class="form-row">
-							</div>
+							<form action="<?= base_url('satuan/export') ?>" method="POST">
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="fromDate">From Date:</label>
+										<input type="date" class="form-control" id="fromDate" name="fromDate">
+									</div>
+									<div class="col-md-3">
+										<label for="toDate">To Date:</label>
+										<input type="date" class="form-control" id="toDate" name="toDate">
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-primary mt-4"
+											id="filterBtn">Filter</button>
+									</div>
+								</div>
+							</form>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
@@ -110,7 +124,8 @@
 				</div>
 
 				<!-- Modal Edit Satuan -->
-				<?php $no = 0; foreach ($all_satuan as $satuan):
+				<?php $no = 0;
+				foreach ($all_satuan as $satuan):
 					$no++; ?>
 					<div id="editSatuan<?= $satuan->id ?>" class="modal fade" role="dialog"
 						data-url="<?= base_url('satuan') ?>">

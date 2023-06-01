@@ -9,6 +9,13 @@ class M_satuan extends CI_Model
         $query = $this->db->get($this->_table);
         return $query->result();
     }
+    public function lihat_from_to($from, $to = '')
+	{
+		$query = $this->db->query(
+			'select * from satuan where tgl_daftar >= "' . $from . '" and tgl_daftar <= "' . $to . '"'
+		);
+		return $query->result();
+	}
     public function tambah_satuan($data)
     {
         return $this->db->insert($this->_table, $data);

@@ -20,8 +20,8 @@
 						</div>
 						<div class="float-right">
 							<?php if ($this->session->userdata('access') != 'Purchasing'): ?>
-								<a href="<?= base_url('customer/export') ?>" class="btn btn-danger btn-sm"><i
-										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+								<a href="<?= base_url('customer/export') ?>" class="btn btn-success btn-sm"><i
+										class="fa fa-file-excel"></i>&nbsp;&nbsp;Export</a>
 								<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
 									data-target="#tambahCustomer"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
 							<?php endif ?>
@@ -45,6 +45,22 @@
 					<?php endif ?>
 					<div class="card shadow">
 						<div class="card-body">
+							<form action="<?= base_url('customer/export') ?>" method="POST">
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="fromDate">From Date:</label>
+										<input type="date" class="form-control" id="fromDate" name="fromDate">
+									</div>
+									<div class="col-md-3">
+										<label for="toDate">To Date:</label>
+										<input type="date" class="form-control" id="toDate" name="toDate">
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-primary mt-4"
+											id="filterBtn">Filter</button>
+									</div>
+								</div>
+							</form>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
