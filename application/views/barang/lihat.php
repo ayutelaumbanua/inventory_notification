@@ -25,7 +25,7 @@
 								<span>
 									<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
 										data-target="#tambahBarang"><i class="fa fa-plus"></i>&nbsp;&nbsp;Tambah</a>
-								</span>							
+								</span>
 							<?php endif ?>
 						</div>
 					</div>
@@ -47,19 +47,22 @@
 					<?php endif ?>
 					<div class="card shadow">
 						<div class="card-body">
-							<div class="form-row">
-								<!-- <div class="form-group col-2">
-									<label for="start_date">Tanggal Mulai:</label>
-									<input type="date" name="start_date" id="start_date" class="form-control">
+							<form action="<?= base_url('barang/export') ?>" method="POST">
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="fromDate">From Date:</label>
+										<input type="date" class="form-control" id="fromDate" name="fromDate">
+									</div>
+									<div class="col-md-3">
+										<label for="toDate">To Date:</label>
+										<input type="date" class="form-control" id="toDate" name="toDate">
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-primary mt-4"
+											id="filterBtn">Filter</button>
+									</div>
 								</div>
-								<div class="form-group col-2">
-									<label for="end_date">Tanggal Akhir:</label>
-									<input type="date" name="end_date" id="end_date" class="form-control">
-								</div>
-								<div class="form-group col-2"> <button id="filter_button">Filter</button>
-									<a href="" id="cetak_button">Cetak</a>
-								</div> -->
-							</div>
+							</form>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
@@ -215,7 +218,8 @@
 				</div>
 
 				<!-- Modal Edit Barang -->
-				<?php $no = 0; foreach ($all_barang as $barang):
+				<?php $no = 0;
+				foreach ($all_barang as $barang):
 					$no++; ?>
 					<div id="editBarang<?= $barang->kode_barang ?>" class="modal fade" role="dialog"
 						data-url="<?= base_url('barang') ?>">
@@ -370,9 +374,9 @@
 			$('#filter_button').click(function () {
 				var start_date = $('#start_date').val();
 				var end_date = $('#end_date').val();
-				var url = 'https://inventorystocknotification.000webhostapp.com/application/controllers/Barang' + start_date + '/' + end_date;
+				var url = 'http://localhost/inventori/application/controllers/Barang' + start_date + '/' + end_date;
 				table.ajax.url(url).load();
-				$('#cetak_button').attr('href', 'https://inventorystocknotification.000webhostapp.com/application/views/barangcetak_data/' + start_date + '/' + end_date);
+				$('#cetak_button').attr('href', 'http://localhost/inventori/application/views/barangcetak_data/' + start_date + '/' + end_date);
 			});
 		});
 	</script>

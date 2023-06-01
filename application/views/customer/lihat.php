@@ -50,7 +50,6 @@
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
 											<td>No</td>
-											<td>ID</td>
 											<td>Nama</td>
 											<td>Telepon</td>
 											<td>Email</td>
@@ -66,9 +65,6 @@
 											<tr>
 												<td>
 													<?= $no++ ?>
-												</td>
-												<td>
-													<?= $customer->id ?>
 												</td>
 												<td>
 													<?= $customer->nama ?>
@@ -176,7 +172,8 @@
 				</div>
 
 				<!-- Modal Edit Customer-->
-				<?php $no = 0; foreach ($all_customer as $customer):
+				<?php $no = 0;
+				foreach ($all_customer as $customer):
 					$no++; ?>
 					<div id="editCustomer<?= $customer->id ?>" class="modal fade" role="dialog"
 						data-url="<?= base_url('customer') ?>">

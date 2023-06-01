@@ -1,15 +1,23 @@
 <?php
 
-class M_login extends CI_Model{
+class M_login extends CI_Model {
 
-    function query_validasi_username($username){
-    	$result = $this->db->query("SELECT * FROM user WHERE username='$username' LIMIT 1");
+    function query_validasi_username($username) {
+        $sql = "SELECT * FROM user WHERE username = ? LIMIT 1";
+        $result = $this->db->query($sql, array($username));
         return $result;
     }
 
-    function query_validasi_password($username,$password){
-    	$result = $this->db->query("SELECT * FROM user WHERE username='$username' AND password='$password' LIMIT 1");
-        return $result;
+    function query_validasi_password($username, $password) {
+        $sql = "SELECT * FROM user WHERE username = ? LIMIT 1";
+        $result = $this->db->query($sql, array($username));
+        $user = $result->row();
+
+        if ($user && password_verify($password, $user->password)) {
+            return $user;
+        } else {
+            return null;
+        }
     }
 
-} 
+}

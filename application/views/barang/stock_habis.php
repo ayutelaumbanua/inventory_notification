@@ -19,8 +19,10 @@
 							</h1>
 						</div>
 						<div class="float-right">
-							<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
-									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+							<a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-success btn-sm"><i
+									class="fa fa-file-excel"></i>&nbsp;&nbsp;Export</a>
+							<!-- <a href="<?= base_url('barang/export_barang_habis') ?>" class="btn btn-danger btn-sm"><i
+									class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a> -->
 							<a href="<?= base_url('barang') ?>" class="btn btn-secondary btn-sm"><i
 									class="fa fa-reply"></i>&nbsp;&nbsp;Kembali</a>
 						</div>
@@ -43,6 +45,21 @@
 					<?php endif ?>
 					<div class="card shadow">
 						<div class="card-body">
+							<form action="<?= base_url('barang/export_barang_habis') ?>" method="POST">
+								<div class="row mb-3">
+									<div class="col-md-3">
+										<label for="fromDate">From Date:</label>
+										<input type="date" class="form-control" id="fromDate" name="fromDate">
+									</div>
+									<div class="col-md-3">
+										<label for="toDate">To Date:</label>
+										<input type="date" class="form-control" id="toDate" name="toDate">
+									</div>
+									<div class="col-md-3">
+										<button type="submit" class="btn btn-primary mt-4" id="filterBtn">Filter</button>
+									</div>
+								</div>
+							</form>
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
@@ -50,10 +67,10 @@
 											<td width="5%">No</td>
 											<td width="15%">Kode Barang</td>
 											<td>Kategori</td>
-											<td width="35%">Nama Barang</td>
+											<td >Nama Barang</td>
 											<td>Stok</td>
 											<td witdh="5%">Satuan</td>
-											</td>
+											<td witdh="5%">Tanggal </td>								
 										</tr>
 									</thead>
 									<tbody>
@@ -77,6 +94,9 @@
 												<td>
 													<?= $barang->satuan ?>
 												</td>
+												<td>
+													<?= date('m-d-Y', strtotime($barang->tgl_edit)) ?>
+												</td>
 											</tr>
 										<?php endforeach ?>
 									</tbody>
@@ -90,6 +110,7 @@
 		</div>
 	</div>
 	<?php $this->load->view('partials/js.php') ?>
+
 </body>
 
 </html>

@@ -15,7 +15,6 @@ class Login extends CI_Controller
             $url = base_url('dashboard');
             redirect($url);
         }
-        ;
     }
 
     function autentikasi()
@@ -25,31 +24,27 @@ class Login extends CI_Controller
 
         $validasi_username = $this->M_login->query_validasi_username($username);
         if ($validasi_username->num_rows() > 0) {
-            $validate_ps = $this->M_login->query_validasi_password($username, $password);
-            if ($validate_ps->num_rows() > 0) {
-                $x = $validate_ps->row_array();
-                if ($x['status'] == 'Aktif') {
+            $user = $validasi_username->row();
+            if (password_verify($password, $user->password)) {
+                if ($user->status == 'Aktif') {
                     $this->session->set_userdata('logged', TRUE);
                     $this->session->set_userdata('user', $username);
-                    $id = $x['id'];
-                    if ($x['level'] == 'Manager') {
-                        $nama = $x['nama'];
+                    $id = $user->id;
+                    $nama = $user->nama;
+
+                    if ($user->level == 'Manager') {
                         $this->session->set_userdata('access', 'Manager');
                         $this->session->set_userdata('id', $id);
                         $this->session->set_userdata('nama', $nama);
                         $this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
                         redirect('dashboard');
-
-                    } else if ($x['level'] == 'Purchasing') {
-                        $nama = $x['nama'];
+                    } else if ($user->level == 'Purchasing') {
                         $this->session->set_userdata('access', 'Purchasing');
                         $this->session->set_userdata('id', $id);
                         $this->session->set_userdata('nama', $nama);
                         $this->session->set_flashdata('success', '<strong>Login</strong> Berhasil!');
                         redirect('dashboard');
-
-                    } else if ($x['level'] == 'Staff Gudang') {
-                        $nama = $x['nama'];
+                    } else if ($user->level == 'Staff Gudang') {
                         $this->session->set_userdata('access', 'Staff Gudang');
                         $this->session->set_userdata('id', $id);
                         $this->session->set_userdata('nama', $nama);
@@ -58,21 +53,19 @@ class Login extends CI_Controller
                     }
                 } else {
                     $url = base_url('login');
-                    echo $this->session->set_flashdata('error','<strong>Username</strong> atau <strong>Password</strong> salah !');
+                    $this->session->set_flashdata('error', '<strong>Username</strong> atau <strong>Password</strong> salah!');
                     redirect($url);
                 }
             } else {
                 $url = base_url('login');
-                echo $this->session->set_flashdata('error','<strong>Username</strong> atau <strong>Password</strong> salah !');
+                $this->session->set_flashdata('error', '<strong>Username</strong> atau <strong>Password</strong> salah!');
                 redirect($url);
             }
-
         } else {
             $url = base_url('login');
-            echo $this->session->set_flashdata('error','<strong>Username</strong> atau <strong>Password</strong> salah !');
+            $this->session->set_flashdata('error', '<strong>Username</strong> atau <strong>Password</strong> salah!');
             redirect($url);
         }
-
     }
 
     function logout()

@@ -23,7 +23,7 @@ class M_barang extends CI_Model
 	}
 	public function lihat_stok()
 	{
-		$query = $this->db->get_where($this->_table, 'stok > 1');
+		$query = $this->db->get_where($this->_table, 'stok > 5');
 		return $query->result();
 	}
 	public function lihat_nama_barang($nama_barang)
@@ -48,6 +48,7 @@ class M_barang extends CI_Model
 	public function min_stok($stok, $nama_barang)
 	{
 		$query = $this->db->set('stok', 'stok-' . $stok, false);
+		$query = $this->db->set('tgl_edit',"'".date('Y-m-d H:i:s')."'", false);
 		$query = $this->db->where('nama_barang', $nama_barang);
 		$query = $this->db->update($this->_table);
 		return $query;
@@ -69,6 +70,14 @@ class M_barang extends CI_Model
 	public function lihat_stock_habis()
 	{
 		$query = $this->db->get_where($this->_table, 'stok < 5');
+		return $query->result();
+	}
+
+	public function lihat_stock_habis_from_to($from,$to = '')
+	{
+		$query = $this->db->query(
+			'select * from barang where stok < 5 AND tgl_edit >= "'.$from.'" and tgl_edit <= "'.$to.'"'
+		);
 		return $query->result();
 	}
 

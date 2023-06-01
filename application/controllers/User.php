@@ -30,47 +30,44 @@ class User extends CI_Controller
 
 	public function proses_tambah()
 	{
-		$data = [
-			'nama' => $this->input->post('nama'),
-			'email' => $this->input->post('email'),
-			'telepon' => $this->input->post('telepon'),
-			'level' => $this->input->post('level'),
-			'status' => $this->input->post('status'),
-			'username' => $this->input->post('username'),
-			'password' => $this->input->post('password'),
-		];
+		$nama = $this->input->post('nama');
+		$email = $this->input->post('email');
+		$telepon = $this->input->post('telepon');
+		$level = $this->input->post('level');
+		$status = $this->input->post('status');
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
 
-		if ($this->m_user->tambah($data)) {
+		if ($this->m_user->tambah($nama, $email, $telepon, $level, $status, $username, $password)) {
 			$this->session->set_flashdata('success', 'Data User <strong>Berhasil</strong> Ditambahkan!');
-			redirect('user');
 		} else {
 			$this->session->set_flashdata('error', 'Data User <strong>Gagal</strong> Ditambahkan!');
-			redirect('user');
 		}
+
+		redirect('user');
 	}
 
 	public function edit($id)
 	{
 		$this->data['title'] = 'Edit User';
 		$this->data['user'] = $this->m_user->lihat_id($id);
-
 		$this->load->view('user/edit', $this->data);
 	}
 
 	public function proses_edit($id)
 	{
-		
-		$data = [
-			'nama' => $this->input->post('nama'),
-			'email' => $this->input->post('email'),
-			'telepon' => $this->input->post('telepon'),
-			'level' => $this->input->post('level'),
-			'status' => $this->input->post('status'),
-			'username' => $this->input->post('username'),
-			'password' => $this->input->post('password'),
-		];
 
-		if ($this->m_user->edit($data, $id)) {
+		if (
+			$this->m_user->edit(
+				$this->input->post('nama'),
+				$this->input->post('email'),
+				$this->input->post('telepon'),
+				$this->input->post('level'),
+				$this->input->post('status'),
+				$this->input->post('username'),
+				$id
+			)
+		) {
 			$this->session->set_flashdata('success', 'Data User <strong>berhasil</strong> diperbaharui');
 			redirect('user');
 		} else {
@@ -79,9 +76,26 @@ class User extends CI_Controller
 		}
 	}
 
+	public function proses_reset_password($id)
+	{
+		if (
+			$this->m_user->resetPassword(
+				$this->input->post('username'),
+				$this->input->post('password'),
+				$id
+			)
+		) {
+			$this->session->set_flashdata('success', 'Reset Password <strong>berhasil</strong> diperbaharui');
+			redirect('user');
+		} else {
+			$this->session->set_flashdata('error', 'Reset Password<strong>Gagal</strong> diperbaharui');
+			redirect('user');
+		}
+	}
+
 	public function hapus($id)
 	{
-		
+
 		if ($this->m_user->hapus($id)) {
 			$this->session->set_flashdata('success', 'Data User <strong>berhasil</strong> dihapus');
 			redirect('user');

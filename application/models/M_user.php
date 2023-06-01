@@ -3,7 +3,7 @@
 class M_user extends CI_Model
 {
 	protected $_table = 'user';
-	
+
 	public function lihat()
 	{
 		$query = $this->db->get($this->_table);
@@ -28,13 +28,49 @@ class M_user extends CI_Model
 		return $query->row();
 	}
 
-	public function tambah($data)
+	// public function tambah($data)
+	// {
+	// 	return $this->db->insert($this->_table, $data);
+	// }
+
+	public function tambah($nama, $email, $telepon, $level, $status, $username, $password)
 	{
-		return $this->db->insert($this->_table, $data);
+		$data = array(
+			'nama' => $nama,
+			'email' => strtolower($email),
+			'telepon' => $telepon,
+			'level' => $level,
+			'status' => $status,
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_DEFAULT)
+		);
+
+		$this->db->insert('user', $data);
+		return 1;
 	}
 
-	public function edit($data, $id)
+	public function edit($nama, $email, $telepon, $level, $status, $username, $id)
 	{
+		$data = array(
+			'nama' => $nama,
+			'email' => strtolower($email),
+			'telepon' => $telepon,
+			'level' => $level,
+			'status' => $status,
+			'username' => $username,
+			// 'password' => password_hash($password, PASSWORD_DEFAULT)
+		);
+		$query = $this->db->set($data);
+		$query = $this->db->where(['id' => $id]);
+		$query = $this->db->update($this->_table);
+		return $query;
+	}
+	public function resetPassword($username, $password, $id)
+	{
+		$data = array(
+			'username' => $username,
+			'password' => password_hash($password, PASSWORD_DEFAULT)
+		);
 		$query = $this->db->set($data);
 		$query = $this->db->where(['id' => $id]);
 		$query = $this->db->update($this->_table);

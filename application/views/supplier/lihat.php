@@ -19,7 +19,7 @@
 							</h1>
 						</div>
 						<div class="float-right">
-						<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
+							<?php if ($this->session->userdata('access') != 'Staff Gudang'): ?>
 								<a href="<?= base_url('supplier/export') ?>" class="btn btn-danger btn-sm"><i
 										class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
 								<a href="#" class="btn btn-primary btn-sm" type="button" data-toggle="modal"
@@ -50,7 +50,6 @@
 									<thead>
 										<tr style="background:#42444e;color:#fff;">
 											<td>No</td>
-											<td>ID</td>
 											<td>Nama</td>
 											<td>Telepon</td>
 											<td>Email</td>
@@ -66,9 +65,6 @@
 											<tr>
 												<td>
 													<?= $no++ ?>
-												</td>
-												<td>
-													<?= $supplier->id ?>
 												</td>
 												<td>
 													<?= $supplier->nama ?>
@@ -174,7 +170,8 @@
 				</div>
 
 				<!-- Modal Edit Supplier -->
-				<?php $no = 0; foreach ($all_supplier as $supplier):
+				<?php $no = 0;
+				foreach ($all_supplier as $supplier):
 					$no++; ?>
 					<div id="editSupplier<?= $supplier->id ?>" class="modal fade" role="dialog"
 						data-url="<?= base_url('supplier') ?>">

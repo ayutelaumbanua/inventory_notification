@@ -37,3 +37,5 @@
 <link href="<?= base_url('assets') ?>/css/bootstrap.css" rel="stylesheet">
 <link href="<?= base_url('assets') ?>/css/toast.css" rel="stylesheet">
 <link href="<?= base_url('assets') ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+

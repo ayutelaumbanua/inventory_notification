@@ -6,6 +6,15 @@
 </head>
 
 <body id="page-top">
+	<?php
+		if (isset($arrlist)) {
+			foreach ($arrlist as $key ) {
+				?>
+				<input type="hidden" name="arrlist" value="<?= $key ?>">
+				<?php
+			}
+		}
+	?>
 	<div id="wrapper">
 		<?php $this->load->view('partials/sidebar.php') ?>
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -114,6 +123,75 @@
 	<?php $this->load->view('partials/js.php') ?>
 	<!-- di bawah ini adalah script untuk konfirmasi hapus data dengan sweet alert  -->
 	<script>
+		if (typeof($('input[name=arrlist]')) != "undefined" && $('input[name=arrlist]') !== null) {
+			$('input[name=arrlist]').each(function(index) {
+				barang = $(this).val();
+				console.log(barang);
+				const get_low_stock = 'barang/get_stock_low_alert';
+				$.ajax({
+				url: get_low_stock,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					id: barang
+				},
+				success: function (data) {
+					let perm=Notification.permission;
+				// default, granted, denied
+				if(!window.Notification)
+				{
+				  alert('Your system does not support notification');
+				}
+				else
+				{
+				  if(Notification.permission==='granted')
+				  {
+					// show notification
+						data.forEach(element => {
+							var nama_barang = element.nama_barang
+							var greeting=new Notification("Notification",{
+								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
+								  icon:""
+								})
+								console.log(greeting);
+								greeting.addEventListener("click",function(){
+								  window.open("http://localhost/inventori/barang")
+								})		
+						});
+				  }
+				  else
+				  {
+					Notification.requestPermission().then(function(p)
+					{
+					  if(p==='granted')
+					  {
+						// show notification
+						alert('hey permision taken')
+						data.forEach(element => {
+							var nama_barang = element.nama_barang
+							var greeting=new Notification("Notification",{
+								  body:'' + nama_barang + ' tersisa ' + element.stok + ' ' + element.satuan + ', lakukan tindakan!',
+								  icon:""
+								})
+								console.log(greeting);
+								greeting.addEventListener("click",function(){
+								  window.open("http://localhost/inventori/barang")
+								})		
+						});
+					  }
+					  else
+					  {
+						alert('User Blocked');
+			
+					  }
+					}
+					)
+				  }
+				}
+				}
+			})	
+			});
+		}
 		$('.alert_notif').on('click', function () {
 			var getLink = $(this).attr('href');
 			Swal.fire({

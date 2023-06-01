@@ -77,7 +77,7 @@
                             <?= $detail_penerimaan->satuan ?>
                         </td>
                         <td>
-                            <?= $detail_penerimaan->tgl_expired ?>
+                            <?= date('m-d-Y', strtotime($detail_penerimaan->tgl_expired)) ?>
                         </td>
                         <td></td>
                     </tr>

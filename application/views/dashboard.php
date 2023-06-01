@@ -174,7 +174,8 @@
 		</div>
 	</div>
 	<?php $this->load->view('partials/js.php') ?>
-	<script>
+	
+	<!-- <script>
 		const get_low_stock = 'barang/get_low_stock';
 		$.ajax({
 			url: get_low_stock,
@@ -200,7 +201,8 @@
 				$('.toast').toast('show')
 			}
 		})	
-		</script>
+		</script> -->
+
 		<!-- Script browser notification -->
 		<script>
 			$.ajax({
@@ -228,7 +230,7 @@
 								})
 								console.log(greeting);
 								greeting.addEventListener("click",function(){
-								  window.open("https://inventorystocknotification.000webhostapp.com/barang")
+								  window.open("http://localhost/inventori/barang")
 								})		
 						});
 				  }
@@ -248,7 +250,7 @@
 								})
 								console.log(greeting);
 								greeting.addEventListener("click",function(){
-								  window.open("https://inventorystocknotification.000webhostapp.com/barang")
+								  window.open("http://localhost/inventori/barang")
 								})		
 						});
 					  }

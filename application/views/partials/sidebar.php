@@ -1,6 +1,6 @@
 <ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
 	<a class="sidebar-brand d-flex justify-content-left">
-		<img class="mx-full" src="https://inventorystocknotification.000webhostapp.com/assets/img/Logo_white.png" width="250px" height="60px">
+		<img class="mx-full" src="http://localhost/inventori/assets/img/Logo_white.png" width="250px" height="60px">
 	</a>
 	<hr class="sidebar-divider my-0">
 	<li class="nav-item <?= $aktif == 'dashboard' ? 'active' : '' ?>">

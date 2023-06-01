@@ -20,7 +20,10 @@ class Pengeluaran extends CI_Controller
 		$this->data['title'] = 'Transaksi Pengeluaran';
 		$this->data['all_pengeluaran'] = $this->m_pengeluaran->lihat();
 		$this->data['no'] = 1;
-
+		$in = $this->session->flashdata('arrlist');
+		if (isset($in)) {
+			$this->data['arrlist'] = $in;
+		}
 		$this->load->view('pengeluaran/lihat', $this->data);
 	}
 
@@ -52,13 +55,23 @@ class Pengeluaran extends CI_Controller
 			$data_detail_pengeluaran[$i]['jumlah'] = $this->input->post('jumlah_hidden')[$i];
 			$data_detail_pengeluaran[$i]['satuan'] = $this->input->post('satuan_hidden')[$i];
 		}
-
+		
 		if ($this->m_pengeluaran->tambah($data_barang_keluar) && $this->m_detail_pengeluaran->tambah($data_detail_pengeluaran)) {
+			$arrlist = [];
 			for ($i = 0; $i < $jumlah_barang_keluar; $i++) {
 				$this->m_barang->min_stok($data_detail_pengeluaran[$i]['jumlah'], $data_detail_pengeluaran[$i]['nama_barang']) or die('gagal min stok');
+				$list_lowbarang = $this->m_barang->lihat_stock_habis();
+				foreach ($list_lowbarang as $key) {
+					if ($key->nama_barang == $data_detail_pengeluaran[$i]['nama_barang']) {
+						array_push($arrlist,$key->id);
+					}
+				}
 			}
-			$this->session->set_flashdata('success', 'Invoice <strong>Pengeluaran</strong> Berhasil Dibuat!');
-			redirect('pengeluaran');
+			if (count($arrlist)) {
+				$this->session->set_flashdata('arrlist',$arrlist);
+			}
+				$this->session->set_flashdata('success', 'Invoice <strong>Pengeluaran</strong> Berhasil Dibuat!');
+				redirect('pengeluaran');
 		}
 	}
 

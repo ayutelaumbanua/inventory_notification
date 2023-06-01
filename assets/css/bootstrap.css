@@ -12222,3 +12222,11 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%
 }
+@media only screen and (max-width: 600px) {
+  .topbar .topbar-divider{
+    margin: auto !important;
+  }
+  img.mx-full {
+    height:50px;
+  }
+}

@@ -55,7 +55,6 @@
 											<td>Telepon</td>
 											<td>Jabatan</td>
 											<td>Username</td>
-											<!-- <td>Password</td> -->
 											<td>Status</td>
 											<td>Aksi</td>
 										</tr>
@@ -81,9 +80,6 @@
 												<td>
 													<?= $user->username ?>
 												</td>
-												<!-- <td>
-													<?= $user->password ?>
-												</td> -->
 												<td>
 													<?= $user->status ?>
 												</td>
@@ -99,8 +95,13 @@
 														aria-labelledby="userDropdown">
 														<a class="dropdown-item" type="button" data-toggle="modal"
 															data-target="#editUser<?= $user->id ?>">
-															<i class="fa fa-pen fa-sm fa-fw sm-2 text-primary"></i>
-															Edit User
+															<i class="fa fa-pen fa-sm fa-fw sm-2 text-success"></i>
+															Edit Data User
+														</a>
+														<a class="dropdown-item" type="button" data-toggle="modal"
+															data-target="#resetPassword<?= $user->id ?>">
+															<i class="fa fa-key fa-sm fa-fw sm-2 text-primary"></i>
+															Reset Password
 														</a>
 														<a class="dropdown-item alert_notif" type="button"
 															style="color:black"
@@ -118,6 +119,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- Modals Tambah User -->
 				<div id="tambahUser" class="modal fade" role="dialog" data-url="<?= base_url('user') ?>">
 					<div class="modal-dialog">
@@ -204,8 +206,10 @@
 						</div>
 					</div>
 				</div>
-				<!-- Modal Edit User -->
-				<?php $no = 0; foreach ($all_user as $user):
+
+				<!-- Modal Edit Data User -->
+				<?php $no = 0;
+				foreach ($all_user as $user):
 					$no++; ?>
 					<div id="editUser<?= $user->id ?>" class="modal fade" role="dialog" data-url="<?= base_url('user') ?>">
 						<div class="modal-dialog">
@@ -252,7 +256,7 @@
 															<div class="form-check form-check-inline">
 																<input class="form-check-input" type="radio"
 																	class="form-control" name="level" id="level"
-																	value="Staff Gudang" <?php echo ($user->level == 'Purchasing') ? 'checked' : '' ?> />
+																	value="Purchasing" <?php echo ($user->level == 'Purchasing') ? 'checked' : '' ?> />
 																<label class="form-check-label"
 																	for="inlineRadio2">Purchasing</label>
 															</div>
@@ -274,13 +278,6 @@
 														</td>
 													</tr>
 													<tr>
-														<td>Password</td>
-														<td><input type="text" name="password"
-																placeholder="Masukkan Password" autocomplete="off"
-																class="form-control" value="<?= $user->password ?>"
-																required></td>
-													</tr>
-													<tr>
 														<td>Status</td>
 														<td>
 															<div class="form-check form-check-inline">
@@ -298,6 +295,55 @@
 																	Aktif</label>
 															</div>
 														</td>
+													</tr>
+												</thead>
+											</table>
+										</div>
+								</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary"><i
+											class="fa fa-save"></i>&nbsp;&nbsp;Simpan</button>
+									<button type="reset" class="btn btn-danger"><i
+											class="fa fa-times"></i>&nbsp;&nbsp;Batal</button>
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				<?php endforeach ?>
+
+				<!-- Modal Reset Password -->
+				<?php $no = 0;
+				foreach ($all_user as $user):
+					$no++; ?>
+					<div id="resetPassword<?= $user->id ?>" class="modal fade" role="dialog"
+						data-url="<?= base_url('user') ?>">
+						<div class="modal-dialog">
+							<div class="modal-content" style=" border-radius:0px;">
+								<div class="modal-header" style="background:white;color:#fff;">
+									<h5 class="h5 mb-0 font-weight-bold text-gray-800"></i> Edit Data User </h5>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<form action="<?= base_url('user/proses_reset_password/' . $user->id) ?>"
+										id="form-tambah" method="POST">
+										<div class="table-responsive">
+											<table class="table" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<td>Username</td>
+														<td><input type="text" name="username"
+																placeholder="Masukkan Username" autocomplete="off"
+																class="form-control" value="<?= $user->username ?>"
+																readonly>
+														</td>
+													</tr>
+													<tr>
+														<td>Password</td>
+														<td><input type="text" name="password"
+																placeholder="Masukkan Password" autocomplete="off"
+																class="form-control" value="<?= $user->password ?>"
+																required></td>
 													</tr>
 												</thead>
 											</table>
